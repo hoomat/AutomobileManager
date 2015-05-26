@@ -1,0 +1,94 @@
+﻿@model AutomobilMng.Models.EditUserViewModel
+
+<div>
+    @{
+        AjaxOptions options = new AjaxOptions();
+        options.HttpMethod = "POST";
+        options.OnBegin = "OnBegin";
+        options.OnComplete = "OnComplete";
+        options.OnFailure = "OnFailure";
+        options.OnSuccess = "OnSuccess";
+        options.LoadingElementId = "2";
+        options.LoadingElementDuration = 1000;
+        options.UpdateTargetId = "d";
+        options.InsertionMode = InsertionMode.Replace;
+    }
+    <div class="span12 widget-container-span">
+        <div class="widget-box transparent">
+            <div class="widget-header">
+                <h5>@AVAResource.Resource.Delete</h5>
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="icon-chevron-up"></i>
+                    </a>
+                    <a href="#" data-action="close">
+                        <i class="icon-remove"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    @using (Ajax.BeginForm("Delete", "Account", new { id = @Model.UserName }, options, new { @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="control-group">
+                            <label class="control-label">@AVAResource.Resource.UserNumber</label>
+                            <div class="controls">
+                                <div class="span12">
+                                    <input type="text" readonly name="username" id="email" value=@Model.UserName class="span6" />
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <button class=" btn btn-small btn-primary">
+                            <i class="icon-minus"></i>
+                            @AVAResource.Resource.Delete
+                        </button>
+                             <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                        <i class="icon-edit "></i>
+                        @AVAResource.Resource.Cancel
+                    </button>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function cancel() {
+            var containerholder = $("#content");
+            containerholder.html('');
+            containerholder.html(data);
+        }
+        function OnBegin() {
+            Sppiner();
+        }
+        function OnComplete() {
+            spinner.stop();
+        }
+        function OnFailure(arg) {
+            spinner.stop();
+        }
+        function OnSuccess(data) {
+            //bootbox.dialog("Thank you! Your information was successfully saved!", [{
+            //    "label": "OK",
+            //    "class": "btn-small btn-primary",
+            //}]
+                       //);
+            $('#content').html(data);
+            $('#user-table').DataTable().ajax.reload();
+            spinner.stop();
+        }
+
+    </script>
+    @*@using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            
+        </div>
+    }*@
+</div>

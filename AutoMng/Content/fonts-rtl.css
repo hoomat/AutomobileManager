@@ -1,0 +1,11 @@
+﻿@font-face {
+    font-family: "BBCNassim" !important;
+    font-size:16px !important;
+    src: url("../fonts/bbc-nazanin.ttf") format("truetype") !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+}
+body,h1,h2,h3,h4,h5,h6{
+    font-family: BBCNassim !important;
+      font-size:14px !important;
+}

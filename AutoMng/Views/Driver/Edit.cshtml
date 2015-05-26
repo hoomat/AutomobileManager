@@ -1,0 +1,133 @@
+﻿@model DAL.Driver
+
+@{
+    AjaxOptions options = new AjaxOptions();
+    options.HttpMethod = "POST";
+    options.OnBegin = "OnBegin";
+    options.OnComplete = "OnComplete";
+    options.OnFailure = "OnFailure";
+    options.OnSuccess = "OnSuccess";
+    options.LoadingElementId = "2";
+    options.LoadingElementDuration = 1000;
+    options.UpdateTargetId = "d";
+    options.InsertionMode = InsertionMode.Replace;
+}
+<div class="span12 widget-container-span">
+    <div class=" widget-box">
+        <div class="widget-header">
+            <h6 class="lighter smaller">
+               بروزرسانی راننده
+            </h6>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+                <a href="#" data-action="close">
+                    <i class="icon-remove"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <link rel="stylesheet" href="~/Content/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.css" />
+                <script src="~/Scripts/NewFolder1/calendar.js" type="text/javascript"></script>
+                <script src="~/Scripts/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>
+                @using (Ajax.BeginForm("Edit", "Tarnsit", options, new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.AntiForgeryToken()
+                    <div class="row-fluid  ">
+                        <div class="span6 @AVAResource.Resource.Pull_Dir">
+                            <div class="">
+                                <div class="">
+                                    <label class="">@AVAResource.Resource.PersonalNumber</label>
+                                    <div class="">
+                                        @Html.TextBoxFor(model => model.PersonalNumber, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PersonalNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <label class="">@AVAResource.Resource.NameDriver</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 ">
+                            <div class="span6 @AVAResource.Resource.Pull_Dir">
+                                <div class="">
+                                    <label class="">@AVAResource.Resource.Category</label>
+                                    <div class="">
+                                        @Html.TextBoxFor(model => model.Category, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h1></h1>
+                    <div class="row-fluid  ">
+                        <button class=" btn btn-small btn-primary">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Save
+                    </button>
+                        <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Cancel
+                        </button>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function cancel() {
+        var containerholder = $("#content");
+        containerholder.html('');
+    }
+
+    $(function () {
+        $(document).ajaxComplete(function (event, request, settings) {
+            $.validator.unobtrusive.parse(document);
+        });
+    });
+    $(function () {
+        var tag_input = $('#form-field-tags');
+        if (!(/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())))
+            tag_input.tag({ placeholder: tag_input.attr('placeholder') });
+        else {
+            tag_input.after('<textarea id="' + tag_input.attr('id') + '" name="' + tag_input.attr('name') + '" rows="3">' + tag_input.val() + '</textarea>').remove();
+        }
+    })
+    function OnBegin() {
+        Sppiner();
+    }
+    function OnComplete() {
+        spinner.stop();
+    }
+    function OnFailure(arg) {
+        spinner.stop();
+    }
+    function OnSuccess(result) {
+        var data = '';
+        if (result.success) {
+            data = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">' +
+           '<i class="icon-remove"></i></button><strong> <i class="icon-ok"></i></strong>' +
+          result.description +
+            '<br></div>'
+        }
+        else {
+            data = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">' +
+          '<i class="icon-remove"></i></button><strong>  <i class="icon-ok"></i></strong>' +
+           result.description +
+          '<br></div>'
+        }
+        $('#content').html(data);
+        $('#table').DataTable().ajax.reload();
+        spinner.stop();
+    }
+
+</script>

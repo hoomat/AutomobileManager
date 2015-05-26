@@ -1,0 +1,52 @@
+﻿
+@using System.Web.UI.WebControls;
+@using Stimulsoft.Report.Mvc;
+@{
+    ViewBag.Title = "Simple";
+}
+
+    <div>
+        @{
+            
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fa-IR");
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("fa-IR");
+     
+         }
+        @Html.Stimulsoft().RenderMvcViewerScripts()
+      @Html.Stimulsoft().StiMvcViewer("MyViewr", new StiMvcViewerOptions()
+ 
+   
+   {
+       //ActionGetReportSnapshot = "FromLoadFileReport",
+       //ActionViewerEvent = "ViewerEvent",
+       //Width = Unit.Percentage(100),
+       ////Theme = StiTheme.Office2007Black,
+       ActionPrintReport = "PrintReport",
+       ActionExportReport = "ExportReport",
+       //ToolbarBackgroundColor = System.Drawing.Color.Silver,
+
+       ActionGetReportSnapshot = "FromLoadFileReport?plaqueSearch=" + ViewBag.plaqueSearch + "&" +
+       "chassisSearch=" + ViewBag.chassisSearch + "&" +
+       "modelSearch=" + ViewBag.modelSearch + "&" +
+       "produceYear=" + ViewBag.produceYear + "&" +
+       "fualTypeSearch=" + ViewBag.fualTypeSearch + "&" +
+       "departmentSearch=" + ViewBag.departmentSearch,
+       ActionViewerEvent = "ViewerEvent",
+       Width = Unit.Percentage(100),
+       RightToLeft = true,
+       //ActionExportReport = "ExportReport",
+       ToolbarFontFamily = "tahoma",
+       ClientRequestTimeout = 10 * 60,
+        BackColor=System.Drawing.Color.White,
+         Localization= "fa-IR",
+           MenuShowMode= StiShowMenuMode.Click,
+            MenuViewMode= StiWebViewMode.OnePage,
+       ToolbarBackgroundColor = System.Drawing.Color.LightGray,
+        Theme= StiTheme.Office2007Silver,
+           ToolbarMenuCaptions=true,
+            ToolbarAlignment= StiContentAlignment.Right,
+             ToolbarButtonCaptions=false
+
+   })
+    </div>
+

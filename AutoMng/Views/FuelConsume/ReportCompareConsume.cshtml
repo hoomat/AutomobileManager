@@ -1,0 +1,39 @@
+﻿
+@using System.Web.UI.WebControls;
+@using Stimulsoft.Report.Mvc;
+@{
+    ViewBag.Title = "Simple";
+}
+<div>
+    @{
+        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fa-IR");
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("fa-IR");
+    }
+    @Html.Stimulsoft().RenderMvcViewerScripts()
+    @Html.Stimulsoft().StiMvcViewer("MyViewr", new StiMvcViewerOptions()
+   {
+
+       ActionPrintReport = "PrintReport",
+       ActionExportReport = "ExportReport",
+       ActionGetReportSnapshot = "FromLoadCompareConsume?automobile=" + ViewBag.automobile,
+ 
+            
+       ActionViewerEvent = "ViewerEvent",
+       Width = Unit.Percentage(100),
+       RightToLeft = true,
+       ToolbarFontFamily = "tahoma",
+       ClientRequestTimeout = 10 * 60,
+       BackColor = System.Drawing.Color.White,
+       Localization = "fa-IR",
+       MenuShowMode = StiShowMenuMode.Click,
+       MenuViewMode = StiWebViewMode.OnePage,
+       ToolbarBackgroundColor = System.Drawing.Color.LightGray,
+       Theme = StiTheme.Office2007Silver,
+       ToolbarMenuCaptions = true,
+       ToolbarAlignment = StiContentAlignment.Right,
+       ToolbarButtonCaptions = false
+   })
+</div>
+
+
+

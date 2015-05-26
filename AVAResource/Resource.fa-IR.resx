@@ -1,0 +1,657 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="dir" xml:space="preserve">
+    <value>rtl</value>
+  </data>
+  <data name="Englis" xml:space="preserve">
+    <value>En</value>
+  </data>
+  <data name="Farsi" xml:space="preserve">
+    <value>فا</value>
+  </data>
+  <data name="Input_icon" xml:space="preserve">
+    <value>input-icon-left</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>ورود</value>
+  </data>
+  <data name="message" xml:space="preserve">
+    <value>سیستم مدیریت خودرو</value>
+  </data>
+  <data name="Pass" xml:space="preserve">
+    <value>کلمه عبور</value>
+  </data>
+  <data name="Please_Enter_Your_Information" xml:space="preserve">
+    <value>مشخصات خود را وارد فرمایید</value>
+  </data>
+  <data name="Remember_Me" xml:space="preserve">
+    <value>مرا به خاطر بسپار</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>عنوان فارسی</value>
+  </data>
+  <data name="UserNumber" xml:space="preserve">
+    <value>نام کاربری</value>
+  </data>
+  <data name="Invalid_username_or_password" xml:space="preserve">
+    <value>مشخصات ورودی معتبر نمی باشد</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>خروج</value>
+  </data>
+  <data name="AutomobileMngMenu" xml:space="preserve">
+    <value>مدیریت خودرو</value>
+  </data>
+  <data name="DashboardMenu" xml:space="preserve">
+    <value>داشبورد</value>
+  </data>
+  <data name="FuelMngMenu" xml:space="preserve">
+    <value>سوخت</value>
+  </data>
+  <data name="OilChangeMngMenu" xml:space="preserve">
+    <value>تعویض روغن</value>
+  </data>
+  <data name="RepairMngMenu" xml:space="preserve">
+    <value>تعمیر خودرو</value>
+  </data>
+  <data name="TrafficCardMngMenu" xml:space="preserve">
+    <value>طرح ترافیک</value>
+  </data>
+  <data name="TransitMngMenu" xml:space="preserve">
+    <value>تردد</value>
+  </data>
+  <data name="UserMngMenu" xml:space="preserve">
+    <value>مدیریت کاربران</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>نام کاربری</value>
+  </data>
+  <data name="User_Email" xml:space="preserve">
+    <value>آدرس الکترونیکی</value>
+  </data>
+  <data name="User_FirstName" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="User_LastName" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>بروزرسانی</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>تعریف</value>
+  </data>
+  <data name="Pull_Dir" xml:space="preserve">
+    <value>pull-right</value>
+  </data>
+  <data name="SearchHeader" xml:space="preserve">
+    <value>جستجو</value>
+  </data>
+  <data name="User_ConfirmPass" xml:space="preserve">
+    <value>تایید کلمه عبور</value>
+  </data>
+  <data name="SuccessMessage" xml:space="preserve">
+    <value>عملیات مورد نظر با موفقیت انجام شد</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>خطا</value>
+  </data>
+  <data name="WarningMessage" xml:space="preserve">
+    <value>بروز خطا در عملیات</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="User_RoleHeader" xml:space="preserve">
+    <value>تعیین سطح دسترسی کاربر</value>
+  </data>
+  <data name="Mobile_Color" xml:space="preserve">
+    <value>رنگ خودرو</value>
+  </data>
+  <data name="Mobile_Date_Buy" xml:space="preserve">
+    <value>تاریخ خرید</value>
+  </data>
+  <data name="Mobile_Distance" xml:space="preserve">
+    <value>فاصله طی شده</value>
+  </data>
+  <data name="Mobile_Fual_Consum" xml:space="preserve">
+    <value>مصرف سوخت </value>
+  </data>
+  <data name="Mobile_Fual_Type" xml:space="preserve">
+    <value>نوع سوخت</value>
+  </data>
+  <data name="Mobile_Image" xml:space="preserve">
+    <value>تصویر</value>
+  </data>
+  <data name="Mobile_Last_Service" xml:space="preserve">
+    <value>آخرین سرویس</value>
+  </data>
+  <data name="Mobile_Model" xml:space="preserve">
+    <value>مدل</value>
+  </data>
+  <data name="Mobile_Price" xml:space="preserve">
+    <value>قیمت</value>
+  </data>
+  <data name="Mobile_Produce_Year" xml:space="preserve">
+    <value>سال تولید</value>
+  </data>
+  <data name="Mobile_Volume_Tank" xml:space="preserve">
+    <value>حجم باک</value>
+  </data>
+  <data name="Mobil_Chassis" xml:space="preserve">
+    <value>شماره شاسی</value>
+  </data>
+  <data name="Mobil_Plaque" xml:space="preserve">
+    <value>شماره پلاک</value>
+  </data>
+  <data name="Chassis_Not_Unique" xml:space="preserve">
+    <value>شماره شاسی اتومبیل یکتا نمی باشد</value>
+  </data>
+  <data name="Mobil_Maintenance_Department" xml:space="preserve">
+    <value>اداره نگهداری کننده</value>
+  </data>
+  <data name="Mobile_Header_Grid" xml:space="preserve">
+    <value>لیست اتومبیلهای تعریف شده</value>
+  </data>
+  <data name="AirFilterChanged" xml:space="preserve">
+    <value>تعویض فیلتر هوا</value>
+  </data>
+  <data name="Automobile" xml:space="preserve">
+    <value>خودرو</value>
+  </data>
+  <data name="ChangeDate" xml:space="preserve">
+    <value>تاریخ تعویض روغن</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>توضیحات</value>
+  </data>
+  <data name="Driver" xml:space="preserve">
+    <value>راننده</value>
+  </data>
+  <data name="NextChangeDest" xml:space="preserve">
+    <value>کیلومتر بعدی تعوض</value>
+  </data>
+  <data name="OilFilterChanged" xml:space="preserve">
+    <value>تعویض فیلتر روغن</value>
+  </data>
+  <data name="TypeOil" xml:space="preserve">
+    <value>نوع روغن</value>
+  </data>
+  <data name="Workshop" xml:space="preserve">
+    <value>تعمیرگاه</value>
+  </data>
+  <data name="DeliveryDate" xml:space="preserve">
+    <value>تاریخ تحویل خودرو</value>
+  </data>
+  <data name="DeliveryDepartment" xml:space="preserve">
+    <value>اداره تحویل گیرنده</value>
+  </data>
+  <data name="ReturnDate" xml:space="preserve">
+    <value>تاریخ برگشت خودرو</value>
+  </data>
+  <data name="RegistrarUser" xml:space="preserve">
+    <value>کاربر ثبت کننده</value>
+  </data>
+  <data name="Attendances" xml:space="preserve">
+    <value>همراهان</value>
+  </data>
+  <data name="EnterAttendances" xml:space="preserve">
+    <value>ورود همراهان</value>
+  </data>
+  <data name="ActionDescription" xml:space="preserve">
+    <value>اقدامات انجام شده</value>
+  </data>
+  <data name="CommanderPerson" xml:space="preserve">
+    <value>نام رده اقدام کننده</value>
+  </data>
+  <data name="Wage" xml:space="preserve">
+    <value>دستمزد</value>
+  </data>
+  <data name="DateRepair" xml:space="preserve">
+    <value>زمان تعمیر</value>
+  </data>
+  <data name="InvoiceNo" xml:space="preserve">
+    <value>شماره فاکتور</value>
+  </data>
+  <data name="RepairmanDescription" xml:space="preserve">
+    <value>نظر تعمیرکار</value>
+  </data>
+  <data name="AmountPaid" xml:space="preserve">
+    <value>مبلغ پرداخت شده</value>
+  </data>
+  <data name="DateReFual" xml:space="preserve">
+    <value>زمان سوخت گیری</value>
+  </data>
+  <data name="DistanceBeforReFual" xml:space="preserve">
+    <value>مسافت طی شده (کم)</value>
+  </data>
+  <data name="FualStation" xml:space="preserve">
+    <value>جایگاه سوخت</value>
+  </data>
+  <data name="FuelCardNumber" xml:space="preserve">
+    <value>شماره کارت سوخت </value>
+  </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>نحوه پرداخت</value>
+  </data>
+  <data name="VolumeFuel" xml:space="preserve">
+    <value>حجم سوخت (لیتر)</value>
+  </data>
+  <data name="DefineAutomobile" xml:space="preserve">
+    <value>تعریف خودروی جدید</value>
+  </data>
+  <data name="DeleteAutomobile" xml:space="preserve">
+    <value>حذف خودرو  </value>
+  </data>
+  <data name="DeleteTransit" xml:space="preserve">
+    <value>حذف تردد خودرو  </value>
+  </data>
+  <data name="EditAutomobile" xml:space="preserve">
+    <value>بروز رسانی خودرو </value>
+  </data>
+  <data name="EditTransit" xml:space="preserve">
+    <value>بروز رسانی تردد خودرو </value>
+  </data>
+  <data name="RegisterTransit" xml:space="preserve">
+    <value>ثبت تردد جدید</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>لازم می باشد</value>
+  </data>
+  <data name="TransitHeaderList" xml:space="preserve">
+    <value>لیست عبور و مرورخودرو ها</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>رده</value>
+  </data>
+  <data name="NameDriver" xml:space="preserve">
+    <value>نام راننده</value>
+  </data>
+  <data name="DeleteDriver" xml:space="preserve">
+    <value>حذف راننده </value>
+  </data>
+  <data name="DriverHeaderList" xml:space="preserve">
+    <value>لیست رانندگان سیستم مدیریت</value>
+  </data>
+  <data name="Menu_Driver" xml:space="preserve">
+    <value>رانندگان</value>
+  </data>
+  <data name="Menu_Department" xml:space="preserve">
+    <value>اداره ها</value>
+  </data>
+  <data name="Menu_FundmentalInfo" xml:space="preserve">
+    <value>اطلاعات پایه</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="DepartmentHeaderList" xml:space="preserve">
+    <value>لیست اداره ها</value>
+  </data>
+  <data name="DepartmentName" xml:space="preserve">
+    <value>نام اداره</value>
+  </data>
+  <data name="Department_Define" xml:space="preserve">
+    <value>تعریف اداره</value>
+  </data>
+  <data name="Department_Delete" xml:space="preserve">
+    <value> حذف اداره</value>
+  </data>
+  <data name="Department_Edit" xml:space="preserve">
+    <value>بروزرسانی اداره</value>
+  </data>
+  <data name="DeliveryHour" xml:space="preserve">
+    <value>ساعت تحویل</value>
+  </data>
+  <data name="DeliveryMinute" xml:space="preserve">
+    <value>دقیقه تحویل</value>
+  </data>
+  <data name="ReturnHour" xml:space="preserve">
+    <value>ساعت برگشت</value>
+  </data>
+  <data name="ReturnMinute" xml:space="preserve">
+    <value>دقیقه برگشت</value>
+  </data>
+  <data name="Define_FuelCard" xml:space="preserve">
+    <value>تعریف کارت سوخت</value>
+  </data>
+  <data name="Delete_FuelCard" xml:space="preserve">
+    <value>حذف کارت سوخت</value>
+  </data>
+  <data name="Edit_FuelCard" xml:space="preserve">
+    <value>بروزرسانی کارت سوخت</value>
+  </data>
+  <data name="FuelCardHeaderList" xml:space="preserve">
+    <value>لیست کارت سوخت</value>
+  </data>
+  <data name="Menu_FuelCard" xml:space="preserve">
+    <value>کارت سوخت</value>
+  </data>
+  <data name="Number_FuelCard" xml:space="preserve">
+    <value>شماره کارت سوخت</value>
+  </data>
+  <data name="Define_Driver" xml:space="preserve">
+    <value>تعریف راننده</value>
+  </data>
+  <data name="Delete_Driver" xml:space="preserve">
+    <value> حذف راننده</value>
+  </data>
+  <data name="Edit_Driver" xml:space="preserve">
+    <value> بروزرسانی راننده</value>
+  </data>
+  <data name="List_Driver" xml:space="preserve">
+    <value>نمایش راننده ها</value>
+  </data>
+  <data name="Chart_Deliver_Automobile" xml:space="preserve">
+    <value>نمودار تحویل خودرو</value>
+  </data>
+  <data name="Define_Repair" xml:space="preserve">
+    <value>ثبت تعمیر خودرو</value>
+  </data>
+  <data name="Delete_Repair" xml:space="preserve">
+    <value>حذف تعمیر خودرو</value>
+  </data>
+  <data name="Edit_Repair" xml:space="preserve">
+    <value>بروزرسانی تعمیر خودرو</value>
+  </data>
+  <data name="Repair_Header_List" xml:space="preserve">
+    <value>نمایش تعمیرات خودرو ها</value>
+  </data>
+  <data name="Chart_Repair_Automobile" xml:space="preserve">
+    <value>نمودار تعمیرات خودرو</value>
+  </data>
+  <data name="MileagAfterTrip" xml:space="preserve">
+    <value>کیلومتر شمار بعد از تردد</value>
+  </data>
+  <data name="MileagBeforeTrip" xml:space="preserve">
+    <value>کیلومتر شمار قبل از تردد</value>
+  </data>
+  <data name="Menu_TrafficCard" xml:space="preserve">
+    <value>کارت ترافیک</value>
+  </data>
+  <data name="Buyer_TrafficCard" xml:space="preserve">
+    <value> خریدار</value>
+  </data>
+  <data name="DateBuy_TrafficCard" xml:space="preserve">
+    <value> تاریخ خرید</value>
+  </data>
+  <data name="DateExpire_TrafficCard" xml:space="preserve">
+    <value> تاریخ انقضا</value>
+  </data>
+  <data name="Define_TrafficCard" xml:space="preserve">
+    <value>تعریف کارت ترافیک</value>
+  </data>
+  <data name="Delete_TrafficCard" xml:space="preserve">
+    <value>حذف کارت ترافیک</value>
+  </data>
+  <data name="Edit_TrafficCard" xml:space="preserve">
+    <value>بروزرسانی کارت ترافیک</value>
+  </data>
+  <data name="NumberCard_TrafficCard" xml:space="preserve">
+    <value>شماره کارت ترافیک</value>
+  </data>
+  <data name="TrafficCardType_TrafficCard" xml:space="preserve">
+    <value>نوع کارت</value>
+  </data>
+  <data name="TrafficCard_Header_List" xml:space="preserve">
+    <value>لیست کارتهای تراففیک</value>
+  </data>
+  <data name="Define_FuelConsume" xml:space="preserve">
+    <value>ثبت عملیات سوخت گیری</value>
+  </data>
+  <data name="Define_OilChange" xml:space="preserve">
+    <value>ثبت عملیات تعویض روغن</value>
+  </data>
+  <data name="Delete_FuelConsume" xml:space="preserve">
+    <value>حذف عملیات سوخت گیری</value>
+  </data>
+  <data name="Delete_OilChange" xml:space="preserve">
+    <value>حذف عملیات تعویض روغن</value>
+  </data>
+  <data name="Edit_FuelConsume" xml:space="preserve">
+    <value>بروزرسانی عملیات سوخت گیری</value>
+  </data>
+  <data name="Edit_OilChange" xml:space="preserve">
+    <value>بروزرسانی عملیات تعویض روغن</value>
+  </data>
+  <data name="List_FuelConsume" xml:space="preserve">
+    <value>نمایش رویدادهای سوخت گیری</value>
+  </data>
+  <data name="List_OilChange" xml:space="preserve">
+    <value>نمایش رویدادهای تعویض روغن</value>
+  </data>
+  <data name="User_Type" xml:space="preserve">
+    <value>نوع کاربر</value>
+  </data>
+  <data name="TransitReportMngMenu" xml:space="preserve">
+    <value>گزارش تردد</value>
+  </data>
+  <data name="TransitReportDisMngMenu" xml:space="preserve">
+    <value>گزارش مسافت طی شده</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>ساعت</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>دقیقه</value>
+  </data>
+  <data name="FuelReportCompareMngMenu" xml:space="preserve">
+    <value>گزارش مصرف سوخت</value>
+  </data>
+  <data name="AllAmountPaid" xml:space="preserve">
+    <value>کل هزینه</value>
+  </data>
+  <data name="AllVolumeFuel" xml:space="preserve">
+    <value>کل سوخت مصرفی</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>کل مسافت</value>
+  </data>
+  <data name="FualConsume" xml:space="preserve">
+    <value>مصرف اسمی</value>
+  </data>
+  <data name="RealFualConsume" xml:space="preserve">
+    <value>مصرف واقعی</value>
+  </data>
+  <data name="Chart_RepairWorkshop_Referral" xml:space="preserve">
+    <value>مراجعه به تعمیرگاه</value>
+  </data>
+  <data name="ChartTransitDepartmentDistance" xml:space="preserve">
+    <value>مسافت اداره ها</value>
+  </data>
+  <data name="ChartTransitDriverDistance" xml:space="preserve">
+    <value>مسافت راننده ها</value>
+  </data>
+  <data name="DefineIncident" xml:space="preserve">
+    <value>ثبت رویداد تصادف</value>
+  </data>
+  <data name="DeleteIncident" xml:space="preserve">
+    <value>حذف رویداد تصادف</value>
+  </data>
+  <data name="EditIncident" xml:space="preserve">
+    <value>بروزرسانی تصادف</value>
+  </data>
+  <data name="IncidentHeaderList" xml:space="preserve">
+    <value>لیست تصادفات</value>
+  </data>
+  <data name="IncidentDamages" xml:space="preserve">
+    <value>صدمات وارده</value>
+  </data>
+  <data name="IncidentDate" xml:space="preserve">
+    <value>تاریخ وقوع حادثه</value>
+  </data>
+  <data name="IncidentDescription" xml:space="preserve">
+    <value>شرح حادثه</value>
+  </data>
+  <data name="IncidentDriver" xml:space="preserve">
+    <value>نام فرد مقصر</value>
+  </data>
+  <data name="IncidentRepair" xml:space="preserve">
+    <value>اقدامات اصلاحی</value>
+  </data>
+  <data name="IncidentMngMenu" xml:space="preserve">
+    <value>تصادفات</value>
+  </data>
+  <data name="IncidentHour" xml:space="preserve">
+    <value>ساعت تصادف</value>
+  </data>
+  <data name="IncidentMinute" xml:space="preserve">
+    <value>دقیقه</value>
+  </data>
+  <data name="IncidentDefine" xml:space="preserve">
+    <value>ثبت رویداد تصادف</value>
+  </data>
+  <data name="IncidentDelete" xml:space="preserve">
+    <value>حدف رویداد تصادف</value>
+  </data>
+  <data name="IncidentEdit" xml:space="preserve">
+    <value>بروزرسانی رویداد تصادف</value>
+  </data>
+  <data name="IncidentList" xml:space="preserve">
+    <value>لیست تصادفات</value>
+  </data>
+  <data name="PersonalNumber" xml:space="preserve">
+    <value>شماره پرسنلی</value>
+  </data>
+  <data name="TransitUnDeliveryMenu" xml:space="preserve">
+    <value>ترددهای بدون برگشت</value>
+  </data>
+  <data name="PartName" xml:space="preserve">
+    <value>نام قطعه</value>
+  </data>
+  <data name="PartPrice" xml:space="preserve">
+    <value>قیمت</value>
+  </data>
+  <data name="PartType" xml:space="preserve">
+    <value>نوع قطعه</value>
+  </data>
+  <data name="ConsumablePart" xml:space="preserve">
+    <value>قطعات مصرفی</value>
+  </data>
+  <data name="RepairCost" xml:space="preserve">
+    <value>هزینه</value>
+  </data>
+  <data name="SettingMngMenu" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+</root>

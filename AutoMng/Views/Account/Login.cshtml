@@ -1,0 +1,73 @@
+﻿@model AutomobilMng.Models.LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = @AVAResource.Resource.Login;
+}
+
+    <div class="main-container container-fluid">
+        <div class="main-content">
+            <div class="row-fluid">
+                <div class="span12">
+               
+                    <div class="login-container">
+                        <div class="row-fluid">
+                            <div class="center">
+                                <h6 class="header smaller lighter green">
+                                    <i class="icon-leaf green"></i>
+                                    <span class="red" style="font-size:35px ">
+                                        @Config.TitleLogin
+                                    </span>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="space-6"></div>
+                        <div class="row-fluid ">
+                            <div class="position-relative">
+                                <div id="login-box" class="login-box visible widget-box no-border @AVAResource.Resource.dir">
+                                    <div class="widget-body">
+                                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal ", role = "form" }))
+                        {
+                                        @Html.AntiForgeryToken()
+                                        <div class="widget-main ">
+                                            <fieldset>
+                                                <label>
+                                                    <span class="block input-icon @AVAResource.Resource.Input_icon ">
+                                                        <input type="text" style="direction: @AVAResource.Resource.dir" name="username" class="span12" placeholder="@AVAResource.Resource.UserNumber " />
+                                                        <i class="icon-user" style="left:-70px"></i>
+                                                    </span>
+                                                </label>
+                                                <label>
+                                                    <span class="block input-icon @AVAResource.Resource.Input_icon">
+                                                        <input type="password" style="direction:@AVAResource.Resource.dir" name="password" class="span12" placeholder="@AVAResource.Resource.Pass" />
+                                                        <i class="icon-lock" style="left:-70px"></i>
+                                                    </span>
+                                                </label>
+                                                <div class="clearfix">
+                                                    <label class="inline">
+                                                        <input type="checkbox" name="rememberme" />
+                                                        <span class="lbl"> @AVAResource.Resource.Remember_Me</span>
+                                                    </label>
+                                                    <div class="space-6"></div>
+                                                    <button class="width-35  btn btn-small btn-primary">
+                                                        <i class="icon-key "></i>
+                                                        @AVAResource.Resource.Login
+                                                    </button>
+                                                </div>
+
+                                            </fieldset>
+                                            @Html.ValidationSummary(true)
+                                        </div>
+                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

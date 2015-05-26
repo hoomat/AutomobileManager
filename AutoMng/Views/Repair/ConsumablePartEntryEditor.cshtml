@@ -1,0 +1,60 @@
+﻿@model AutomobilMng.Models.ConsumablePartModel
+@using AutomobilMng.Infrastructure
+
+@*<li >
+        @using (Html.BeginCollectionItem("ConsumablePartModels"))
+        {
+            <div class="input-prepend">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = @AVAResource.Resource.PartName })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(model => model.Price, new { @placeholder = @AVAResource.Resource.PartPrice })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Type, Model.Types, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                <span class="add-on" onclick="$(this).parent().parent().remove();">
+                    <i class="fa fa-remove"></i>
+                </span>
+
+            </div>
+        }
+    </li>
+<script>
+    $(function () {
+        $(document).ajaxComplete(function (event, request, settings) {
+            $.validator.unobtrusive.parse(document);
+        });
+    });
+</script>*@
+<li>
+    @using (Html.BeginCollectionItem("ConsumablePartModels"))
+    {
+         @Html.HiddenFor(model => model.Id)
+        <div class="form-search" >
+            <fieldset class="input-prepend">
+                <label>
+                    <span class="add-on" onclick="$(this).parent().parent().parent().parent().remove();">
+                        <i class="fa fa-remove"></i>
+                    </span>
+                </label>
+                <label>
+                    <span class="block input-icon @AVAResource.Resource.Input_icon ">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = @AVAResource.Resource.PartName })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </span>
+                </label>
+
+                <label>
+                    @Html.TextBoxFor(model => model.Price, new { @class = "form-control", @placeholder = @AVAResource.Resource.PartPrice })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </label>
+
+                <label>
+                    <span class="block input-icon @AVAResource.Resource.Input_icon">
+                        @Html.DropDownListFor(model => model.Type, Model.Types, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                    </span>
+                </label>
+            </fieldset>
+        </div>
+    }
+</li>

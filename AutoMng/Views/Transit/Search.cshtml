@@ -1,0 +1,77 @@
+﻿@model AutomobilMng.Models.TransitSearchModel
+<div class="span12 widget-container-span">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h5>@AVAResource.Resource.SearchHeader</h5>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+                <a href="#" data-action="close">
+                    <i class="icon-remove"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <form class="form-search" id="formdata">
+                    @Html.AntiForgeryToken()
+                    <fieldset>
+                        <label>
+                            <span data-column="1" class="block input-icon @AVAResource.Resource.Input_icon">
+                                <label class="control-label">@AVAResource.Resource.Automobile</label>
+                                @Html.DropDownListFor(model => model.AutomobileID, Model.Automobiles, new { @class = "column_filter span12", @id = "automobile" })
+                            </span>
+                        </label>
+                        <label>
+                            <span data-column="2" class="block input-icon @AVAResource.Resource.Input_icon">
+                                <label class="control-label">@AVAResource.Resource.Driver</label>
+                                @Html.DropDownListFor(model => model.DriverID, Model.Drivers, new { @class = "column_filter span12", @id = "driver" })
+                            </span>
+                        </label>
+                        <label>
+                            <label class="control-label">@AVAResource.Resource.DepartmentName</label>
+                            <span data-column="2" class="block input-icon @AVAResource.Resource.Input_icon">
+                                @Html.DropDownListFor(model => model.DepartmentID, Model.Departments, new { @class = "column_filter span12", @id = "department" })
+                            </span>
+                        </label>
+                    </fieldset>
+                </form>
+                <div class="row-fluid  ">
+                    <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                        <i class="icon-edit "></i>
+                        @AVAResource.Resource.Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function cancel() {
+        var containerholder = $("#content");
+        containerholder.html('');
+    }
+
+    $(function () {
+        $('input.column_filter').on('keyup click', function () {
+            var id = $(this).parents('span').attr('data-column');
+            filterColumn(id);
+        });
+    })
+
+    $('.column_filter').change(function () {
+        var id = $(this).parents('span').attr('data-column');
+        filterColumn(id);
+    });
+    function filterColumn(i) {
+        
+        $('#table').DataTable().column(i).search(
+            $('#col' + i + '_filter').val(),
+            $('#col' + i + '_regex').prop('checked'),
+            $('#col' + i + '_smart').prop('checked')
+        ).draw();
+    }
+
+</script>

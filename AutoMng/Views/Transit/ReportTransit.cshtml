@@ -1,0 +1,33 @@
+﻿@model AutomobilMng.Models.TransitSearchModel
+
+@*<div class="row-fluid">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <div class="btn-group @AVAResource.Resource.Pull_Dir ">
+            <button id="show" class="btn  @AVAResource.Resource.Pull_Dir">
+                <i class=" fa fa-plus "></i>
+                نمایش
+            </button>
+            <button class="btn btn-pink " id="report">
+                <i class=" fa fa-search "></i>
+                گزارش
+            </button>
+        </div>
+    </div>
+    <div class="row-fluid " id="content">
+        <div class="row-fluid loader" data-initialize="loader" id="content" />
+    </div>
+</div>*@
+
+<div class="row-fluid " >
+    @Html.Partial("SearchReport")
+</div>
+
+<div class="row-fluid" id="listcontent">
+    @Html.Partial("List")
+</div>
+<script type="text/javascript">
+ 
+
+
+
+</script>

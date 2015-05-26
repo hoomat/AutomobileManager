@@ -1,0 +1,174 @@
+﻿@model AutomobilMng.Models.TrafficCardModel
+@{
+    AjaxOptions options = new AjaxOptions();
+    options.HttpMethod = "POST";
+    options.OnBegin = "OnBegin";
+    options.OnComplete = "OnComplete";
+    options.OnFailure = "OnFailure";
+    options.OnSuccess = "OnSuccess";
+    options.LoadingElementId = "2";
+    options.LoadingElementDuration = 1000;
+    options.UpdateTargetId = "d";
+    options.InsertionMode = InsertionMode.Replace;
+}
+<div class="span12 widget-container-span">
+    <div class="widget-box ">
+        <div class="widget-header">
+            <h5>@AVAResource.Resource.Define_FuelCard</h5>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+                <a href="#" data-action="close">
+                    <i class="icon-remove"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main ">
+                <link rel="stylesheet" href="~/Content/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.css" />
+                <script src="~/Scripts/NewFolder1/calendar.js" type="text/javascript"></script>
+                <script src="~/Scripts/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>
+
+                @using (Ajax.BeginForm("New", "TrafficCard", options, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row-fluid  ">
+                        <div class="span6 @AVAResource.Resource.Pull_Dir">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.NumberCard_TrafficCard</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.TrafficCard.NumberCard, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TrafficCard.NumberCard, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.DateBuy_TrafficCard</label>
+                                <label class="controls">
+                                    <span class="block  input-icon @AVAResource.Resource.Input_icon">
+                                        <input type="text" class="form-control" id="exampleInput3" value=@Model.PersianDateBuy name="PersianDateBuy" data-enabletimepicker="true" placeholder=@AVAResource.Resource.ReturnDate data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.DateExpire_TrafficCard</label>
+                                <label class="controls">
+                                    <span class="block  input-icon @AVAResource.Resource.Input_icon">
+                                        <input type="text" class="form-control" id="exampleInput3" value=@Model.PersianDateExpire name="PersianDateExpire" data-enabletimepicker="true" placeholder=@AVAResource.Resource.ReturnDate data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.TrafficCardType_TrafficCard</label>
+                                <div class="controls">
+
+                                    @Html.DropDownListFor(model => model.TrafficCardType, Model.TrafficCardTypes, new { @id = "driverlist" })
+                                    @Html.ValidationMessageFor(model => model.TrafficCardType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 ">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Buyer_TrafficCard</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.TrafficCard.Buyer, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TrafficCard.Buyer, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Cost</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.TrafficCard.Cost, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TrafficCard.Cost, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Description</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.TrafficCard.Description, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TrafficCard.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    <div class="row-fluid  ">
+                        <button class=" btn btn-small btn-primary">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Save
+                        </button>
+                        <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Cancel
+                        </button>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function cancel() {
+        var containerholder = $("#content");
+        containerholder.html('');
+        containerholder.html(data);
+    }
+    $(".chzn-select").chosen();
+    $(function () {
+        $(document).ajaxComplete(function (event, request, settings) {
+            $.validator.unobtrusive.parse(document);
+        });
+    });
+    jQuery.browser = {};
+    $(function () {
+        var tag_input = $('#form-field-tags');
+        if (!(/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())))
+            tag_input.tag({ placeholder: tag_input.attr('placeholder') });
+        else {
+            tag_input.after('<textarea id="' + tag_input.attr('id') + '" name="' + tag_input.attr('name') + '" rows="3">' + tag_input.val() + '</textarea>').remove();
+        }
+    })
+
+    function OnBegin() {
+        Sppiner();
+    }
+    function OnComplete() {
+        spinner.stop();
+    }
+    function OnFailure(arg) {
+        spinner.stop();
+    }
+    function OnSuccess(result) {
+
+        var data = '';
+        if (result.success) {
+            data = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">' +
+           '<i class="icon-remove"></i></button><strong> <i class="icon-ok"></i></strong>' +
+          result.description+
+            '<br></div>'
+        }
+        else {
+             data = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">' +
+           '<i class="icon-remove"></i></button><strong>  <i class="icon-ok"></i></strong>' +
+            result.description+
+           '<br></div>'
+        }
+        $('#content').html(data);
+        $('#table').DataTable().ajax.reload();
+        spinner.stop();
+    }
+
+    function generate(type, text) {
+        var n = noty({
+            text: text,
+            type: type,
+            dismissQueue: false,
+            layout: 'topCenter',
+            theme: 'defaultTheme',
+        });
+        return n;
+    }
+</script>

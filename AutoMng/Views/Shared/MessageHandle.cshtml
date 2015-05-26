@@ -1,0 +1,33 @@
+﻿@model AutomobilMng.Models.MessageModel
+@if (Model.Code != 0)
+{
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="icon-remove"></i>
+        </button>
+        <strong>@AVAResource.Resource.Warning!</strong>
+        @Model.Message
+        @AVAResource.Resource.WarningMessage
+        <br>
+    </div>
+}
+else
+{
+    <div class="alert alert-block alert-success">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="icon-remove"></i>
+        </button>
+        <p>
+            <strong>
+                <i class="icon-ok"></i>
+            </strong>
+            @AVAResource.Resource.SuccessMessage
+        </p>
+    </div>
+}
+
+   
+
+
+ 
+

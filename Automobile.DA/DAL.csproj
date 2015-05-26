@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{089FADB3-817A-48F6-B983-3BC0072D90F0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DAL</RootNamespace>
+    <AssemblyName>DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.1.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="ApplicationUser.cs" />
+    <Compile Include="Automobile.cs" />
+    <Compile Include="AutomobileDepartment.cs" />
+    <Compile Include="Department.cs" />
+    <Compile Include="AutomobileDriver.cs" />
+    <Compile Include="GroupRole.cs" />
+    <Compile Include="Incident.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="Migrations\201505281821251_db1.cs" />
+    <Compile Include="Migrations\201505281821251_db1.Designer.cs">
+      <DependentUpon>201505281821251_db1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506011132382_db2.cs" />
+    <Compile Include="Migrations\201506011132382_db2.Designer.cs">
+      <DependentUpon>201506011132382_db2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506011441299_db3.cs" />
+    <Compile Include="Migrations\201506011441299_db3.Designer.cs">
+      <DependentUpon>201506011441299_db3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506021207403_db4.cs" />
+    <Compile Include="Migrations\201506021207403_db4.Designer.cs">
+      <DependentUpon>201506021207403_db4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506021317437_db5.cs" />
+    <Compile Include="Migrations\201506021317437_db5.Designer.cs">
+      <DependentUpon>201506021317437_db5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506021324204_db6.cs" />
+    <Compile Include="Migrations\201506021324204_db6.Designer.cs">
+      <DependentUpon>201506021324204_db6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506021424351_db7.cs" />
+    <Compile Include="Migrations\201506021424351_db7.Designer.cs">
+      <DependentUpon>201506021424351_db7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506040628351_db_8.cs" />
+    <Compile Include="Migrations\201506040628351_db_8.Designer.cs">
+      <DependentUpon>201506040628351_db_8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506040632137_db_9.cs" />
+    <Compile Include="Migrations\201506040632137_db_9.Designer.cs">
+      <DependentUpon>201506040632137_db_9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506040636071_db_91.cs" />
+    <Compile Include="Migrations\201506040636071_db_91.Designer.cs">
+      <DependentUpon>201506040636071_db_91.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506041129576_db_10.cs" />
+    <Compile Include="Migrations\201506041129576_db_10.Designer.cs">
+      <DependentUpon>201506041129576_db_10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506041246297_db_11.cs" />
+    <Compile Include="Migrations\201506041246297_db_11.Designer.cs">
+      <DependentUpon>201506041246297_db_11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506041630210_db_12.cs" />
+    <Compile Include="Migrations\201506041630210_db_12.Designer.cs">
+      <DependentUpon>201506041630210_db_12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506050740097_db_13.cs" />
+    <Compile Include="Migrations\201506050740097_db_13.Designer.cs">
+      <DependentUpon>201506050740097_db_13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506050746183_db_1.cs" />
+    <Compile Include="Migrations\201506050746183_db_1.Designer.cs">
+      <DependentUpon>201506050746183_db_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506051915305_db_14.cs" />
+    <Compile Include="Migrations\201506051915305_db_14.Designer.cs">
+      <DependentUpon>201506051915305_db_14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="TrafficCardType.cs" />
+    <Compile Include="FualType.cs" />
+    <Compile Include="FuelCard.cs" />
+    <Compile Include="FuelConsume.cs" />
+    <Compile Include="IdentityModels.cs" />
+    <Compile Include="OilChange.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repair.cs" />
+    <Compile Include="Driver.cs" />
+    <Compile Include="TrafficCard.cs" />
+    <Compile Include="Transit.cs" />
+    <Compile Include="Group.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AVAResource\AVAResource.csproj">
+      <Project>{6f3a4375-e93b-4350-995b-6f8f1188dfd4}</Project>
+      <Name>AVAResource</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201505281821251_db1.resx">
+      <DependentUpon>201505281821251_db1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506011132382_db2.resx">
+      <DependentUpon>201506011132382_db2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506011441299_db3.resx">
+      <DependentUpon>201506011441299_db3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506021207403_db4.resx">
+      <DependentUpon>201506021207403_db4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506021317437_db5.resx">
+      <DependentUpon>201506021317437_db5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506021324204_db6.resx">
+      <DependentUpon>201506021324204_db6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506021424351_db7.resx">
+      <DependentUpon>201506021424351_db7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506040628351_db_8.resx">
+      <DependentUpon>201506040628351_db_8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506040632137_db_9.resx">
+      <DependentUpon>201506040632137_db_9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506040636071_db_91.resx">
+      <DependentUpon>201506040636071_db_91.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506041129576_db_10.resx">
+      <DependentUpon>201506041129576_db_10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506041246297_db_11.resx">
+      <DependentUpon>201506041246297_db_11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506041630210_db_12.resx">
+      <DependentUpon>201506041630210_db_12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506050740097_db_13.resx">
+      <DependentUpon>201506050740097_db_13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506050746183_db_1.resx">
+      <DependentUpon>201506050746183_db_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506051915305_db_14.resx">
+      <DependentUpon>201506051915305_db_14.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

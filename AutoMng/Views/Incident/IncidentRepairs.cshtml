@@ -1,0 +1,86 @@
+﻿
+@model IEnumerable<DAL.Repair>
+
+<table id="incidenttable" width="100%" class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@AVAResource.Resource.DateRepair</th>
+            <th>@AVAResource.Resource.Workshop</th>
+            <th>@AVAResource.Resource.InvoiceNo</th>
+            <th>@AVAResource.Resource.RepairCost</th>
+            <th>@AVAResource.Resource.RepairmanDescription</th>
+            <th>@AVAResource.Resource.ActionDescription</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DateRepair</td>
+                <td>@item.Workshop</td>
+                <td>@item.InvoiceNo</td>
+                <td>@item.Cost</td>
+                <td>@item.RepairmanDescription</td>
+                <td>@item.ActionDescription</td>
+                <td>
+                    <div class="hidden-phone visible-desktop action-buttons">
+                        <a class="blue" id=@item.ID incidentid=@item.IncidentID onclick="oneditrepair(this)" href="#">
+                            <i class="fa fa-edit bigger-130"></i>
+                        </a>
+                        <a class="red" id=@item.ID incidentid=@item.IncidentID onclick="ondeleterepair(this)" href="#">
+                            <i class="fa fa-trash bigger-130"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function oneditrepair(element) {
+        var id = $(element).attr('id');
+        Sppiner();
+        var url = "@Url.Action("Edit", "Repair")";
+        var containerholder = $("#content");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: { "id": id },
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+             
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    };
+
+    function ondeleterepair(element) {
+        var id = $(element).attr('id');
+        Sppiner();
+        var url = "@Url.Action("Delete", "Repair")";
+        var containerholder = $("#content");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: { "id": id },
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+          
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    };
+</script>

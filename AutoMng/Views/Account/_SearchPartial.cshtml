@@ -1,0 +1,79 @@
+﻿<div class="span12 widget-container-span">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h5>@AVAResource.Resource.SearchHeader</h5>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+                <a href="#" data-action="close">
+                    <i class="icon-remove"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <form class="form-search">
+                    <fieldset>
+                        <label>
+                            <span class="block input-icon @AVAResource.Resource.Input_icon ">
+                                <input type="text" id="usernameSearch" class="column_filter span12" placeholder="@AVAResource.Resource.UserNumber " />
+                            </span>
+                        </label>
+
+                        <label>
+                            <span data-column="3" class="block input-icon @AVAResource.Resource.Input_icon">
+                                <input type="text" id="firstnameSearch" name="firstname" class="column_filter span12" placeholder="@AVAResource.Resource.User_FirstName" />
+                            </span>
+                        </label>
+
+                        <label>
+                            <span class="block input-icon @AVAResource.Resource.Input_icon">
+                                <input type="text" id="lastnameSearch" data-column="3" name="lastname" class="column_filter span12" placeholder="@AVAResource.Resource.User_LastName" />
+                            </span>
+                        </label>
+                    </fieldset>
+                </form>
+                <div class="row-fluid  ">
+                    <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                        <i class="icon-edit "></i>
+                        @AVAResource.Resource.Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function cancel() {
+        var containerholder = $("#content");
+        containerholder.html('');
+        containerholder.html(data);
+    }
+        $(function () {
+            $('input.global_filter').on('keyup click', function () {
+                filterGlobal();
+            });
+            $('input.column_filter').on('keyup click', function () {
+                var id = $(this).parents('span').attr('data-column');
+                filterColumn(id);
+            });
+        })
+
+        function filterGlobal() {
+            $('#warrantdataTable').DataTable().search(
+                $('#global_filter').val(),
+                $('#global_regex').prop('checked'),
+                $('#global_smart').prop('checked')
+            ).draw();
+        }
+
+        function filterColumn(i) {
+            $('#user-table').DataTable().column(i).search(
+                $('#col' + i + '_filter').val(),
+                $('#col' + i + '_regex').prop('checked'),
+                $('#col' + i + '_smart').prop('checked')
+            ).draw();
+        }
+
+</script>

@@ -1,0 +1,68 @@
+﻿<div class="row-fluid">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <div class="btn-group @AVAResource.Resource.Pull_Dir ">
+            <button id="new" class="btn  @AVAResource.Resource.Pull_Dir">
+                <i class=" fa fa-plus "></i>
+                @AVAResource.Resource.New
+            </button>
+            <button class="btn btn-pink " id="search">
+                <i class=" fa fa-search "></i>
+                @AVAResource.Resource.SearchHeader
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row-fluid " id="content">
+    </div>
+<div class="row-fluid" id="listcontent">
+    @Html.Partial("List")
+</div>
+@*<div class="row-fluid" id="listrepaircontent">
+
+</div>*@
+<script type="text/javascript">
+        var spinner;
+        $('#search').click(function () {
+            Sppiner();
+            var containerholder = $("#content");
+            var url = "@Url.Action("Search", "Incident")";
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: url,
+                success: function (data) {
+                    containerholder.html('');
+                    containerholder.html(data);
+                    $('#table').DataTable().ajax.reload();
+                    spinner.stop();
+                    destroyloader();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + xhr.statusText);
+                   spinner.stop();
+                }
+            });
+        });
+        $('#new').click(function () {
+            Sppiner();
+            var url = "@Url.Action("New", "Incident")";
+            var containerholder = $("#content");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: url,
+                success: function (data) {
+                    containerholder.html('');
+                    containerholder.html(data);
+                    spinner.stop();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + xhr.statusText);
+                    spinner.stop();
+                }
+            });
+
+        });
+
+
+</script>

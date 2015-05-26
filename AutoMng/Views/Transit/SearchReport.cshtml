@@ -1,0 +1,175 @@
+﻿@model AutomobilMng.Models.TransitSearchModel
+<div class="span12 widget-container-span">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h5>@AVAResource.Resource.SearchHeader</h5>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+            
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <link rel="stylesheet" href="~/Content/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.css" />
+                <script src="~/Scripts/NewFolder1/calendar.js" type="text/javascript"></script>
+                <script src="~/Scripts/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>
+                <form class=" form-horizontal" id="formdata">
+                    @Html.AntiForgeryToken()
+                    <div class="row-fluid  ">
+                       
+                        <div class="span6 @AVAResource.Resource.Pull_Dir">
+                          
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Automobile</label>
+                                <div class="controls">
+                                    <span data-column="1" class="block input-icon @AVAResource.Resource.Input_icon ">
+                                        @Html.DropDownListFor(model => model.AutomobileID, Model.Automobiles, new { @class = "chzn-select column_filter", @id = "automobile" })
+                                        @Html.ValidationMessageFor(model => model.AutomobileID, "", new { @class = "text-danger" })
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Driver</label>
+                                <div class="controls">
+                                    <span data-column="2" class="block input-icon @AVAResource.Resource.Input_icon ">
+                                        @Html.DropDownListFor(model => model.DriverID, Model.Drivers, new { @class = "chzn-select column_filter", @id = "driver" })
+                                        @Html.ValidationMessageFor(model => model.DriverID, "", new { @class = "text-danger" })
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobil_Maintenance_Department</label>
+                                <div class="controls">
+                                    <span data-column="3" class="block input-icon @AVAResource.Resource.Input_icon ">
+                                        @Html.DropDownListFor(model => model.DepartmentID, Model.Departments, new { @class = "chzn-select column_filter", @id = "department" })
+                                        @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                                    </span>
+                                </div>
+                            </div>  
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.NumberCard_TrafficCard</label>
+                                <div class="controls">
+                                    <span data-column="4" class="block input-icon @AVAResource.Resource.Input_icon ">
+                                        @Html.DropDownListFor(model => model.CardTrafficID, Model.CardTraffics, new { @class = "chzn-select column_filter", @id = "trafficcard" })
+                                        @Html.ValidationMessageFor(model => model.CardTrafficID, "", new { @class = "text-danger" })
+                                    </span>
+                                </div>
+                            </div>                             
+                        </div>
+                        <div class="span6 ">
+                            <div class="control-group">
+                                <label class="control-label">تحویل از</label>
+                                <label class="controls">
+                                    <span data-column="5" class="block input-icon @AVAResource.Resource.Input_icon ">
+                                        <input type="text" class="column_filter form-control" id="fromDeliveryDate" value=@Model.FromPersianDeliveryDate data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">تحویل تا</label>
+                                <label class="controls">
+                                    <span data-column="6" class="block  input-icon @AVAResource.Resource.Input_icon">
+                                        <input type="text" class="column_filter form-control" id="toDeliveryDate" value=@Model.ToPersianDeliveryDate data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">برگشت از</label>
+                                <label class="controls">
+                                    <span data-column="7" class="block input-icon @AVAResource.Resource.Input_icon ">
+                                        <input type="text" class="column_filter form-control" id="fromReturnDate" value=@Model.FromPersianReturnDate data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">برگشت تا</label>
+                                <label class="controls">
+                                    <span data-column="8" class="block  input-icon @AVAResource.Resource.Input_icon">
+                                        <input type="text" class="column_filter form-control" id="toReturnDate" value=@Model.ToPersianReturnDate data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid  ">
+                        <button class=" btn btn-small btn-primary" id="show" type="button">
+                            <i class="icon-edit "></i>
+                            نمایش
+                        </button>
+                        <button class=" btn btn-small btn" id="report"  type="button">
+                            <i class="icon-edit "></i>
+                            گزارش
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".chzn-select").chosen();
+    function search(element) { filterColumn(1);}
+    //function filterColumn(i) {
+    //    $('#table').DataTable().column(i).search(
+    //        $('#col' + i + '_filter').val(),
+    //        $('#col' + i + '_regex').prop('checked'),
+    //        $('#col' + i + '_smart').prop('checked')
+    //    ).draw();
+    //}
+    $('#report').click(function () {
+        Sppiner();
+        var url = "@Url.Action("Report", "Transit")";
+        var containerholder = $("#listcontent");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: {
+                automobile: $('#automobile').val(),
+                driver: $('#driver').val(),
+                department: $('#department').val(),
+                trafficcard: $('#trafficcard').val(),
+                fromDeliveryDate: $('#fromDeliveryDate').val(),
+                toDeliveryDate: $('#toDeliveryDate').val(),
+                fromDeliveryDate: $('#fromReturnDate').val(),
+                toDeliveryDate: $('#toReturnDate').val(),
+            },
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    });
+
+    $('#show').click(function () {
+        Sppiner();
+        var url = "@Url.Action("List", "Transit")";
+        var containerholder = $("#listcontent");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    });
+</script>

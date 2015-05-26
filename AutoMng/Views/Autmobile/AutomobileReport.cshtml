@@ -1,0 +1,26 @@
+﻿@model List<DAL.Automobile>
+@{
+    ViewBag.Title = "GetPersons";
+}
+
+<h2>GetPersons</h2>
+
+<table class="table">
+ 
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plaque)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,182 @@
+﻿@model AutomobilMng.Models.SelectUserRolesViewModel
+
+<div class="widget-box  ">
+    <div class="widget-header header-color-blue2">
+        <h4 class="lighter smaller">@AVAResource.Resource.User_RoleHeader</h4>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main">
+            <div class="row-fluid ">
+                <div class="span6">
+                    <h3 class="header smaller lighter green">
+                        <i class="icon-key"></i>
+                        مجوزهای ثبت نشده
+                    </h3>
+                </div>
+                <div class="span6">
+                    <h3 class="header smaller lighter green">
+                        <i class="icon-key"></i>
+                        مجوزهای ثبت شده
+                    </h3>
+                </div>
+             
+
+            </div>
+            <div class="row-fluid ">
+                <label class="control-label" id="username" data-value=@Model.UserName>@Model.UserName</label>
+                <select multiple="multiple" size="10" name="duallistbox" id="duallist">
+                    @foreach (var role in Model.Roles)
+                        {
+                            if (role.Selected)
+                            {
+                        <option value=@role.RoleName selected="selected">@role.Title</option>}
+                            else
+                            {
+                        <option value=@role.RoleName>@role.Title</option> }
+                        }
+                </select>
+
+            </div>
+            <div class="row-fluid ">
+                <button id="save" class=" btn btn-small btn-primary">
+                    <i class="icon-edit "></i>
+                    @AVAResource.Resource.Save
+                </button>
+                <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                    <i class="icon-edit "></i>
+                    @AVAResource.Resource.Cancel
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function cancel() {
+        var containerholder = $("#content");
+        containerholder.html('');
+        containerholder.html(data);
+    }
+    jQuery(function ($) {
+        var demo1 = $('select[name="duallistbox"]').bootstrapDualListbox({
+            infoTextFiltered: '<span class="label label-purple label-lg">فیلتر</span>',
+            infoText: ''
+        });
+        var container1 = demo1.bootstrapDualListbox('getContainer');
+        container1.find('.glyphicon-arrow-left').addClass('fa fa-chevron-left');
+        container1.find('.glyphicon-arrow-right').addClass('fa fa-chevron-right');
+        container1.find('.box1').addClass('span6');
+        container1.find('.box2').addClass('span6');
+       
+
+       
+    });
+
+    function user(selected, name) {
+        this.RoleName = name;
+        this.Selected = selected;
+    }
+
+    $('#save').click(function () {
+       
+        Sppiner();
+        var selectUserRolesViewModel = {
+            UserName: $("#username").attr('data-value'),
+            FirstName: "",
+            LastName: "",
+            Roles: []
+        };
+     
+        roles = new Array();
+        var index = 0;
+        $('#bootstrap-duallistbox-selected-list_duallistbox option').each(function (i) {
+             value = $(this).attr('value');
+              var object = {
+                  RoleName: value, Selected: true
+              }
+              selectUserRolesViewModel.Roles[i] = object;
+        });
+        var DTO = { 'model': selectUserRolesViewModel };
+        for (var i in selectUserRolesViewModel.Roles) {
+            var item = selectUserRolesViewModel.Roles[i];
+           
+        }
+
+        var containerholder = $("#content");
+        var url = "@Url.Action("UserRoles", "Account")";
+        $.ajax({
+            cache: false,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            url: url,
+            data: JSON.stringify(DTO),
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                $('#user-table').DataTable().ajax.reload();
+                spinner.stop();
+        
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                containerholder.html('');
+                //alert('Error: ' + xhr.statusText);
+                spinner.stop();     
+            }
+        });
+    });
+</script>
+
+@*<script>
+    $(document).ready(function () {
+        var DataSourceTree = function (options) {
+            this.url = options.url;
+        }
+
+        DataSourceTree.prototype.data = function (options, callback) {
+            var self = this;
+            var $data = null;
+
+            var param = null
+
+            if (!("name" in options) && !("type" in options)) {
+                param = 0;//load the first level  
+            }
+            else if ("type" in options && options.type == "folder") {
+                if ("additionalParameters" in options && "children" in options.additionalParameters) {
+                    param = options.additionalParameters["id"];
+                }
+            }
+
+            if (param != null) {
+                $.ajax({
+                    url: this.url,
+                    data: 'id=' + param,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == "OK")
+                            callback({ data: response.data })
+                    },
+                    error: function (response) {
+                        //console.log(response);
+                    }
+                })
+            }
+        };
+
+        $('#treerole').tree({
+        dataSource: new DataSourceTree({ url:  "@Url.Action("GetRoles", "Account")" }),
+            multiSelect: false,
+            loadingHTML: '<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
+            'open-icon': 'icon-minus',
+            'close-icon': 'icon-plus',
+            'selectable': true,
+            'selected-icon': 'icon-ok',
+            'unselected-icon': 'icon-remove'
+        });
+    }
+        );
+</script>*@
+

@@ -1,0 +1,58 @@
+﻿<div class="span12 widget-container-span">
+    <div class="widget-box  ">
+        <div class="widget-header">
+            <h6 class="lighter smaller">
+                @AVAResource.Resource.List_FuelConsume
+            </h6>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+                <a href="#" data-action="close">
+                    <i class="icon-remove"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="table-header">
+               @* @AVAResource.Resource.List_FuelConsume*@
+            </div>
+            <table id="table" width="100%" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                   
+                       <th>@AVAResource.Resource.Mobil_Plaque</th>
+                        <th>@AVAResource.Resource.AllAmountPaid</th>
+                        <th>@AVAResource.Resource.AllVolumeFuel</th>
+                        <th>@AVAResource.Resource.Distance</th>
+                        <th>@AVAResource.Resource.FualConsume</th>
+                        <th>@AVAResource.Resource.RealFualConsume</th>
+                    
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    var spinner;
+    $(function () {
+        var oTable1 = $('#table').dataTable({
+            "bServerSide": true,
+            "sAjaxSource": "/FuelConsume/GetCompareFuels",
+            "bProcessing": false,
+            "aoColumns": [null, null, null, null, null, null],
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "automobile", "value": $("#automobile").val() });
+            },
+        });
+    })
+
+
+</script>
+
+
+
+
+

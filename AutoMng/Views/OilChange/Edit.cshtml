@@ -1,0 +1,201 @@
+﻿@model AutomobilMng.Models.OilChangeModel
+
+@{
+    AjaxOptions options = new AjaxOptions();
+    options.HttpMethod = "POST";
+    options.OnBegin = "OnBegin";
+    options.OnComplete = "OnComplete";
+    options.OnFailure = "OnFailure";
+    options.OnSuccess = "OnSuccess";
+    options.LoadingElementId = "2";
+    options.LoadingElementDuration = 1000;
+    options.UpdateTargetId = "d";
+    options.InsertionMode = InsertionMode.Replace;
+}
+<div class="span12 widget-container-span">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h5>@AVAResource.Resource.Edit_OilChange</h5>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <link rel="stylesheet" href="~/Content/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.css" />
+                <script src="~/Scripts/NewFolder1/calendar.js" type="text/javascript"></script>
+                <script src="~/Scripts/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>
+                @using (Ajax.BeginForm("Edit", "OilChange", options, new { @class = "form-horizontal" }))
+                {
+                      @Html.HiddenFor(model => model.OilChange.ID)
+                    @Html.AntiForgeryToken()
+                    <div class="row-fluid  ">
+                        <div class="span6 @AVAResource.Resource.Pull_Dir">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobil_Maintenance_Department</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.DepartmentID, Model.Departments, new { @class = "chzn-select    " })
+                                    @Html.ValidationMessageFor(model => model.OilChange.Department, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Automobile</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.AutomobileID, Model.Automobiles, new { @class = "chzn-select", @id = "automobilelist" })
+                                    @Html.ValidationMessageFor(model => model.OilChange.Automobile, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Driver</label>
+                                <div class="controls">
+
+                                    @Html.DropDownListFor(model => model.DriverID, Model.Drivers, new { @id = "driverlist" })
+                                    @Html.ValidationMessageFor(model => model.OilChange.Driver, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Date_Buy</label>
+                                <label class="controls">
+                                    <span class="block input-icon @AVAResource.Resource.Input_icon ">
+                                        <input type="text" class="form-control" id="exampleInput3" value=@Model.PersianChangeDate name="PersianChangeDate" placeholder=@AVAResource.Resource.ChangeDate data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="span6 ">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.NextChangeDest</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.OilChange.NextChangeDest, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.OilChange.NextChangeDest, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Workshop</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.OilChange.Workshop, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.OilChange.Workshop, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.TypeOil</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.OilChange.TypeOil, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.OilChange.TypeOil, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="">
+                                    <label class=@AVAResource.Resource.Pull_Dir>
+                                        <input type="checkbox" value=@Model.OilFilterChanged name="OilFilterChanged" />
+                                        <span class="lbl"> @AVAResource.Resource.AirFilterChanged</span>
+                                    </label>
+                                 
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="">
+                                    <label class=@AVAResource.Resource.Pull_Dir>
+                                        <input type="checkbox" value=@Model.AirFilterChanged name="AirFilterChanged" />
+                                        <span class="lbl"> @AVAResource.Resource.OilFilterChanged</span>
+                                    </label>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                              <div class="row-fluid  ">
+                        <div class="control-group">
+                            <div class="controls">
+                                <label class="">@AVAResource.Resource.Description</label>
+                                @Html.TextAreaFor(model => model.OilChange.Description, new { @class = "span12", @style = "height:90px" })
+                                @Html.ValidationMessageFor(model => model.OilChange.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid  ">
+                        <button class=" btn btn-small btn-primary">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.New
+                        </button>
+                        <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Cancel
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(".chzn-select").chosen();
+    $(function () {
+        $(document).ajaxComplete(function (event, request, settings) {
+            //re-parse the DOM after Ajax to enable client validation for any new form fields that have it enabled
+            $.validator.unobtrusive.parse(document);
+        });
+    });
+    $('#automobilelist').change(function () {
+        var url = "@Url.Action("GetDrivers", "Autmobile")";
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: { "automobileid": $(this).val() },
+            success: function (data) {
+                
+                var items ='';
+                $.each(data, function (i, state) {
+                    items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                    // state.Value cannot contain ' character. We are OK because state.Value = cnt++;
+                });
+                $('#driverlist').html(items);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            
+                alert("")
+            }
+        });
+    });
+    function cancel() {
+        var containerholder = $("#content");
+        containerholder.html('');
+    }
+    function OnBegin() {
+        Sppiner();
+    }
+    function OnComplete() {
+        spinner.stop();
+    }
+    function OnFailure(arg) {
+        spinner.stop();
+    }
+    function OnSuccess(result) {
+
+        var data = '';
+        if (result.success) {
+            data = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">' +
+           '<i class="icon-remove"></i></button><strong> <i class="icon-ok"></i></strong>' +
+          result.description +
+            '<br></div>'
+        }
+        else {
+            data = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">' +
+          '<i class="icon-remove"></i></button><strong>  <i class="icon-ok"></i></strong>' +
+           result.description +
+          '<br></div>'
+        }
+        $('#content').html(data);
+        $('#table').DataTable().ajax.reload();
+        spinner.stop();
+    }
+
+</script>

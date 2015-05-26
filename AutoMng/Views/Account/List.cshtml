@@ -1,0 +1,126 @@
+﻿<div class="span12 widget-container-span">
+    <div class="widget-box  ">
+        <div class="widget-header">
+            <h6 class="lighter smaller">
+                @AVAResource.Resource.Repair_Header_List
+            </h6>
+        </div>
+        <div class="widget-body">
+            <table id="user-table" width="100%" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>@AVAResource.Resource.UserName</th>
+                        <th>@AVAResource.Resource.User_FirstName</th>
+                        <th>@AVAResource.Resource.User_LastName</th>
+                        <th>@AVAResource.Resource.User_Email</th>
+                        <th>@AVAResource.Resource.User_Type</th>
+                        <th>تعیین مجوز</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var oTable1 = $('#user-table').dataTable({
+            "bFilter": false,
+            "language": {
+                "lengthMenu": "نمایش _MENU_ سطرها در صفحه",
+                "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
+                "info": "نمایش صفحه _PAGE_ از _PAGES_",
+                "infoEmpty": "رکوردی وجود ندارد",
+                "infoFiltered": "(فیلتر شده از _MAX_ رکورد )"
+            },
+            "bServerSide": true,
+            "sAjaxSource": "/Account/GetUsers",
+            "bProcessing": false,
+            "aoColumns": [
+                   null, null, null, null, null, null,
+                  { "bSortable": false }
+            ],
+            "fnCreatedRow": function (nRow, aData, iDataIndex) {
+             
+                $('td:eq(5)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"> <a class="blue btn btn-minier btn-purple" id="' + aData[5] + '"  onclick="roleUser(this)"   href="#">تعیین مجوز<i class="fa fa-lock  bigger-130"></i></a></div>').addClass('td-actions');
+                $('td:eq(6)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[5] + '"  onclick="editUser(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[5] + '" onclick="deleteUser(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "usernameSearch", "value": $("#usernameSearch").val() });
+                aoData.push({ "name": "firstnameSearch", "value": $("#firstnameSearch").val() });
+                aoData.push({ "name": "lastnameSearch", "value": $("#lastnameSearch").val() });
+            },
+        });
+    })
+
+        function editUser(element) {
+            var id = $(element).attr('id');
+            Sppiner();
+            var url = "@Url.Action("Edit", "Account")";
+            var containerholder = $("#content");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: url,
+                data: { "id": id },
+                success: function (data) {
+                    containerholder.html('');
+                    containerholder.html(data);
+                    spinner.stop();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + xhr.statusText);
+                    spinner.stop();
+                }
+            });
+        };
+
+        function deleteUser(element) {
+            var id = $(element).attr('id');
+            Sppiner();
+            var url = "@Url.Action("Delete", "Account")";
+            var containerholder = $("#content");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: url,
+                data: { "id": id },
+                success: function (data) {
+                    containerholder.html('');
+                    containerholder.html(data);
+                    spinner.stop();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + xhr.statusText);
+                    spinner.stop();
+                }
+            });
+        };
+
+        function roleUser(element) {
+            var id = $(element).attr('id');
+            Sppiner();
+            var url = "@Url.Action("UserRoles", "Account")";
+            var containerholder = $("#content");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: url,
+                data: { "id": id },
+                success: function (data) {
+                    containerholder.html('');
+                    containerholder.html(data);
+                    spinner.stop();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + xhr.statusText);
+                    spinner.stop();
+                }
+            });
+        };
+</script>
+
+

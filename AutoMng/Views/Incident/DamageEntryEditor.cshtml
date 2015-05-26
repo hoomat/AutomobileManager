@@ -1,0 +1,15 @@
+﻿@model DAL.Damage
+@using AutomobilMng.Infrastructure
+           
+<li style="padding-bottom:15px">
+    @using (Html.BeginCollectionItem("Damages"))
+    {
+        <div class="input-prepend">
+            @Html.TextBoxFor(model => model.Name)
+            <span class="add-on" onclick="$(this).parent().parent().remove();">
+                <i class="fa fa-remove"></i>
+            </span>
+
+        </div>
+    }
+</li>

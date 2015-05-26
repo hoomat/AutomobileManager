@@ -1,0 +1,112 @@
+﻿@model AutomobilMng.Models.IncidentModel
+
+<div>
+    @{
+        AjaxOptions options = new AjaxOptions();
+        options.HttpMethod = "POST";
+        options.OnBegin = "OnBegin";
+        options.OnComplete = "OnComplete";
+        options.OnFailure = "OnFailure";
+        options.OnSuccess = "OnSuccess";
+        options.LoadingElementId = "2";
+        options.LoadingElementDuration = 1000;
+        options.UpdateTargetId = "d";
+        options.InsertionMode = InsertionMode.Replace;
+    }
+    <div class="span12 widget-container-span">
+        <div class="widget-box ">
+            <div class="widget-header">
+                <h6 class="lighter smaller">
+                    @AVAResource.Resource.IncidentDelete
+                </h6>
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="icon-chevron-up"></i>
+                    </a>
+                    <a href="#" data-action="close">
+                        <i class="icon-remove"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    @using (Ajax.BeginForm("Delete", "OilChange", options, new { @class = "form-horizontal" }))
+                    {
+                        @Html.HiddenFor(model => model.Incident.ID)
+                        @Html.AntiForgeryToken()
+                        <div class=" alert-block alert-warning">
+                            رویداد تصادف خودرو با پلاک
+                            <strong class="green">
+                                <small>@Model.Incident.Automobile.Plaque </small>
+                            </strong>
+                            حذف شود؟
+                        </div>
+
+                        <div class="space-6"></div>
+                        <div class="row-fluid  ">
+                            <button class=" btn btn-small btn-primary">
+                                <i class="icon-edit "></i>
+                                @AVAResource.Resource.Delete
+                            </button>
+                            <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                                <i class="icon-edit "></i>
+                                @AVAResource.Resource.Cancel
+                            </button>
+                        </div>
+                         
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function cancel() {
+            var containerholder = $("#content");
+            containerholder.html('');
+        }
+        $(function () {
+            $(document).ajaxComplete(function (event, request, settings) {
+                //re-parse the DOM after Ajax to enable client validation for any new form fields that have it enabled
+                $.validator.unobtrusive.parse(document);
+            });
+        });
+        function OnBegin() {
+            Sppiner();
+        }
+        function OnComplete() {
+            spinner.stop();
+        }
+        function OnFailure(arg) {
+            spinner.stop();
+        }
+        function OnSuccess(result) {
+            var data = '';
+            if (result.success) {
+                data = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">' +
+               '<i class="icon-remove"></i></button><strong> <i class="icon-ok"></i></strong>' +
+              result.description +
+                '<br></div>'
+            }
+            else {
+                data = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">' +
+              '<i class="icon-remove"></i></button><strong>  <i class="icon-ok"></i></strong>' +
+               result.description +
+              '<br></div>'
+            }
+            $('#content').html(data);
+            $('#incidenttable').DataTable().ajax.reload();
+            spinner.stop();
+        }
+
+    </script>
+    @*@using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            
+        </div>
+    }*@
+</div>

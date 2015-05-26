@@ -1,0 +1,89 @@
+﻿@model AutomobilMng.Models.AutomobileModel
+<div>
+    @{
+        AjaxOptions options = new AjaxOptions();
+        options.HttpMethod = "POST";
+        options.OnBegin = "OnBegin";
+        options.OnComplete = "OnComplete";
+        options.OnFailure = "OnFailure";
+        options.OnSuccess = "OnSuccess";
+        options.LoadingElementId = "2";
+        options.LoadingElementDuration = 1000;
+        options.UpdateTargetId = "d";
+        options.InsertionMode = InsertionMode.Replace;
+    }
+    <div class="span12 widget-container-span">
+        <div class="widget-box  ">
+            <div class="widget-header">
+                <h6 class="lighter smaller">
+                    @AVAResource.Resource.DeleteAutomobile
+                    <strong class="green">
+                        @Model.Automobile.Plaque
+                    </strong>
+                </h6>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    @using (Ajax.BeginForm("Delete", "Automobile", options, new { @class = "form-horizontal" }))
+                    {
+                        <div class=" alert-block alert-warning">
+                            خودرو با پلاک
+                            <strong class="green">
+                                <small>@Model.Automobile.Plaque </small>
+                            </strong>
+                            حذف شود؟
+                        </div>
+                        @Html.HiddenFor(model => model.Automobile.ID)
+                        @Html.AntiForgeryToken()
+
+                        <button class=" btn btn-small btn-primary">
+                            <i class="icon-minus"></i>
+                            @AVAResource.Resource.Delete
+                        </button>
+                        <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Cancel
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function cancel() {
+            var containerholder = $("#content");
+            containerholder.html('');            
+        }
+        function OnBegin() {
+            Sppiner();
+        }
+        function OnComplete() {
+            spinner.stop();
+        }
+        function OnFailure(arg) {
+            spinner.stop();
+        }
+        function OnSuccess(data) {
+            //bootbox.dialog("Thank you! Your information was successfully saved!", [{
+            //    "label": "OK",
+            //    "class": "btn-small btn-primary",
+            //}]
+            //);
+            $('#content').html(data);
+            $('#user-table').DataTable().ajax.reload();
+            spinner.stop();
+        }
+
+    </script>
+    @*@using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+
+            </div>
+        }*@
+</div>
+

@@ -1,0 +1,121 @@
+﻿<div class="span12 widget-container-span">
+    <div class="widget-box  ">
+        <div class="widget-header">
+            <h6 class="lighter smaller">
+                @AVAResource.Resource.List_FuelConsume
+            </h6>
+
+        </div>
+        <div class="widget-body">
+            <div class="table-header">
+                @*@AVAResource.Resource.List_FuelConsume*@
+            </div>
+            <table id="table" width="100%" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>@AVAResource.Resource.Mobil_Plaque</th>
+                        <th>@AVAResource.Resource.Driver</th>
+                        <th>@AVAResource.Resource.DeliveryDepartment</th>
+                        <th>@AVAResource.Resource.DateReFual</th>
+                        <th>@AVAResource.Resource.VolumeFuel</th>
+                        <th>@AVAResource.Resource.AmountPaid</th>
+                        <th>@AVAResource.Resource.DistanceBeforReFual</th>
+                        <th>@AVAResource.Resource.PaymentType</th>
+                        <th>@AVAResource.Resource.FuelCardNumber</th>
+                        <th>@AVAResource.Resource.FualStation</th>
+                        <th>@AVAResource.Resource.Description</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    var spinner;
+    $(function () {
+        var oTable1 = $('#table').dataTable({
+            "bFilter": false,
+            "language": {
+                "lengthMenu": "نمایش _MENU_ سطرها در صفحه",
+                "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
+                "info": "نمایش صفحه _PAGE_ از _PAGES_",
+                "infoEmpty": "رکوردی وجود ندارد",
+                "infoFiltered": "(فیلتر شده از _MAX_ رکورد )"
+            },
+            "bServerSide": true,
+            "sAjaxSource": "/FuelConsume/GetFuels",
+            "bProcessing": false,
+            "aoColumns": [
+                   null, null, null, null, null, null, null, null, null, null, null,
+                   { "bSortable": false }
+            ],
+            "fnCreatedRow": function (nRow, aData, iDataIndex) {
+                $('td:eq(11)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[11] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[11] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "automobile", "value": $("#automobile").val() });
+                aoData.push({ "name": "driver", "value": $("#driver").val() });
+                aoData.push({ "name": "fualstation", "value": $("#fualstation").val() });
+            },
+        });
+        $('table th input:checkbox').on('click', function () {
+            var that = this;
+            $(this).closest('table').find('tr > td:first-child input:checkbox')
+            .each(function () {
+                this.checked = that.checked;
+                $(this).closest('tr').toggleClass('selected');
+            });
+        });
+    })
+
+    function onedit(element) {
+        var id = $(element).attr('id');
+        Sppiner();
+        var url = "@Url.Action("Edit", "FuelConsume")";
+        var containerholder = $("#content");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: { "id": id },
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    };
+
+    function ondelete(element) {
+        var id = $(element).attr('id');
+        Sppiner();
+        var url = "@Url.Action("Delete", "FuelConsume")";
+        var containerholder = $("#content");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: { "id": id },
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    };
+</script>
+
+
+
+
+

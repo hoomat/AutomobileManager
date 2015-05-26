@@ -1,0 +1,62 @@
+﻿<div class="span12 widget-container-span">
+    <div class="widget-box ">
+        <div class="widget-header">
+            <h5>@AVAResource.Resource.SearchHeader</h5>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+                <a href="#" data-action="close">
+                    <i class="icon-remove"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <form class="form-search">
+                    <fieldset>
+                        <label>
+                            <span class="block input-icon @AVAResource.Resource.Input_icon ">
+                                <input type="text" id="driverNameSearch" name="driverNameSearch" class="column_filter span12" placeholder="@AVAResource.Resource.NameDriver " />
+                            </span>
+                        </label>
+
+                        <label>
+                            <span data-column="3" class="block input-icon @AVAResource.Resource.Input_icon">
+                                <input type="text" id="DegreeSearch" name="DegreeSearch" class="column_filter span12" placeholder="@AVAResource.Resource.Degree" />
+                            </span>
+                        </label>
+                    </fieldset>
+                </form>
+                <div class="row-fluid  ">
+                    <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                        <i class="icon-edit "></i>
+                        @AVAResource.Resource.Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function cancel() {
+        var containerholder = $("#content");
+        containerholder.html('');        
+    }
+
+    $(function () {
+        $('input.column_filter').on('keyup click', function () {
+            var id = $(this).parents('span').attr('data-column');
+            filterColumn(id);
+        });
+    })
+
+    function filterColumn(i) {
+        $('#table').DataTable().column(i).search(
+            $('#col' + i + '_filter').val(),
+            $('#col' + i + '_regex').prop('checked'),
+            $('#col' + i + '_smart').prop('checked')
+        ).draw();
+    }
+
+</script>

@@ -1,0 +1,148 @@
+﻿@model AutomobilMng.Models.AutomobileModel
+<div class="span12 widget-container-span">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h5>@AVAResource.Resource.SearchHeader</h5>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+                <a href="#" data-action="close">
+                    <i class="icon-remove"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <form class="form-search" id="formdata">
+                    @Html.AntiForgeryToken()
+                    <fieldset>
+                        <label>
+                            <span data-column="1" class="block input-icon @AVAResource.Resource.Input_icon ">
+                                <input type="text" id="plaqueSearch" class="column_filter span12" placeholder="@AVAResource.Resource.Mobil_Plaque " />
+                            </span>
+                        </label>
+
+                        <label>
+                            <span data-column="2"  class="block input-icon @AVAResource.Resource.Input_icon">
+                                <input type="text" id="chassisSearch" class="column_filter span12" placeholder="@AVAResource.Resource.Mobil_Chassis" />
+                            </span>
+                        </label>
+
+                        <label>
+                            <span data-column="3"  class="block input-icon @AVAResource.Resource.Input_icon">
+                                <input type="text" id="modelSearch" class="column_filter span12" placeholder="@AVAResource.Resource.Mobile_Model" />
+                            </span>
+                        </label>
+                        <label>
+                            <span data-column="4"  class="block input-icon @AVAResource.Resource.Input_icon">
+                                <input type="text" id="produceYearSearch" class="column_filter span12" placeholder="@AVAResource.Resource.Mobile_Produce_Year" />
+                            </span>
+                        </label>
+                   
+                        <label>
+                            <span data-column="5" class="block input-icon @AVAResource.Resource.Input_icon">
+                                @Html.DropDownListFor(model => model.Automobile.FualType, Model.FualTypes, new { @class = "column_filter span12", @id = "fualTypeSearch" })
+                            </span>
+                        </label>
+                        <label>
+                            <span data-column="6"  class="block input-icon @AVAResource.Resource.Input_icon">
+                                @Html.DropDownListFor(model => model.Automobile.Department, Model.Departments, new { @class = "column_filter span12", @id = "departmentSearch" })
+                            </span>
+                        </label>
+                    </fieldset>
+                </form>
+                <div class="row-fluid  ">
+                    <button class=" btn btn-small btn-primary" type="button" id="show">
+                        <i class="icon-edit "></i>
+                        نمایش
+                    </button>
+                    <button class=" btn btn-small btn-warning" type="button" onclick="report()">
+                        <i class="icon-edit "></i>
+                        گزارش
+                    </button>
+                    <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                        <i class="icon-edit "></i>
+                        @AVAResource.Resource.Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+   
+    function cancel() {
+        var containerholder = $("#content");
+        containerholder.html('');        
+    }
+    function report() {
+        Sppiner();
+      
+        var url = "@Url.Action("Report", "Autmobile")";
+        var containerholder = $("#listcontent");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: {
+               
+                plaqueSearch: $('#plaqueSearch').val(),
+                chassisSearch: $('#chassisSearch').val(),
+                modelSearch: $('#modelSearch').val(),
+                produceYear: $('#produceYearSearch').val(),
+                fualTypeSearch: $('#fualTypeSearch').val(),
+                departmentSearch: $('#departmentSearch').val(),
+            },
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    }
+
+    $('#show').click(function () {
+        Sppiner();
+        var url = "@Url.Action("List", "Autmobile")";
+        var containerholder = $("#listcontent");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    });
+
+    $(function () {
+        $('input.column_filter').on('keyup click', function () {
+            var id = $(this).parents('span').attr('data-column');
+            filterColumn(id);
+        });
+    })
+
+    $('.column_filter').change(function () {
+        var id = $(this).parents('span').attr('data-column');
+        filterColumn(id);
+    });
+    function filterColumn(i) {
+        $('#user-table').DataTable().column(i).search(
+            $('#col' + i + '_filter').val(),
+            $('#col' + i + '_regex').prop('checked'),
+            $('#col' + i + '_smart').prop('checked')
+        ).draw();
+    }
+
+</script>

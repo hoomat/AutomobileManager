@@ -1,0 +1,669 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="dir" xml:space="preserve">
+    <value>ltr</value>
+  </data>
+  <data name="Englis" xml:space="preserve">
+    <value>En</value>
+  </data>
+  <data name="Farsi" xml:space="preserve">
+    <value>Fa</value>
+  </data>
+  <data name="Input_icon" xml:space="preserve">
+    <value>input-icon-right</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="message" xml:space="preserve">
+    <value>Automobil management system</value>
+  </data>
+  <data name="Pass" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Please_Enter_Your_Information" xml:space="preserve">
+    <value>Please Enter Your Information</value>
+  </data>
+  <data name="Remember_Me" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>English Title</value>
+  </data>
+  <data name="UserNumber" xml:space="preserve">
+    <value>User Number</value>
+  </data>
+  <data name="Invalid_username_or_password" xml:space="preserve">
+    <value>Invalid username or password</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>LogOff</value>
+  </data>
+  <data name="AutomobileMngMenu" xml:space="preserve">
+    <value>Automobile</value>
+  </data>
+  <data name="DashboardMenu" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="FuelMngMenu" xml:space="preserve">
+    <value>Fuel</value>
+  </data>
+  <data name="OilChangeMngMenu" xml:space="preserve">
+    <value>OilChange</value>
+  </data>
+  <data name="RepairMngMenu" xml:space="preserve">
+    <value>Repairment</value>
+  </data>
+  <data name="TrafficCardMngMenu" xml:space="preserve">
+    <value>TrafficCard</value>
+  </data>
+  <data name="TransitMngMenu" xml:space="preserve">
+    <value>Transit </value>
+  </data>
+  <data name="UserMngMenu" xml:space="preserve">
+    <value>User Management </value>
+  </data>
+  <data name="Pull_Dir" xml:space="preserve">
+    <value>pull-left</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="User_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="User_FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="User_LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="SearchHeader" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="User_ConfirmPass" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="SuccessMessage" xml:space="preserve">
+    <value>You successfully read this important alert message.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="WarningMessage" xml:space="preserve">
+    <value>error in action</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="User_RoleHeader" xml:space="preserve">
+    <value>Permission of user</value>
+  </data>
+  <data name="Mobile_Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Mobile_Date_Buy" xml:space="preserve">
+    <value>Date Bur</value>
+  </data>
+  <data name="Mobile_Distance" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="Mobile_Fual_Consum" xml:space="preserve">
+    <value>Fual Consume per kilometer</value>
+  </data>
+  <data name="Mobile_Fual_Type" xml:space="preserve">
+    <value>Fual Type</value>
+  </data>
+  <data name="Mobile_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Mobile_Last_Service" xml:space="preserve">
+    <value>Last Service</value>
+  </data>
+  <data name="Mobile_Model" xml:space="preserve">
+    <value>Model </value>
+  </data>
+  <data name="Mobile_Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Mobile_Produce_Year" xml:space="preserve">
+    <value>Produce Year</value>
+  </data>
+  <data name="Mobile_Volume_Tank" xml:space="preserve">
+    <value>Volume Tank</value>
+  </data>
+  <data name="Mobil_Chassis" xml:space="preserve">
+    <value>Chassis Number</value>
+  </data>
+  <data name="Mobil_Plaque" xml:space="preserve">
+    <value>Plaque Number</value>
+  </data>
+  <data name="Chassis_Not_Unique" xml:space="preserve">
+    <value>Chassis Not Unique</value>
+  </data>
+  <data name="Mobil_Maintenance_Department" xml:space="preserve">
+    <value>Maintenance Department</value>
+  </data>
+  <data name="Mobile_Header_Grid" xml:space="preserve">
+    <value>List of Automobile</value>
+  </data>
+  <data name="Oil_Driver" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AirFilterChanged" xml:space="preserve">
+    <value>Air Filter Changed</value>
+  </data>
+  <data name="Automobile" xml:space="preserve">
+    <value>Automobile</value>
+  </data>
+  <data name="ChangeDate" xml:space="preserve">
+    <value>Oil Change Date</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Driver" xml:space="preserve">
+    <value>Driver</value>
+  </data>
+  <data name="NextChangeDest" xml:space="preserve">
+    <value>Next Change Destination</value>
+  </data>
+  <data name="OilFilterChanged" xml:space="preserve">
+    <value>Oil Filter Changed</value>
+  </data>
+  <data name="TypeOil" xml:space="preserve">
+    <value>Type of oil</value>
+  </data>
+  <data name="Workshop" xml:space="preserve">
+    <value>Workshop</value>
+  </data>
+  <data name="DeliveryDate" xml:space="preserve">
+    <value>Delivery Date</value>
+  </data>
+  <data name="DeliveryDepartment" xml:space="preserve">
+    <value>Delivery Department</value>
+  </data>
+  <data name="ReturnDate" xml:space="preserve">
+    <value>Return Date</value>
+  </data>
+  <data name="RegistrarUser" xml:space="preserve">
+    <value>Registrar User</value>
+  </data>
+  <data name="Attendances" xml:space="preserve">
+    <value>Attendances</value>
+  </data>
+  <data name="EnterAttendances" xml:space="preserve">
+    <value>Enter Attendances</value>
+  </data>
+  <data name="ActionDescription" xml:space="preserve">
+    <value>Actions Description</value>
+  </data>
+  <data name="CommanderPerson" xml:space="preserve">
+    <value>Commander Person</value>
+  </data>
+  <data name="Wage" xml:space="preserve">
+    <value>Wage</value>
+  </data>
+  <data name="DateRepair" xml:space="preserve">
+    <value>Date Repair</value>
+  </data>
+  <data name="InvoiceNo" xml:space="preserve">
+    <value>Invoice No</value>
+  </data>
+  <data name="RepairmanDescription" xml:space="preserve">
+    <value>Repairman Description</value>
+  </data>
+  <data name="AmountPaid" xml:space="preserve">
+    <value>Amount Paid</value>
+  </data>
+  <data name="DateReFual" xml:space="preserve">
+    <value>Date ReFual</value>
+  </data>
+  <data name="DistanceBeforReFual" xml:space="preserve">
+    <value>Distance Befor ReFual</value>
+  </data>
+  <data name="FualStation" xml:space="preserve">
+    <value>Fual Station</value>
+  </data>
+  <data name="FuelCardNumber" xml:space="preserve">
+    <value>Fuel Card Number</value>
+  </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Payment Type</value>
+  </data>
+  <data name="VolumeFuel" xml:space="preserve">
+    <value>Volume Fuel</value>
+  </data>
+  <data name="DefineAutomobile" xml:space="preserve">
+    <value>Define Automobile</value>
+  </data>
+  <data name="DeleteAutomobile" xml:space="preserve">
+    <value>Delete Automobile</value>
+  </data>
+  <data name="DeleteRepair" xml:space="preserve">
+    <value>DeleteRepair</value>
+  </data>
+  <data name="DeleteTransit" xml:space="preserve">
+    <value>DeleteTransit</value>
+  </data>
+  <data name="EditAutomobile" xml:space="preserve">
+    <value>Edit Automobile</value>
+  </data>
+  <data name="EditRepair" xml:space="preserve">
+    <value>Edit Repair</value>
+  </data>
+  <data name="EditTransit" xml:space="preserve">
+    <value>Edit Transit</value>
+  </data>
+  <data name="RegisterRepair" xml:space="preserve">
+    <value>RegisterRepair</value>
+  </data>
+  <data name="RegisterTransit" xml:space="preserve">
+    <value>Register Transit</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="TransitHeaderList" xml:space="preserve">
+    <value>Transit of Automobiles</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="NameDriver" xml:space="preserve">
+    <value>Name Driver</value>
+  </data>
+  <data name="DeleteDriver" xml:space="preserve">
+    <value>Delete Driver by Name</value>
+  </data>
+  <data name="DriverHeaderList" xml:space="preserve">
+    <value>Driver List</value>
+  </data>
+  <data name="Menu_Driver" xml:space="preserve">
+    <value>Drivers</value>
+  </data>
+  <data name="Menu_Department" xml:space="preserve">
+    <value>Departments</value>
+  </data>
+  <data name="Menu_FundmentalInfo" xml:space="preserve">
+    <value>Fundmental Info</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DepartmentHeaderList" xml:space="preserve">
+    <value>Department of List</value>
+  </data>
+  <data name="DepartmentName" xml:space="preserve">
+    <value>Department Name</value>
+  </data>
+  <data name="Department_Define" xml:space="preserve">
+    <value>Define Department</value>
+  </data>
+  <data name="Department_Delete" xml:space="preserve">
+    <value>Delete Department</value>
+  </data>
+  <data name="Department_Edit" xml:space="preserve">
+    <value>Edit Department</value>
+  </data>
+  <data name="DeliveryHour" xml:space="preserve">
+    <value>Delivery Hour</value>
+  </data>
+  <data name="DeliveryMinute" xml:space="preserve">
+    <value>Delivery Minute</value>
+  </data>
+  <data name="ReturnHour" xml:space="preserve">
+    <value>Return Hour</value>
+  </data>
+  <data name="ReturnMinute" xml:space="preserve">
+    <value>Return Minute</value>
+  </data>
+  <data name="Define_FuelCard" xml:space="preserve">
+    <value>Define FuelCard</value>
+  </data>
+  <data name="Delete_FuelCard" xml:space="preserve">
+    <value>Delete FuelCard</value>
+  </data>
+  <data name="Edit_FuelCard" xml:space="preserve">
+    <value>Edit FuelCard</value>
+  </data>
+  <data name="FuelCardHeaderList" xml:space="preserve">
+    <value>FuelCard of List</value>
+  </data>
+  <data name="Menu_FuelCard" xml:space="preserve">
+    <value>Fuel Card</value>
+  </data>
+  <data name="Number_FuelCard" xml:space="preserve">
+    <value>Number FuelCard</value>
+  </data>
+  <data name="Define_Driver" xml:space="preserve">
+    <value>Define Driver</value>
+  </data>
+  <data name="Delete_Driver" xml:space="preserve">
+    <value>Delete Driver</value>
+  </data>
+  <data name="Edit_Driver" xml:space="preserve">
+    <value>Edit Driver</value>
+  </data>
+  <data name="List_Driver" xml:space="preserve">
+    <value>List Driver</value>
+  </data>
+  <data name="Chart_Deliver_Automobile" xml:space="preserve">
+    <value>Chart Deliver Automobile</value>
+  </data>
+  <data name="Define_Repair" xml:space="preserve">
+    <value>Define Repair</value>
+  </data>
+  <data name="Delete_Repair" xml:space="preserve">
+    <value>Delete Repair</value>
+  </data>
+  <data name="Edit_Repair" xml:space="preserve">
+    <value>Edit Repair</value>
+  </data>
+  <data name="Repair_Header_List" xml:space="preserve">
+    <value>List of Repair</value>
+  </data>
+  <data name="Chart_Repair_Automobile" xml:space="preserve">
+    <value>Chart Repair Automobile</value>
+  </data>
+  <data name="MileagAfterTrip" xml:space="preserve">
+    <value>Mileag After Trip</value>
+  </data>
+  <data name="MileagBeforeTrip" xml:space="preserve">
+    <value>Mileag Before Trip</value>
+  </data>
+  <data name="Menu_TrafficCard" xml:space="preserve">
+    <value>Traffic Card</value>
+  </data>
+  <data name="Buyer_TrafficCard" xml:space="preserve">
+    <value>Buyer</value>
+  </data>
+  <data name="DateBuy_TrafficCard" xml:space="preserve">
+    <value>Date Buy</value>
+  </data>
+  <data name="DateExpire_TrafficCard" xml:space="preserve">
+    <value>Date Expire</value>
+  </data>
+  <data name="Define_TrafficCard" xml:space="preserve">
+    <value>Define TrafficCard</value>
+  </data>
+  <data name="Delete_TrafficCard" xml:space="preserve">
+    <value>Delete TrafficCard</value>
+  </data>
+  <data name="Edit_TrafficCard" xml:space="preserve">
+    <value>Edit TrafficCard</value>
+  </data>
+  <data name="NumberCard_TrafficCard" xml:space="preserve">
+    <value>Number Card</value>
+  </data>
+  <data name="TrafficCardType_TrafficCard" xml:space="preserve">
+    <value> Type Card</value>
+  </data>
+  <data name="TrafficCard_Header_List" xml:space="preserve">
+    <value>List of TrafficCard</value>
+  </data>
+  <data name="Define_FuelConsume" xml:space="preserve">
+    <value>Define FuelConsume</value>
+  </data>
+  <data name="Define_OilChange" xml:space="preserve">
+    <value>Define OilChange</value>
+  </data>
+  <data name="Delete_FuelConsume" xml:space="preserve">
+    <value>Delete FuelConsume</value>
+  </data>
+  <data name="Delete_OilChange" xml:space="preserve">
+    <value>Delete OilChange</value>
+  </data>
+  <data name="Edit_FuelConsume" xml:space="preserve">
+    <value>Edit FuelConsume</value>
+  </data>
+  <data name="Edit_OilChange" xml:space="preserve">
+    <value>Edit OilChange</value>
+  </data>
+  <data name="List_FuelConsume" xml:space="preserve">
+    <value>List FuelConsume</value>
+  </data>
+  <data name="List_OilChange" xml:space="preserve">
+    <value>List OilChange</value>
+  </data>
+  <data name="User_Type" xml:space="preserve">
+    <value>User Type</value>
+  </data>
+  <data name="TransitReportMngMenu" xml:space="preserve">
+    <value>Transit Report</value>
+  </data>
+  <data name="TransitReportDisMngMenu" xml:space="preserve">
+    <value>Transit Report Distance</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="FuelReportCompareMngMenu" xml:space="preserve">
+    <value>Fuel ReportCompare </value>
+  </data>
+  <data name="AllAmountPaid" xml:space="preserve">
+    <value>All Amount Paid</value>
+  </data>
+  <data name="AllVolumeFuel" xml:space="preserve">
+    <value>All Volume Fuel</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="FualConsume" xml:space="preserve">
+    <value>Fual Consume</value>
+  </data>
+  <data name="RealFualConsume" xml:space="preserve">
+    <value>Real Fual Consume</value>
+  </data>
+  <data name="Chart_RepairWorkshop_Referral" xml:space="preserve">
+    <value>Repair Workshop Referral</value>
+  </data>
+  <data name="ChartTransitDepartmentDistance" xml:space="preserve">
+    <value>مسافت اداره ها</value>
+  </data>
+  <data name="ChartTransitDriverDistance" xml:space="preserve">
+    <value>مسافت راننده ها</value>
+  </data>
+  <data name="DefineIncident" xml:space="preserve">
+    <value>Define Incident</value>
+  </data>
+  <data name="DeleteIncident" xml:space="preserve">
+    <value>Delete Incident</value>
+  </data>
+  <data name="EditIncident" xml:space="preserve">
+    <value>Edit Incident</value>
+  </data>
+  <data name="IncidentHeaderList" xml:space="preserve">
+    <value>List of Incident</value>
+  </data>
+  <data name="IncidentDamages" xml:space="preserve">
+    <value>Incident Damages</value>
+  </data>
+  <data name="IncidentDate" xml:space="preserve">
+    <value>Incident Date</value>
+  </data>
+  <data name="IncidentDescription" xml:space="preserve">
+    <value>Incident Description</value>
+  </data>
+  <data name="IncidentDriver" xml:space="preserve">
+    <value>Incident Driver</value>
+  </data>
+  <data name="IncidentRepair" xml:space="preserve">
+    <value>Incident Repair</value>
+  </data>
+  <data name="IncidentMngMenu" xml:space="preserve">
+    <value>Incident</value>
+  </data>
+  <data name="IncidentHour" xml:space="preserve">
+    <value>IncidentHour</value>
+  </data>
+  <data name="IncidentMinute" xml:space="preserve">
+    <value>IncidentMinute</value>
+  </data>
+  <data name="IncidentDefine" xml:space="preserve">
+    <value>Define Incident</value>
+  </data>
+  <data name="IncidentDelete" xml:space="preserve">
+    <value>Delete Incident</value>
+  </data>
+  <data name="IncidentEdit" xml:space="preserve">
+    <value>Edit Incident</value>
+  </data>
+  <data name="IncidentList" xml:space="preserve">
+    <value>List of Incident</value>
+  </data>
+  <data name="PersonalNumber" xml:space="preserve">
+    <value>Personal Number</value>
+  </data>
+  <data name="TransitUnDeliveryMenu" xml:space="preserve">
+    <value>Transit UnDelivery </value>
+  </data>
+  <data name="PartName" xml:space="preserve">
+    <value>Part Name</value>
+  </data>
+  <data name="PartPrice" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="PartType" xml:space="preserve">
+    <value>Part Type</value>
+  </data>
+  <data name="ConsumablePart" xml:space="preserve">
+    <value>Consumable Part</value>
+  </data>
+  <data name="RepairCost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="SettingMngMenu" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+</root>

@@ -1,0 +1,84 @@
+﻿<div class="row-fluid">
+    <div class=" widget-container-span">
+        <div class="widget-box ">
+            <div class="widget-header">
+                 <h5>@AVAResource.Resource.TransitHeaderList</h5>
+            </div>
+            <div class="widget-body">
+                    <table id="table" width="100%" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>@AVAResource.Resource.Mobil_Plaque</th>
+                                <th>@AVAResource.Resource.Driver</th>
+                                <th>@AVAResource.Resource.Mobil_Maintenance_Department</th>
+                                <th>@AVAResource.Resource.DeliveryDate</th>
+                                <th>@AVAResource.Resource.ReturnDate</th>
+                                <th>@AVAResource.Resource.MileagAfterTrip</th>
+                                <th>@AVAResource.Resource.Mobile_Distance</th>
+                                <th>@AVAResource.Resource.Description</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody></tbody>
+                    </table>
+             
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        $(function () {
+            var oTable1 = $('#table').dataTable({
+                "bFilter": false,
+                "language": {
+                    "lengthMenu": "نمایش _MENU_ سطرها در صفحه",
+                    "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
+                    "info": "نمایش صفحه _PAGE_ از _PAGES_",
+                    "infoEmpty": "رکوردی وجود ندارد",
+                    "infoFiltered": "(فیلتر شده از _MAX_ رکورد )"
+                },
+                "bServerSide": true,
+                "sAjaxSource": "/Transit/GetUnDeliveryTransits",
+                "bProcessing": false,
+                "aoColumns": [
+			           null, null, null, null, null, null, null, null, { "bSortable": false }
+                ],
+                "fnCreatedRow": function (nRow, aData, iDataIndex) {
+
+                    $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"> <a class="blue btn btn-minier btn-success" id="' + aData[8] + '"  onclick="returntransit(this)"   href="#"> ثبت برگشت <i class="fa fa-arrow-right  bigger-130"></i></a></div>').addClass('td-actions');
+                },
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "automobile", "value": $("#automobile").val() });
+                    aoData.push({ "name": "driver", "value": $("#driver").val() });
+                    aoData.push({ "name": "department", "value": $("#department").val() });
+                    aoData.push({ "name": "trafficcard", "value": $("#trafficcard").val() });
+                    aoData.push({ "name": "fromDeliveryDate", "value": $("#fromDeliveryDate").val() });
+                    aoData.push({ "name": "toDeliveryDate", "value": $("#toDeliveryDate").val() });
+                    aoData.push({ "name": "fromReturnDate", "value": $("#fromReturnDate").val() });
+                    aoData.push({ "name": "toReturnDate", "value": $("#toReturnDate").val() });
+                },
+            });
+        });
+        function returntransit(element) {
+            var id = $(element).attr('id');
+            Sppiner();
+            var url = "@Url.Action("ReturnTransit", "Transit")";
+            var containerholder = $("#content");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: url,
+                data: { "id": id },
+                success: function (data) {
+                    containerholder.html('');
+                    containerholder.html(data);
+                    spinner.stop();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + xhr.responseText);
+                    spinner.stop();
+                }
+            });
+        };
+</script>

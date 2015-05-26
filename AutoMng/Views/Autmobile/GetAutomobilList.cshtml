@@ -1,0 +1,51 @@
+﻿@model List<AutomobilMng.Models.AutomobileModel>
+    @foreach (var item in Model)
+    {
+        <div class="itemdiv commentdiv">
+            <div class="user">
+                <img  src="@Url.Content("~/AutomobilImages/" + item.Automobile.ImageAddress)" />
+            </div>
+
+            <div class="body">
+                <div class="name">
+                    @AVAResource.Resource.Mobil_Plaque  :
+                    <a href="#">@item.Automobile.Plaque</a> 
+                    @AVAResource.Resource.Mobil_Chassis  :
+                    <a>@item.Automobile.Chassis</a>
+                    @AVAResource.Resource.Mobile_Date_Buy :
+                    <a>@item.PersianDateBuy</a>
+                    @AVAResource.Resource.Mobile_Color :
+                    <a>@item.Automobile.Color</a>
+                    @AVAResource.Resource.Mobil_Maintenance_Department  :
+                    <a>@item.Automobile.Department</a>
+                    @AVAResource.Resource.Mobile_Model :
+                    <a>@item.Automobile.Model</a>
+                </div>
+            
+
+                <div class="time">
+                    <i class="icon-time"></i>
+                    @AVAResource.Resource.Mobile_Last_Service :
+                    <span class="red">@item.PersianLastService</span>
+                </div>
+            </div>
+
+            <div class="tools">
+                <a href="#" class="btn btn-minier btn-info" id=@item.Automobile.ID onclick="onedit(this)">
+                    <i class="icon-only icon-pencil"></i>
+                </a>
+
+                <a href="#" class="btn btn-minier btn-danger">
+                    <i class="icon-only icon-trash"></i>
+                </a>
+            </div>
+        </div>
+    }
+
+    <script>
+        $(function () {
+            $('.dialogs,.comments').slimScroll({
+                height: 'auto'
+            });
+        })
+    </script>

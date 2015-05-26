@@ -1,0 +1,297 @@
+﻿@model AutomobilMng.Models.RepairModel
+@{
+    AjaxOptions options = new AjaxOptions();
+    options.HttpMethod = "POST";
+    options.OnBegin = "OnBegin";
+    options.OnComplete = "OnComplete";
+    options.OnFailure = "OnFailure";
+    options.OnSuccess = "OnSuccess";
+    options.LoadingElementId = "2";
+    options.LoadingElementDuration = 1000;
+    options.UpdateTargetId = "d";
+    options.InsertionMode = InsertionMode.Replace;
+}
+<div class="span12 widget-container-span">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h5>@AVAResource.Resource.Define_Repair</h5>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main ">
+                <link rel="stylesheet" href="~/Content/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.css" />
+                <script src="~/Scripts/NewFolder1/calendar.js" type="text/javascript"></script>
+                <script src="~/Scripts/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>
+                <form id="formdata" class="form-horizontal">
+
+                    @Html.HiddenFor(model => model.Repair.ID)
+                    @Html.HiddenFor(model => model.Repair.IncidentID)
+                    @Html.AntiForgeryToken()
+                    <div class="row-fluid  ">
+                        <div class="span6 @AVAResource.Resource.Pull_Dir">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Automobile</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.AutomobileID, Model.Automobiles, new { @class = "chzn-select" })
+                                    @Html.ValidationMessageFor(model => model.Repair.Automobile, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Driver</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.DriverID, Model.Drivers, new { @class = "chzn-select" })
+                                    @Html.ValidationMessageFor(model => model.Repair.Driver, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @*<div class="control-group">
+                                    <label class="control-label">@AVAResource.Resource.CommanderPerson</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(model => model.Repair.CommanderPerson, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Repair.CommanderPerson, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.CommanderPerson</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.DepartmentID, Model.Departments, new { @class = "chzn-select    " })
+                                    @Html.ValidationMessageFor(model => model.Repair.Department, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.DateRepair</label>
+                                <label class="controls">
+                                    <span class="block  input-icon @AVAResource.Resource.Input_icon">
+                                        <input type="text" class="form-control" id="exampleInput3" value=@Model.PersianDateRepair name="PersianReturnDate" placeholder=@AVAResource.Resource.DateRepair data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">ساعت</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.RepairHour, new { @class = "form-control", @style = "width:20px" })
+                                    دقیقه
+                                    @Html.TextBoxFor(model => model.RepairMinute, new { @class = "form-control", @style = "width:20px" })
+                                    @Html.ValidationMessageFor(model => model.RepairHour, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(model => model.RepairHour, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 ">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.InvoiceNo</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Repair.InvoiceNo, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Repair.InvoiceNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Wage</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Repair.Wage, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Repair.Wage, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.RepairmanDescription</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Repair.RepairmanDescription, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Repair.RepairmanDescription, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Workshop</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Repair.Workshop, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Repair.Workshop, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid  ">
+                        <div class="control-group">
+                            <label class="control-label">@AVAResource.Resource.ActionDescription</label>
+                            <div class="controls">
+                                @Html.TextAreaFor(model => model.Repair.ActionDescription, new { @class = "span12", @style = "height:60px" })
+                                @Html.ValidationMessageFor(model => model.Repair.ActionDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <label class="">@AVAResource.Resource.Description</label>
+                                @Html.TextAreaFor(model => model.Repair.Description, new { @class = "span12", @style = "height:60px" })
+                                @Html.ValidationMessageFor(model => model.Repair.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <h3 class="header smaller lighter green">
+                            <i class="icon-cogs"></i>
+                            @AVAResource.Resource.ConsumablePart
+                        </h3>
+                        <button id="addConsumablePart" type="button" class="btn btn-minier btn-purple fa fa-plus"> تعریف </button>
+                        @* <i id="addattendance" class=" btn btn-minier btn-purple fa fa-plus bigger-130"></i>*@
+                        <div class="hr hr-18 dotted hr-double"></div>
+
+                        <ul id="consumable_part_editor" style="list-style-type: none">
+                            @if (Model.ConsumablePartModels != null)
+                            {
+                                foreach (var consumablePart in Model.ConsumablePartModels)
+                                {
+                                    Html.RenderPartial("ConsumablePartEntryEditor", consumablePart);
+                                }
+                            }
+                        </ul>
+
+                    </div>
+                    <div class="hr hr-18 dotted hr-double"></div>
+                    <div class="row-fluid  ">
+                        <button class=" btn btn-small btn-primary" type="button" onclick="addrepair()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Save
+                        </button>
+                        <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Cancel
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#consumable_part_editor").sortable();
+        $("#addConsumablePart").click(function () {
+            $.get('/Repair/ConsumablePartEntryEditor', function (template) {
+                $("#consumable_part_editor").append(template);
+            });
+        });
+    });
+
+    function addrepair() {
+        var incidentID = $('#Repair_IncidentID').val();
+        //  alert(incidentID);
+        var fd = new FormData($('#formdata')[0]);
+        var containerholder = $("#content");
+        Sppiner();
+        $.ajax({
+            type: "POST",
+            url: "/Repair/New",
+            data: fd,
+            datatype: "json",
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+                $('#table').DataTable().ajax.reload();
+                $.get("IncidentRepairs?incidentid=" + incidentID, function (repairs) {
+                    var element = $('.details_' + incidentID);
+                    element.html('<td class="details_' + incidentID + '" colspan="6">' + repairs + '</td>');
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('#table').DataTable().ajax.reload();
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+
+            }
+        });
+    }
+    $(".chzn-select").chosen();
+    function cancel() {
+        var containerholder = $("#content");
+        containerholder.html('');
+        containerholder.html(data);
+    }
+    $(function () {
+        $(document).ajaxComplete(function (event, request, settings) {
+            $.validator.unobtrusive.parse(document);
+        });
+    });
+    jQuery.browser = {};
+    $(function () {
+        var tag_input = $('#form-field-tags');
+        if (!(/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())))
+            tag_input.tag({ placeholder: tag_input.attr('placeholder') });
+        else {
+            //display a textarea for old IE, because it doesn't support this plugin or another one I tried!
+            tag_input.after('<textarea id="' + tag_input.attr('id') + '" name="' + tag_input.attr('name') + '" rows="3">' + tag_input.val() + '</textarea>').remove();
+            //$('#form-field-tags').autosize({append: "\n"});
+        }
+    })
+    $('#automobilelist').change(function () {
+        var url = "@Url.Action("GetDrivers", "Autmobile")";
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: { "automobileid": $(this).val() },
+            success: function (data) {
+                var items = '';
+                //var items = '<option>Select a State</option>';
+                $.each(data, function (i, state) {
+                    items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                    // state.Value cannot contain ' character. We are OK because state.Value = cnt++;
+                });
+                $('#driverlist').html(items);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+
+                alert("")
+            }
+        });
+
+    });
+    function OnBegin() {
+        Sppiner();
+    }
+    function OnComplete() {
+        spinner.stop();
+    }
+    function OnFailure(arg) {
+        spinner.stop();
+    }
+    function OnSuccess(result) {
+        var data = '';
+        if (result.success) {
+            data = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">' +
+           '<i class="icon-remove"></i></button><strong> <i class="icon-ok"></i></strong>' +
+          result.description +
+            '<br></div>'
+        }
+        else {
+            data = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">' +
+          '<i class="icon-remove"></i></button><strong>  <i class="icon-ok"></i></strong>' +
+           result.description +
+          '<br></div>'
+        }
+        $('#content').html(data);
+        $('#table').DataTable().ajax.reload();
+        spinner.stop();
+    }
+
+    function generate(type, text) {
+        var n = noty({
+            text: text,
+            type: type,
+            dismissQueue: false,
+            layout: 'topCenter',
+            theme: 'defaultTheme',
+        });
+        return n;
+    }
+</script>

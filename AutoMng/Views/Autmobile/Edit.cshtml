@@ -1,0 +1,380 @@
+﻿@model AutomobilMng.Models.AutomobileModel
+
+@{
+    AjaxOptions options = new AjaxOptions();
+    options.HttpMethod = "POST";
+    options.OnBegin = "OnBegin";
+    options.OnComplete = "OnComplete";
+    options.OnFailure = "OnFailure";
+    options.OnSuccess = "OnSuccess";
+    options.LoadingElementId = "2";
+    options.LoadingElementDuration = 1000;
+    options.UpdateTargetId = "d";
+    options.InsertionMode = InsertionMode.Replace;
+}
+<div class="span12 widget-container-span">
+    <div class="widget-box ">
+        <div class="widget-header">
+            <h6 class="lighter smaller">
+                @AVAResource.Resource.EditAutomobile
+ 
+            </h6>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+                <a href="#" data-action="close">
+                    <i class="icon-remove"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <link rel="stylesheet" href="~/Content/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.css" />
+                <script src="~/Scripts/NewFolder1/calendar.js" type="text/javascript"></script>
+                <script src="~/Scripts/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>
+                @*@using (Ajax.BeginForm("Edit", "Automobile", options, new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.Automobile.ID)
+                    @Html.HiddenFor(model => model.Automobile.LastService)
+                    @Html.AntiForgeryToken()
+                    <div class="row-fluid  ">
+                        <div class="span6 @AVAResource.Resource.Pull_Dir">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobil_Chassis</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Chassis, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Chassis, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobil_Plaque</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Plaque, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Plaque, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Model</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Model, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Model, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Volume_Tank</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.VolumeTank, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Automobile.VolumeTank, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Price</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Price, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Price, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Fual_Type</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.Automobile.FualType, Model.FualTypes, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Automobile.FualType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 ">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Color</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Color, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Color, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobil_Maintenance_Department</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Department, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Department, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Date_Buy</label>
+                                <label class="controls">
+                                    <span class="block input-icon @AVAResource.Resource.Input_icon ">
+                                        <input type="text" class="form-control" id="exampleInput3" value=@Model.PersianDateBuy name="PersianDateBuy" placeholder=@AVAResource.Resource.Mobile_Date_Buy data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Produce_Year</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.ProduceYear, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Automobile.ProduceYear, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Fual_Consum</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.FualConsume, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Automobile.FualConsume, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row-fluid  ">
+                        <button class=" btn btn-small btn-primary">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.New
+                        </button>
+                    </div>
+                }*@
+
+                <form id="formdata" class="form-horizontal">
+                    @Html.HiddenFor(model => model.Automobile.ID)
+                    @Html.HiddenFor(model => model.Automobile.LastService)
+                    @Html.HiddenFor(model => model.Automobile.ImageAddress)
+                    @*@Html.HiddenFor(model => model.Automobile.Department)*@
+                    @Html.AntiForgeryToken()
+                    <div class="row-fluid">
+
+                        <div class="span4 @AVAResource.Resource.Pull_Dir">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobil_Maintenance_Department</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.DepartmentID, Model.Departments, new { @class = "chzn-select    " })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Department, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobil_Chassis</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Chassis, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Chassis, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobil_Plaque</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Plaque, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Plaque, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Model</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Model, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Model, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Volume_Tank</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.VolumeTank, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.VolumeTank, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Price</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Price, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Price, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="span4 @AVAResource.Resource.Pull_Dir">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Fual_Type</label>
+                                <div class="controls ">
+                                    @Html.DropDownListFor(model => model.Automobile.FualType, Model.FualTypes, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.FualType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Fual_Consum</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.FualConsume, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.FualConsume, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Produce_Year</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.ProduceYear, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.ProduceYear, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.FuelCardNumber</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.FuelCard, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.FuelCard, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Color</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Automobile.Color, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Color, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Date_Buy</label>
+                                <label class="controls">
+                                    <span class="block  ">
+                                        <input type="text" style="width:120px" class="form-control" id="exampleInput3" value=@Model.PersianDateBuy name="PersianDateBuy" placeholder=@AVAResource.Resource.Mobile_Date_Buy data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="span4 ">
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Image</label>
+                                <div class="controls">
+                                    <img style="width:160px;height:160px" src="@Url.Content("~/AutomobilImages/" + Model.Automobile.ImageAddress)" />
+                                </div>
+                            </div>
+                       
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Image</label>
+                                <div class="controls">
+                                    <input name="zipfile" type="file" id="id-input-file" accept="image/*" />
+                                    @*@Html.TextBoxFor(m => m.MyFile, new { @id = "id-input-file", @type = "file", @name = "zipfile" })
+                            @Html.ValidationMessageFor(model => model.Automobile.Color, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+                     
+                        </div>
+                    </div>
+                    <div class="row-fluid  ">
+                        <button class=" btn btn-small btn-primary" type="button" onclick="editAutomobile()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Save
+                        </button>
+
+                        <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Cancel
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function cancel() {
+        var containerholder = $("#content");
+        containerholder.html('');
+    }
+    $(".chzn-select").chosen();
+    function editAutomobile() {
+        var fd = new FormData($('#formdata')[0]);
+        var containerholder = $("#content");
+        Sppiner();
+        $.ajax({
+            type: "POST",
+            url: "/Autmobile/Edit",
+            data: fd,
+            datatype: "json",
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+                $('#user-table').DataTable().ajax.reload();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+
+            }
+        });
+    }
+    function OnBegin() {
+        Sppiner();
+    }
+    function OnComplete() {
+        spinner.stop();
+    }
+    function OnFailure(arg) {
+        spinner.stop();
+    }
+    function OnSuccess(data) {
+        bootbox.dialog("Thank you! Your information was successfully saved!", [{
+            "label": "OK",
+            "class": "btn-small btn-primary",
+        }]
+                   );
+        $('#content').html(data);
+        $('#user-table').DataTable().ajax.reload();
+        spinner.stop();
+    }
+    $('#id-input-file').ace_file_input({
+        no_file: 'No File ...',
+        btn_choose: 'Choose',
+        btn_change: 'Change',
+        droppable: false,
+        onchange: null,
+        thumbnail: false //| true | large
+        //whitelist:'gif|png|jpg|jpeg'
+        //blacklist:'exe|php'
+        //onchange:''
+        //
+    });
+    //$('#id-input-file').ace_file_input({
+    //    style: 'well',
+    //    btn_choose: 'Drop files here or click to choose',
+    //    btn_change: null,
+    //    no_icon: 'icon-cloud-upload',
+    //    droppable: true,
+    //    thumbnail: 'small',
+    //    preview_error: function (filename, error_code) {
+    //    }
+    //}).on('change', function () {
+    //});
+
+    //$(function () {
+    //    btn_choose = "Drop images here or click to choose";
+    //    no_icon = "icon-picture";
+    //    before_change = function (files, dropped) {
+    //        var allowed_files = [];
+    //        for (var i = 0 ; i < files.length; i++) {
+    //            var file = files[i];
+    //            if (typeof file === "string") {
+    //                //IE8 and browsers that don't support File Object
+    //                if (!(/\.(jpe?g|png|gif|bmp)$/i).test(file)) return false;
+    //            }
+    //            else {
+    //                var type = $.trim(file.type);
+    //                if ((type.length > 0 && !(/^image\/(jpe?g|png|gif|bmp)$/i).test(type))
+    //                        || (type.length == 0 && !(/\.(jpe?g|png|gif|bmp)$/i).test(file.name))//for android's default browser which gives an empty string for file.type
+    //                    ) continue;//not an image so don't keep this file
+    //            }
+
+    //            allowed_files.push(file);
+    //        }
+    //        if (allowed_files.length == 0)
+    //            return false;
+    //        return allowed_files;
+    //    }
+    //    var file_input = $('#id-input-file');
+    //    file_input.ace_file_input('update_settings', {
+    //        'before_change': before_change, 'btn_choose': btn_choose, 'no_icon': no_icon, style: 'well', preview_error: function (filename, error_code) {
+    //        }
+    //    })
+    //    file_input.ace_file_input('reset_input');
+    //});
+</script>
