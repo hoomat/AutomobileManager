@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
+
     [Table("Driver")]
     public class Driver
     {
