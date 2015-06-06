@@ -30,7 +30,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Fuel-Show")]
         public ActionResult ShowFuels(int automobileid)
         {
-            var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileid);
+            var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileid);
             return PartialView("ShowFuels", automobile);
         }
 
@@ -194,7 +194,7 @@ namespace AutomobilMng.Controllers
                 model.FuelConsume.IdentityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
 
                 var automobileID = int.Parse(model.AutomobileID);
-                //var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == id);
+                //var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == id);
                 model.FuelConsume.AutomobileID = automobileID;
 
                 var driverid = int.Parse(model.DriverID);
@@ -265,7 +265,7 @@ namespace AutomobilMng.Controllers
                 model.FuelConsume.RefuelDate = persianDeliveryDate.ToDateTime();
 
                 var automobileID = int.Parse(model.AutomobileID);
-                //var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == id);
+                //var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == id);
                 model.FuelConsume.AutomobileID = automobileID;
 
                 var driverid = int.Parse(model.DriverID);

@@ -26,11 +26,11 @@ namespace AutomobilMng.Controllers
             string Path = Server.MapPath("~" + ("//Reports//Automobile.mrt"));
             report.Load(Path);
             report.Compile();
-         //   report["Automobile"] = applicationDbContext.Automobils.();
+         //   report["Automobile"] = applicationDbContext.Automobiles.();
             report.Dictionary.Clear();
             report["CurrentUser"] = User.Identity.Name;
             report["CurrentDt"] = new PersianDateTime(DateTime.Now).ToString("yyyy/MM/dd HH:mm:ss");
-            var aut=applicationDbContext.Automobils.ToList();
+            var aut=applicationDbContext.Automobiles.ToList();
             report.RegBusinessObject("Data",aut );
           //  report.Dictionary.Synchronize();
             return StiMvcViewer.GetReportSnapshotResult(HttpContext, report);

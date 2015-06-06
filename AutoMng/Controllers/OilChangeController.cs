@@ -30,7 +30,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "OilChange-Show")]
         public ActionResult ShowOilChanges(int automobileid)
         {
-            var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileid);
+            var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileid);
 
             var dic = LogAttribute.GetProperties<Automobile>(automobile, ((int)Subject.OilChangeShow).ToString(), "success");
             Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name,

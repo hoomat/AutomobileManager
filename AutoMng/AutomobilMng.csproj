@@ -254,7 +254,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AutomobilImages\IMG_6197.jpg" />
     <Content Include="Content\Ace\ace-responsive.min.css" />
     <Content Include="Content\Ace\ace-rtl.min.css" />
     <Content Include="Content\Ace\ace-skins.min.css" />
@@ -293,7 +292,6 @@
     <Content Include="Content\Images\back.gif" />
     <Content Include="Content\Images\calendar.png" />
     <Content Include="Content\Images\png.gif" />
-    <Content Include="Content\Images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Content\Images\ui-bg_flat_50_5c5c5c_40x100.png" />
     <Content Include="Content\Images\ui-bg_glass_40_ffc73d_1x400.png" />
     <Content Include="Content\Images\ui-bg_highlight-hard_20_0972a5_1x100.png" />
@@ -372,6 +370,7 @@
     <Content Include="Reports\Incident.mrt" />
     <Content Include="Reports\OilChange.mrt" />
     <Content Include="Bug Tracker.xlsx" />
+    <None Include="Properties\PublishProfiles\AutomobilePublish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Ace\jquery.slimscroll.min.js" />
     <Content Include="Scripts\additional-methods.min.js" />
@@ -581,8 +580,6 @@
     <Content Include="Views\FuelConsume\ShowFuels.cshtml" />
     <Content Include="Views\Incident\ShowIncidents.cshtml" />
     <Content Include="Views\OilChange\ShowOilChanges.cshtml" />
-    <Content Include="Views\Transit\ShowDriverTransits.cshtml" />
-    <Content Include="Views\Incident\ShowDriverIncidents.cshtml" />
     <Content Include="Views\Transit\ShowDepartmentTransits.cshtml" />
     <Content Include="Views\Incident\ShowDepartmentIncidents.cshtml" />
     <Content Include="Views\AutomobileClass\Delete.cshtml" />
@@ -603,6 +600,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="AutomobilImages\" />
     <Folder Include="Helpers\" />
     <Folder Include="Views\Repore\" />
   </ItemGroup>

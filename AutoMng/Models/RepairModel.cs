@@ -49,10 +49,10 @@ namespace AutomobilMng.Models
 
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
                 if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
-                    foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
+                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == user.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
                 else
-                    foreach (var automobil in db.Automobils.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
+                    foreach (var automobil in db.Automobiles.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
 
                 foreach (var department in db.Departments)
@@ -76,10 +76,10 @@ namespace AutomobilMng.Models
                
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
                 if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
-                    foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
+                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == user.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
                 else
-                    foreach (var automobil in db.Automobils.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
+                    foreach (var automobil in db.Automobiles.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
 
                 foreach (var department in db.Departments)
@@ -101,7 +101,7 @@ namespace AutomobilMng.Models
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
 
-                foreach (var automobil in db.Automobils.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
+                foreach (var automobil in db.Automobiles.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
                     Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
                 foreach (var automobildriver in db.Drivers)
                     Drivers.Add(new SelectListItem { Text = automobildriver.Name.ToString(), Value = automobildriver.ID.ToString() });
@@ -135,14 +135,14 @@ namespace AutomobilMng.Models
              
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
 
-                var automobils = db.Automobils.Where(item => item.ID != repair.Automobile.ID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available).ToList();
+                var automobils = db.Automobiles.Where(item => item.ID != repair.Automobile.ID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available).ToList();
                 Automobiles.Add(new SelectListItem { Text = repair.Automobile.Plaque.ToString(), Value = repair.Automobile.ID.ToString() });
 
                 if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
-                    foreach (var automobil in db.Automobils.Where(item =>item.ID!=repair.AutomobileID && item.DepartmentId == user.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
+                    foreach (var automobil in db.Automobiles.Where(item =>item.ID!=repair.AutomobileID && item.DepartmentId == user.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
                 else
-                    foreach (var automobil in db.Automobils.Where(item => item.ID != repair.AutomobileID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
+                    foreach (var automobil in db.Automobiles.Where(item => item.ID != repair.AutomobileID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
 
                 var drivers = db.Drivers.Where(item => item.ID != repair.Driver.ID).ToList();

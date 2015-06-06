@@ -26,7 +26,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Transit-Show")]
         public ActionResult ShowTransits(int automobileid)
         {
-            var automobile = applicationDbContext.Automobils.FirstOrDefault(item=>item.ID==automobileid);
+            var automobile = applicationDbContext.Automobiles.FirstOrDefault(item=>item.ID==automobileid);
             return PartialView("ShowTransits", automobile);
         }
 
@@ -374,7 +374,7 @@ namespace AutomobilMng.Controllers
 
                 var automobileID = int.Parse(model.AutomobileID);
                 transit.AutomobileID = automobileID;
-                var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileID);
+                var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileID);
                 automobile.AutomobileStatusId = (int)AutomobileStatusModel.Mission;
                 //var lastTransit = applicationDbContext.Transits.OrderByDescending(item => item.ID).Take(1); 
                 //if (lastTransit.Any())
@@ -436,7 +436,7 @@ namespace AutomobilMng.Controllers
                 }
 
             
-                var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == transit.AutomobileID);
+                var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == transit.AutomobileID);
                 automobile.AutomobileStatusId = (int)AutomobileStatusModel.Available;
                 applicationDbContext.SaveChanges();
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });

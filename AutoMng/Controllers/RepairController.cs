@@ -33,7 +33,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Repair-Show")]
         public ActionResult ShowRepairs(int automobileid)
         {
-            var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileid);
+            var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileid);
             return PartialView("ShowRepairs", automobile);
         }
 
@@ -288,7 +288,7 @@ namespace AutomobilMng.Controllers
         [AllowAnonymous]
         public ActionResult ChartRepairAutomobile()
         {
-            string[] categories = applicationDbContext.Automobils.Select(item => item.Plaque).ToArray();
+            string[] categories = applicationDbContext.Automobiles.Select(item => item.Plaque).ToArray();
             List<Series> Series = new List<Series>();
             List<object> listdata = new List<object>();
 
@@ -347,7 +347,7 @@ namespace AutomobilMng.Controllers
         [AllowAnonymous]
         public ActionResult RepairWorkshopReferral()
         {
-           // string[] categories = applicationDbContext.Automobils.Select(item => item.Plaque).ToArray();
+           // string[] categories = applicationDbContext.Automobiles.Select(item => item.Plaque).ToArray();
             List<Series> Series = new List<Series>();
             List<object> listdata = new List<object>();
             List<WorkshopReferralModel> filtered =

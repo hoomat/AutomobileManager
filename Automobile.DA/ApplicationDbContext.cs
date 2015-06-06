@@ -16,7 +16,7 @@ namespace DAL
 
         }
 
-        public virtual IDbSet<Automobile> Automobils { get; set; }
+        public virtual IDbSet<Automobile> Automobiles { get; set; }
 
         public virtual IDbSet<FualType> FualTypes { get; set; }
 

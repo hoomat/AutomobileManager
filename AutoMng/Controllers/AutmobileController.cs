@@ -37,7 +37,7 @@ namespace AutomobilMng.Controllers
 
         public ActionResult GetAutomobils(JQueryDataTableParamModel param)
         {
-            IQueryable<Automobile> automobils = applicationDbContext.Automobils.AsQueryable();
+            IQueryable<Automobile> automobils = applicationDbContext.Automobiles.AsQueryable();
             IEnumerable<Automobile> filtered;
             var plaqueSearch = Convert.ToString(Request["plaqueSearch"]);
             var chassisSearch = Convert.ToString(Request["chassisSearch"]);
@@ -113,7 +113,7 @@ namespace AutomobilMng.Controllers
             return Json(new
             {
                 sEcho = param.sEcho,
-                iTotalRecords = applicationDbContext.Automobils.Count(),
+                iTotalRecords = applicationDbContext.Automobiles.Count(),
                 iTotalDisplayRecords = filtered.Count(),
                 aaData = result
             },
@@ -142,12 +142,12 @@ namespace AutomobilMng.Controllers
                 
                 var persianDateTime = PersianDateTime.Parse(model.PersianDateBuy);
                 model.Automobile.DateBuy = persianDateTime.ToDateTime();
-                var search = applicationDbContext.Automobils.FirstOrDefault(item => item.Chassis == model.Automobile.Chassis);
+                var search = applicationDbContext.Automobiles.FirstOrDefault(item => item.Chassis == model.Automobile.Chassis);
                 if (search == null)
                 {
                     model.Automobile.AutomobileStatusId = 1;
                     model.Automobile.LastService = DateTime.Now;
-                    applicationDbContext.Automobils.Add(model.Automobile);
+                    applicationDbContext.Automobiles.Add(model.Automobile);
                     model.Automobile.IdentityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
                   //  model.Automobile.AutomobileDrivers = new List<AutomobileDriver>();
                     //if (model.SelectedDrivers != null)
@@ -220,7 +220,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Automobile-ChangeStatus")]
         public ActionResult ChangeStatus(int id)
         {
-            var automobile = applicationDbContext.Automobils.First(item => item.ID== id);
+            var automobile = applicationDbContext.Automobiles.First(item => item.ID== id);
             var model = new AutomobileModel(automobile);
             return PartialView("ChangeStatus", model);
         }
@@ -232,7 +232,7 @@ namespace AutomobilMng.Controllers
         {
             if (ModelState.IsValid)
             {
-              var auto=  applicationDbContext.Automobils.FirstOrDefault(item => item.ID == model.Automobile.ID);
+              var auto=  applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == model.Automobile.ID);
 
                 if (!string.IsNullOrWhiteSpace(model.StatusId))
                 {
@@ -257,7 +257,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Automobile-Edit")]
         public ActionResult Edit(int id)
         {
-            var automobile = applicationDbContext.Automobils.First(item => item.ID == id);
+            var automobile = applicationDbContext.Automobiles.First(item => item.ID == id);
             var model = new AutomobileModel(automobile);
             return PartialView("Edit", model);
         }
@@ -269,7 +269,7 @@ namespace AutomobilMng.Controllers
         {
             if (ModelState.IsValid)
             {
-                applicationDbContext.Automobils.Attach(model.Automobile);
+                applicationDbContext.Automobiles.Attach(model.Automobile);
                 var persianDateTime = PersianDateTime.Parse(model.PersianDateBuy);
                 model.Automobile.DateBuy = persianDateTime.ToDateTime();
                 if (!string.IsNullOrWhiteSpace(Request.Files[0].FileName))
@@ -335,7 +335,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Automobile-Delete")]
         public ActionResult Delete(int id )
         {
-            var automobil = applicationDbContext.Automobils.First(u => u.ID == id);
+            var automobil = applicationDbContext.Automobiles.First(u => u.ID == id);
             var model = new AutomobileModel(automobil);
             if (automobil == null)
             {
@@ -350,8 +350,8 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Automobile-Delete")]
         public ActionResult DeleteConfirmed(AutomobileModel model)
         {
-            var automobile = applicationDbContext.Automobils.First(u => u.ID == model.Automobile.ID);
-            applicationDbContext.Automobils.Remove(automobile);
+            var automobile = applicationDbContext.Automobiles.First(u => u.ID == model.Automobile.ID);
+            applicationDbContext.Automobiles.Remove(automobile);
             applicationDbContext.SaveChanges();
             var messageModel = new MessageModel { Code = 0, Message = "success" };
             return PartialView("MessageHandle", messageModel);
@@ -412,7 +412,7 @@ namespace AutomobilMng.Controllers
         public  List<AutomobileModel> GetAutomobilsPaging(int BlockNumber, int BlockSize)
         {
             int startIndex = (BlockNumber - 1) * BlockSize;
-            var automobiles = applicationDbContext.Automobils.OrderByDescending(item=>item.ID).Skip(startIndex).Take(BlockSize).ToList();
+            var automobiles = applicationDbContext.Automobiles.OrderByDescending(item=>item.ID).Skip(startIndex).Take(BlockSize).ToList();
             List<AutomobileModel> models = new List<AutomobileModel>();
             foreach (var auto in automobiles)
             {
@@ -434,7 +434,7 @@ namespace AutomobilMng.Controllers
            
             foreach (var category in categories.ToList())
             {
-                listdata.Add(applicationDbContext.Automobils.Count(item => item.Department.Name == category));
+                listdata.Add(applicationDbContext.Automobiles.Count(item => item.Department.Name == category));
             }
             Series.Add(new Series { Name = "تحویل دایمی", Data = new Data(listdata.ToArray()) });
             Highcharts chart = new Highcharts("chart") { }
@@ -589,7 +589,7 @@ namespace AutomobilMng.Controllers
 
         public List<AutomobileModel> GetAutomobilsPagingSearch(int BlockNumber, int BlockSize, string plaqueSearch)
         {
-            IQueryable<Automobile> automobils = applicationDbContext.Automobils.AsQueryable();
+            IQueryable<Automobile> automobils = applicationDbContext.Automobiles.AsQueryable();
             IEnumerable<Automobile> filtered;
 
             if (!string.IsNullOrWhiteSpace(plaqueSearch))
@@ -625,7 +625,7 @@ namespace AutomobilMng.Controllers
         ////Reporter actions
         public ActionResult FromLoadFileReport(string plaqueSearch, string chassisSearch, string modelSearch, string produceYear, string fualTypeSearch, string departmentSearch)
         {
-            IQueryable<Automobile> automobils = applicationDbContext.Automobils.AsQueryable();
+            IQueryable<Automobile> automobils = applicationDbContext.Automobiles.AsQueryable();
             IEnumerable<Automobile> filtered;
      
             if (!string.IsNullOrWhiteSpace(plaqueSearch))
@@ -660,7 +660,7 @@ namespace AutomobilMng.Controllers
             string Path = Server.MapPath("~" + ("//Reports//Automobile.mrt"));
             report.Load(Path);
             report.Compile();
-            //   report["Automobile"] = applicationDbContext.Automobils.();
+            //   report["Automobile"] = applicationDbContext.Automobiles.();
             report.Dictionary.Clear();
             report["CurrentUser"] = User.Identity.Name;
             report["CurrentDt"] = new PersianDateTime(DateTime.Now).ToString("yyyy/MM/dd HH:mm:ss");

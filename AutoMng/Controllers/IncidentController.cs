@@ -33,7 +33,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Incident-Show")]
         public ActionResult ShowIncidents(int automobileid)
         {
-            var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileid);
+            var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileid);
             return PartialView("ShowIncidents", automobile);
         }
 
