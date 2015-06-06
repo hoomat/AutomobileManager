@@ -120,7 +120,7 @@
                             <div class="control-group">
                                 <label class="control-label">@AVAResource.Resource.Mobile_Image</label>
                                 <div class="controls">
-                                    <input name="zipfile" type="file" id="id-input-file" size="5000000" accept="image/*" onchange="myFunction()" />
+                                    <input name="zipfile" type="file" id="id-input-file" size="512000" accept="image/jpeg" onchange="myFunction()" />
                                     <p id="message" style="color:red"></p>
                                     @*@Html.TextBoxFor(m => m.MyFile, new { @id = "id-input-file", @type = "file", @name = "zipfile" })
                             @Html.ValidationMessageFor(model => model.Automobile.Color, "", new { @class = "text-danger" })*@
