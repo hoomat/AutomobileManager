@@ -1,5 +1,6 @@
 ﻿using DAL;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 namespace UnitTest
 {
@@ -16,36 +17,10 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void AddDefaultsTest()
+        public void DefineAdministrator()
         {
-            using (var context = new ApplicationDbContext())
-            {
-                //    context.Database.CreateIfNotExists();
-                //   DefineAdministrator();
-                //  DefineFualType(context);
-                //  DefinePaymentType(context);
-                //  DefineTrafficCardType(context);
-                DefineDriverRole();
-                DefienDepartmentRole();
-                DefineTrafficCardRole();
-                DefineTrafficCardType(context);
-                DefineAutomobileRole();
-                DefineTransitRole();
-                DefineFuelRole();
-                DefineIncidentRole();
-                DefineRepairRole();
-                DefineOilChangeRole();
-                DefineUserRole();
-                context.SaveChanges();
-            }
-        }
-
-        [TestMethod]
-        bool DefineAdministrator()
-        {
-            bool success = false;
             var idManager = new IdentityManager();
-            success = idManager.CreateRole("Dashboard-Menu", "نمایش منوی داشبورد");
+            idManager.CreateRole("Dashboard-Menu", "نمایش منوی داشبورد");
             var newUser = new ApplicationUser()
             {
                 Id = "f0d11eca-c593-4816-8f2d-a1c8ddb350c1",
@@ -53,44 +28,64 @@ namespace UnitTest
                 FirstName = "مدیر",
                 LastName = "سیستم",
                 Email = "admin@system.com",
-                GroupId =1 
+                GroupId = 1
             };
-            success = idManager.CreateUser(newUser, "password1");
-            success = idManager.AddUserToRole(newUser.Id, "Dashboard-Menu");
-            return success;
+
+            idManager.CreateUser(newUser, "password1");
+            idManager.AddUserToRole(newUser.Id, "Dashboard-Menu");
         }
 
         [TestMethod]
-        public void DefineFualType(ApplicationDbContext context)
+        public void DefineFualType( )
         {
-            context.FualTypes.Add(new FualType { Value = "بنزین" });
-            context.FualTypes.Add(new FualType { Value = "نفت و گاز" });
-            context.FualTypes.Add(new FualType { Value = "گاز" });
-            context.FualTypes.Add(new FualType { Value = "برق" });
+            using (var context = new ApplicationDbContext())
+            {
+                if (context.FualTypes.FirstOrDefault(item => item.Value == "بنزین") == null)
+                    context.FualTypes.Add(new FualType { Value = "بنزین" });
+                if (context.FualTypes.FirstOrDefault(item => item.Value == "نفت و گاز") == null)
+                    context.FualTypes.Add(new FualType { Value = "نفت و گاز" });
+                if (context.FualTypes.FirstOrDefault(item => item.Value == "گاز") == null)
+                    context.FualTypes.Add(new FualType { Value = "گاز" });
+                if (context.FualTypes.FirstOrDefault(item => item.Value == "برق") == null)
+                    context.FualTypes.Add(new FualType { Value = "برق" });
+            }
         }
 
         [TestMethod]
-        void DefineTrafficCardType(ApplicationDbContext context)
+        void DefineTrafficCardType( )
         {
-            context.TrafficCardTypes.Add(new TrafficCardType { Value = "معمولی" });
+            using (var context = new ApplicationDbContext())
+            {
+                if (context.TrafficCardTypes.FirstOrDefault(item => item.Value == "شناور") == null)
+                    context.TrafficCardTypes.Add(new TrafficCardType { Value = "شناور" });
+                if (context.TrafficCardTypes.FirstOrDefault(item => item.Value == "سالیانه") == null)
+                    context.TrafficCardTypes.Add(new TrafficCardType { Value = "سالیانه" });
+            }
         }
 
         [TestMethod]
         public void DefinePartType()
         {
-            using (ApplicationDbContext context=new ApplicationDbContext())
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                context.PartTypes.Add(new PartType { Type = "مصرفی" });
-                context.PartTypes.Add(new PartType { Type = "تعویضی" });
+                if (context.PartTypes.FirstOrDefault(item => item.Type == "مصرفی") == null)
+                    context.PartTypes.Add(new PartType { Type = "مصرفی" });
+                if (context.PartTypes.FirstOrDefault(item => item.Type == "تعویضی") == null)
+                    context.PartTypes.Add(new PartType { Type = "تعویضی" });
                 context.SaveChanges();
             }
         }
 
         [TestMethod]
-        void DefinePaymentType(ApplicationDbContext context)
+        void DefinePaymentType( )
         {
-            context.PaymentTypes.Add(new PaymentType { Type = "کارت سوخت" });
-            context.PaymentTypes.Add(new PaymentType { Type = "آزاد" });
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                if (context.PaymentTypes.FirstOrDefault(item => item.Type == "کارت سوخت") == null)
+                    context.PaymentTypes.Add(new PaymentType { Type = "کارت سوخت" });
+                if (context.PaymentTypes.FirstOrDefault(item => item.Type == "آزاد") == null)
+                    context.PaymentTypes.Add(new PaymentType { Type = "آزاد" });
+            }
         }
 
         [TestMethod]
@@ -196,18 +191,19 @@ namespace UnitTest
         }
 
         [TestMethod]
-        bool DefineAutomobileRole()
+        public void DefineAutomobileRole()
         {
-            bool success = false;
+          
             var idManager = new IdentityManager();
 
             //Automobile roles
-            success = idManager.CreateRole("Automobile-Menu", "نمایش منوی خودرو");
-            success = idManager.CreateRole("Automobile-Show", "نمایش خودرو");
-            success = idManager.CreateRole("Automobile-New", "تعریف خودرو");
-            success = idManager.CreateRole("Automobile-Edit", "بروزرسانی خودرو");
-            success = idManager.CreateRole("Automobile-Delete", "حذف خودرو");
-            success = idManager.CreateRole("Automobile-Report", "گزارش خودرو");
+             idManager.CreateRole("Automobile-Menu", "نمایش منوی خودرو");
+             idManager.CreateRole("Automobile-Show", "نمایش خودرو");
+             idManager.CreateRole("Automobile-New", "تعریف خودرو");
+             idManager.CreateRole("Automobile-Edit", "بروزرسانی خودرو");
+             idManager.CreateRole("Automobile-Delete", "حذف خودرو");
+             idManager.CreateRole("Automobile-Report", "گزارش خودرو");
+             idManager.CreateRole("Automobile-UnDelivery-Show", "نمایش  خودروهای حاضر");
 
             var newUser = new ApplicationUser()
             {
@@ -222,14 +218,16 @@ namespace UnitTest
 
             //assign Automobile roles
             //assign Automobile roles
-            success = idManager.AddUserToRole(newUser.Id, "Automobile-Menu");
-            success = idManager.AddUserToRole(newUser.Id, "Automobile-Show");
-            success = idManager.AddUserToRole(newUser.Id, "Automobile-New");
-            success = idManager.AddUserToRole(newUser.Id, "Automobile-Edit");
-            success = idManager.AddUserToRole(newUser.Id, "Automobile-Delete");
-            success = idManager.AddUserToRole(newUser.Id, "Automobile-Report");
+             idManager.AddUserToRole(newUser.Id, "Automobile-Menu");
+             idManager.AddUserToRole(newUser.Id, "Automobile-Show");
+             idManager.AddUserToRole(newUser.Id, "Automobile-New");
+             idManager.AddUserToRole(newUser.Id, "Automobile-Edit");
+             idManager.AddUserToRole(newUser.Id, "Automobile-Delete");
+             idManager.AddUserToRole(newUser.Id, "Automobile-Report");
+             idManager.AddUserToRole(newUser.Id, "Automobile-UnDelivery-Show");
+             
 
-            return success;
+         
         }
 
         [TestMethod]
@@ -246,8 +244,8 @@ namespace UnitTest
              idManager.CreateRole("Transit-Edit", " بروزرسانی تردد");
              idManager.CreateRole("Transit-Delete", " حذف تردد");
              idManager.CreateRole("Transit-Report", " گزارش تردد");
-             idManager.CreateRole("Transit-UnDelivery-Show", "نمایش  ترددهای بدون برگشت");
-
+             idManager.CreateRole("Transit-UnReturn-Show", "نمایش  ترددهای بدون برگشت");
+     
 
             var newUser = new ApplicationUser()
             {
@@ -268,7 +266,7 @@ namespace UnitTest
              idManager.AddUserToRole(newUser.Id, "Transit-Edit");
              idManager.AddUserToRole(newUser.Id, "Transit-Delete");
              idManager.AddUserToRole(newUser.Id, "Transit-Report");
-             idManager.AddUserToRole(newUser.Id, "Transit-UnDelivery-Show");
+             idManager.AddUserToRole(newUser.Id, "Transit-UnReturn-Show");
 
          
         }
@@ -281,13 +279,13 @@ namespace UnitTest
 
             //Automobile roles
 
-            success = idManager.CreateRole("Fuel-Menu", "نمایش منوی سوخت");
-            success = idManager.CreateRole("Fuel-Show", "نمایش سوخت");
-            success = idManager.CreateRole("Fuel-New", "تعریف سوخت");
-            success = idManager.CreateRole("Fuel-Edit", "بروزرسانی سوخت");
-            success = idManager.CreateRole("Fuel-Delete", "حذف سوخت");
-            success = idManager.CreateRole("Fuel-Report", "گزارش سوخت");
-            success = idManager.CreateRole("Fuel-ReportCompareFuel", "گزارش مقایسه سوخت");
+             idManager.CreateRole("Fuel-Menu", "نمایش منوی سوخت");
+             idManager.CreateRole("Fuel-Show", "نمایش سوخت");
+             idManager.CreateRole("Fuel-New", "تعریف سوخت");
+             idManager.CreateRole("Fuel-Edit", "بروزرسانی سوخت");
+             idManager.CreateRole("Fuel-Delete", "حذف سوخت");
+             idManager.CreateRole("Fuel-Report", "گزارش سوخت");
+             idManager.CreateRole("Fuel-ReportCompareFuel", "گزارش مقایسه سوخت");
 
 
             var newUser = new ApplicationUser()
@@ -301,13 +299,13 @@ namespace UnitTest
             };
 
             //assign Automobile roles
-            success = idManager.AddUserToRole(newUser.Id, "Fuel-Menu");
-            success = idManager.AddUserToRole(newUser.Id, "Fuel-Show");
-            success = idManager.AddUserToRole(newUser.Id, "Fuel-New");
-            success = idManager.AddUserToRole(newUser.Id, "Fuel-Edit");
-            success = idManager.AddUserToRole(newUser.Id, "Fuel-Delete");
-            success = idManager.AddUserToRole(newUser.Id, "Fuel-Report");
-            success = idManager.AddUserToRole(newUser.Id, "Fuel-ReportCompareFuel");
+             idManager.AddUserToRole(newUser.Id, "Fuel-Menu");
+             idManager.AddUserToRole(newUser.Id, "Fuel-Show");
+             idManager.AddUserToRole(newUser.Id, "Fuel-New");
+             idManager.AddUserToRole(newUser.Id, "Fuel-Edit");
+             idManager.AddUserToRole(newUser.Id, "Fuel-Delete");
+             idManager.AddUserToRole(newUser.Id, "Fuel-Report");
+             idManager.AddUserToRole(newUser.Id, "Fuel-ReportCompareFuel");
 
             return success;
         }
@@ -315,15 +313,15 @@ namespace UnitTest
         [TestMethod]
         public void DefineIncidentRole()
         {
-            bool success = false;
+           
             var idManager = new IdentityManager();
 
-            success = idManager.CreateRole("Incident-Menu", "نمایش منوی تصادفات");
-            success = idManager.CreateRole("Incident-Show", "نمایش تصادفات");
-            success = idManager.CreateRole("Incident-New", "تعریف تصادفات");
-            success = idManager.CreateRole("Incident-Edit", "بروزرسانی تصادفات");
-            success = idManager.CreateRole("Incident-Delete", "حذف تصادفات");
-            success = idManager.CreateRole("Incident-Report", "گزارش تصادفات");
+             idManager.CreateRole("Incident-Menu", "نمایش منوی تصادفات");
+             idManager.CreateRole("Incident-Show", "نمایش تصادفات");
+             idManager.CreateRole("Incident-New", "تعریف تصادفات");
+             idManager.CreateRole("Incident-Edit", "بروزرسانی تصادفات");
+             idManager.CreateRole("Incident-Delete", "حذف تصادفات");
+             idManager.CreateRole("Incident-Report", "گزارش تصادفات");
 
             var newUser = new ApplicationUser()
             {
@@ -334,12 +332,12 @@ namespace UnitTest
                 Email = "jatten@typecastexception.com",
                 GroupId = 1
             };
-            success = idManager.AddUserToRole(newUser.Id, "Incident-Menu");
-            success = idManager.AddUserToRole(newUser.Id, "Incident-Show");
-            success = idManager.AddUserToRole(newUser.Id, "Incident-New");
-            success = idManager.AddUserToRole(newUser.Id, "Incident-Edit");
-            success = idManager.AddUserToRole(newUser.Id, "Incident-Delete");
-            success = idManager.AddUserToRole(newUser.Id, "Incident-Report");
+             idManager.AddUserToRole(newUser.Id, "Incident-Menu");
+             idManager.AddUserToRole(newUser.Id, "Incident-Show");
+             idManager.AddUserToRole(newUser.Id, "Incident-New");
+             idManager.AddUserToRole(newUser.Id, "Incident-Edit");
+             idManager.AddUserToRole(newUser.Id, "Incident-Delete");
+             idManager.AddUserToRole(newUser.Id, "Incident-Report");
 
         }
 
@@ -347,16 +345,16 @@ namespace UnitTest
         [TestMethod]
         public void DefineRepairRole()
         {
-            bool success = false;
+            
             var idManager = new IdentityManager();
 
 
             //Repair role
-            success = idManager.CreateRole("Repair-Menu", "نمایش منوی تعمیرات");
-            success = idManager.CreateRole("Repair-Show", "نمایش تعمیرات");
-            success = idManager.CreateRole("Repair-New", "تعریف تعمیرات");
-            success = idManager.CreateRole("Repair-Edit", "بروزرسانی تعمیرات");
-            success = idManager.CreateRole("Repair-Delete", "حذف تعمیرات");
+              idManager.CreateRole("Repair-Menu", "نمایش منوی تعمیرات");
+             idManager.CreateRole("Repair-Show", "نمایش تعمیرات");
+             idManager.CreateRole("Repair-New", "تعریف تعمیرات");
+             idManager.CreateRole("Repair-Edit", "بروزرسانی تعمیرات");
+             idManager.CreateRole("Repair-Delete", "حذف تعمیرات");
 
             var newUser = new ApplicationUser()
             {
@@ -368,11 +366,11 @@ namespace UnitTest
                 GroupId = 1
             };
             //assign Repair roles
-            success = idManager.AddUserToRole(newUser.Id, "Repair-Menu");
-            success = idManager.AddUserToRole(newUser.Id, "Repair-Show");
-            success = idManager.AddUserToRole(newUser.Id, "Repair-New");
-            success = idManager.AddUserToRole(newUser.Id, "Repair-Edit");
-            success = idManager.AddUserToRole(newUser.Id, "Repair-Delete");
+             idManager.AddUserToRole(newUser.Id, "Repair-Menu");
+             idManager.AddUserToRole(newUser.Id, "Repair-Show");
+             idManager.AddUserToRole(newUser.Id, "Repair-New");
+             idManager.AddUserToRole(newUser.Id, "Repair-Edit");
+             idManager.AddUserToRole(newUser.Id, "Repair-Delete");
 
         }
 
@@ -385,11 +383,11 @@ namespace UnitTest
 
 
             //OilChange role
-            success = idManager.CreateRole("OilChange-Menu", "نمایش منوی تعویض روغن");
-            success = idManager.CreateRole("OilChange-Show", "نمایش تعویض روغن");
-            success = idManager.CreateRole("OilChange-New", "تعریف تعویض روغن");
-            success = idManager.CreateRole("OilChange-Edit", "بروزرسانی تعویض روغن");
-            success = idManager.CreateRole("OilChange-Delete", "حذف تعویض روغن");
+             idManager.CreateRole("OilChange-Menu", "نمایش منوی تعویض روغن");
+             idManager.CreateRole("OilChange-Show", "نمایش تعویض روغن");
+             idManager.CreateRole("OilChange-New", "تعریف تعویض روغن");
+             idManager.CreateRole("OilChange-Edit", "بروزرسانی تعویض روغن");
+             idManager.CreateRole("OilChange-Delete", "حذف تعویض روغن");
 
             var newUser = new ApplicationUser()
             {
@@ -401,26 +399,26 @@ namespace UnitTest
                 GroupId = 1
             };
             //assign OilChange roles
-            success = idManager.AddUserToRole(newUser.Id, "OilChange-Menu");
-            success = idManager.AddUserToRole(newUser.Id, "OilChange-Show");
-            success = idManager.AddUserToRole(newUser.Id, "OilChange-New");
-            success = idManager.AddUserToRole(newUser.Id, "OilChange-Edit");
-            success = idManager.AddUserToRole(newUser.Id, "OilChange-Delete");
+             idManager.AddUserToRole(newUser.Id, "OilChange-Menu");
+             idManager.AddUserToRole(newUser.Id, "OilChange-Show");
+             idManager.AddUserToRole(newUser.Id, "OilChange-New");
+             idManager.AddUserToRole(newUser.Id, "OilChange-Edit");
+             idManager.AddUserToRole(newUser.Id, "OilChange-Delete");
 
         }
 
         [TestMethod]
         public void DefineUserRole()
         {
-            bool success = false;
+            
             var idManager = new IdentityManager();
             //User role
-            success = idManager.CreateRole("User-Menu", "نمایش منوی کاربران");
-            success = idManager.CreateRole("User-Register", "تعریف کاربران");
-            success = idManager.CreateRole("User-Show", "نمایش کاربران");
-            success = idManager.CreateRole("User-Edit", "بروزرسانی کاربران");
-            success = idManager.CreateRole("User-Delete", "حذف کاربران");
-            success = idManager.CreateRole("User-Roles", "مجوزدهی کاربران");
+             idManager.CreateRole("User-Menu", "نمایش منوی کاربران");
+             idManager.CreateRole("User-Register", "تعریف کاربران");
+             idManager.CreateRole("User-Show", "نمایش کاربران");
+             idManager.CreateRole("User-Edit", "بروزرسانی کاربران");
+             idManager.CreateRole("User-Delete", "حذف کاربران");
+             idManager.CreateRole("User-Roles", "مجوزدهی کاربران");
 
             var newUser = new ApplicationUser()
             {
@@ -433,23 +431,23 @@ namespace UnitTest
             };
 
             //assign User roles
-            success = idManager.AddUserToRole(newUser.Id, "User-Menu");
-            success = idManager.AddUserToRole(newUser.Id, "User-Register");
-            success = idManager.AddUserToRole(newUser.Id, "User-Show");
-            success = idManager.AddUserToRole(newUser.Id, "User-Edit");
-            success = idManager.AddUserToRole(newUser.Id, "User-Delete");
-            success = idManager.AddUserToRole(newUser.Id, "User-Roles");
+             idManager.AddUserToRole(newUser.Id, "User-Menu");
+             idManager.AddUserToRole(newUser.Id, "User-Register");
+             idManager.AddUserToRole(newUser.Id, "User-Show");
+             idManager.AddUserToRole(newUser.Id, "User-Edit");
+             idManager.AddUserToRole(newUser.Id, "User-Delete");
+             idManager.AddUserToRole(newUser.Id, "User-Roles");
 
         }
 
         [TestMethod]
         public void DefineSettingRole()
         {
-            bool success = false;
+          
             var idManager = new IdentityManager();
             //User role
-            success = idManager.CreateRole("Show-Setting", "نمایش تنظیمات");
-            success = idManager.CreateRole("Save-Setting", "ذخیره تنظیمات");
+             idManager.CreateRole("Show-Setting", "نمایش تنظیمات");
+             idManager.CreateRole("Save-Setting", "ذخیره تنظیمات");
 
 
             var newUser = new ApplicationUser()
@@ -463,8 +461,8 @@ namespace UnitTest
             };
 
             //assign User roles
-            success = idManager.AddUserToRole(newUser.Id, "Show-Setting");
-            success = idManager.AddUserToRole(newUser.Id, "Save-Setting");
+             idManager.AddUserToRole(newUser.Id, "Show-Setting");
+             idManager.AddUserToRole(newUser.Id, "Save-Setting");
  
         }
 
@@ -473,10 +471,14 @@ namespace UnitTest
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                db.Groups.Add(new Group { Id = 1, Name = "DirectorGeneral", Title = "مدیر کل" });
-                db.Groups.Add(new Group { Id = 2, Name = "OfficeManager", Title = "مدیر اداره" });
-                db.Groups.Add(new Group { Id = 3, Name = "User", Title = "کاربر" });
-                db.Groups.Add(new Group { Id = 4, Name = "StuckReport", Title = "گزارش گیر" });
+                if (db.Groups.FirstOrDefault(item => item.Id == 1) == null)
+                    db.Groups.Add(new Group { Id = 1, Name = "DirectorGeneral", Title = "مدیر کل" });
+                if (db.Groups.FirstOrDefault(item => item.Id == 2) == null)
+                    db.Groups.Add(new Group { Id = 2, Name = "OfficeManager", Title = "مدیر اداره" });
+                if (db.Groups.FirstOrDefault(item => item.Id == 3) == null)
+                    db.Groups.Add(new Group { Id = 3, Name = "User", Title = "کاربر" });
+                if (db.Groups.FirstOrDefault(item => item.Id == 5) == null)
+                    db.Groups.Add(new Group { Id = 4, Name = "StuckReport", Title = "گزارش گیر" });
 
                 db.SaveChanges();
             }
@@ -490,7 +492,200 @@ namespace UnitTest
                 var group=db.Groups.FirstOrDefault(item=>item.Id==1);
                 foreach (var role in db.Roles)
                 {
-                    db.GroupRoles.Add(new GroupRole { GroupId = group.Id, RoleId = role.Id });
+                    if (db.GroupRoles.FirstOrDefault(item => item.RoleId == role.Id && item.GroupId == group.Id) == null)
+                        db.GroupRoles.Add(new GroupRole { GroupId = group.Id, RoleId = role.Id });
+                }
+                db.SaveChanges();
+            }
+        }
+
+        [TestMethod]
+        public void DefineOfficeManagerGroupRoles()
+        {
+            var roles = new List<string>();
+              roles.Add("TrafficCard-Menu");
+              roles.Add("TrafficCard-Show");
+              roles.Add("TrafficCard-New");
+              roles.Add("TrafficCard-Edit");
+              roles.Add("TrafficCard-Delete");
+
+              roles.Add("Automobile-Menu");
+              roles.Add("Automobile-Show");
+              roles.Add("Automobile-New");
+              roles.Add("Automobile-Edit");
+              roles.Add("Automobile-Delete");
+              roles.Add("Automobile-Report");
+              roles.Add("Automobile-UnDelivery-Show");
+            
+
+              roles.Add("Transit-Menu");
+              roles.Add("Transit-Show");
+              roles.Add("Transit-Delivery");
+              roles.Add("Transit-Return");
+              roles.Add("Transit-Edit");
+              roles.Add("Transit-Delete");
+              roles.Add("Transit-Report");
+              roles.Add("Transit-UnDelivery-Show");
+
+              roles.Add("Fuel-Menu");
+              roles.Add("Fuel-Show");
+              roles.Add("Fuel-New");
+              roles.Add("Fuel-Edit");
+              roles.Add("Fuel-Delete");
+              roles.Add("Fuel-Report");
+              roles.Add("Fuel-ReportCompareFuel");
+
+              roles.Add( "Incident-Menu");
+              roles.Add( "Incident-Show");
+              roles.Add( "Incident-New");
+              roles.Add( "Incident-Edit");
+              roles.Add( "Incident-Delete");
+              roles.Add( "Incident-Report");
+
+              roles.Add("Repair-Menu");
+              roles.Add("Repair-Show");
+              roles.Add("Repair-New");
+              roles.Add("Repair-Edit");
+              roles.Add("Repair-Delete");
+
+              roles.Add("OilChange-Menu");
+              roles.Add("OilChange-Show");
+              roles.Add("OilChange-New");
+              roles.Add("OilChange-Edit");
+              roles.Add("OilChange-Delete");
+
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var group = db.Groups.FirstOrDefault(item => item.Id == 2);
+                foreach (var role in roles)
+                {
+                    var rolefind = db.Roles.FirstOrDefault(item => item.Name == role);
+
+                    if (rolefind != null && db.GroupRoles.FirstOrDefault(item => item.RoleId == rolefind.Id && item.GroupId == group.Id) == null)
+                        db.GroupRoles.Add(new GroupRole { GroupId = group.Id, RoleId = rolefind.Id });
+                }
+                db.SaveChanges();
+            }
+        }
+
+        [TestMethod]
+        public void DefineUserGroupRoles()
+        {
+            var roles = new List<string>();
+            roles.Add("TrafficCard-Menu");
+            roles.Add("TrafficCard-Show");
+            roles.Add("TrafficCard-New");
+            roles.Add("TrafficCard-Edit");
+            roles.Add("TrafficCard-Delete");
+
+            roles.Add("Automobile-Menu");
+            roles.Add("Automobile-Show");
+            roles.Add("Automobile-New");
+            roles.Add("Automobile-Edit");
+            roles.Add("Automobile-Delete");
+            roles.Add("Automobile-Report");
+            roles.Add("Automobile-UnDelivery-Show");
+
+
+            roles.Add("Transit-Menu");
+            roles.Add("Transit-Show");
+            roles.Add("Transit-Delivery");
+            roles.Add("Transit-Return");
+            roles.Add("Transit-Edit");
+            roles.Add("Transit-Delete");
+            roles.Add("Transit-Report");
+            roles.Add("Transit-UnDelivery-Show");
+
+            roles.Add("Fuel-Menu");
+            roles.Add("Fuel-Show");
+            roles.Add("Fuel-New");
+            roles.Add("Fuel-Edit");
+            roles.Add("Fuel-Delete");
+            roles.Add("Fuel-Report");
+            roles.Add("Fuel-ReportCompareFuel");
+
+            roles.Add("Incident-Menu");
+            roles.Add("Incident-Show");
+            roles.Add("Incident-New");
+            roles.Add("Incident-Edit");
+            roles.Add("Incident-Delete");
+            roles.Add("Incident-Report");
+
+            roles.Add("Repair-Menu");
+            roles.Add("Repair-Show");
+            roles.Add("Repair-New");
+            roles.Add("Repair-Edit");
+            roles.Add("Repair-Delete");
+
+            roles.Add("OilChange-Menu");
+            roles.Add("OilChange-Show");
+            roles.Add("OilChange-New");
+            roles.Add("OilChange-Edit");
+            roles.Add("OilChange-Delete");
+
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var group = db.Groups.FirstOrDefault(item => item.Id == 3);
+                foreach (var role in roles)
+                {
+                    var rolefind = db.Roles.FirstOrDefault(item => item.Name == role);
+
+                    if (rolefind != null && db.GroupRoles.FirstOrDefault(item => item.RoleId == rolefind.Id && item.GroupId == group.Id) == null)
+                        db.GroupRoles.Add(new GroupRole { GroupId = group.Id, RoleId = rolefind.Id });
+                }
+                db.SaveChanges();
+            }
+        }
+
+        [TestMethod]
+        public void DefineReporterGroupRoles()
+        {
+            var roles = new List<string>();
+            roles.Add("TrafficCard-Menu");
+            roles.Add("TrafficCard-Show");
+     
+
+            roles.Add("Automobile-Menu");
+            roles.Add("Automobile-Show");
+      
+            roles.Add("Automobile-Report");
+            roles.Add("Automobile-UnDelivery-Show");
+
+
+            roles.Add("Transit-Menu");
+            roles.Add("Transit-Show");
+      
+            roles.Add("Transit-Report");
+            roles.Add("Transit-UnDelivery-Show");
+
+            roles.Add("Fuel-Menu");
+            roles.Add("Fuel-Show");
+           
+            roles.Add("Fuel-Report");
+            roles.Add("Fuel-ReportCompareFuel");
+
+            roles.Add("Incident-Menu");
+            roles.Add("Incident-Show");
+        
+            roles.Add("Incident-Report");
+
+            roles.Add("Repair-Menu");
+            roles.Add("Repair-Show");
+    
+
+            roles.Add("OilChange-Menu");
+            roles.Add("OilChange-Show");
+          
+
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var group = db.Groups.FirstOrDefault(item => item.Id == 4);
+                foreach (var role in roles)
+                {
+                    var rolefind = db.Roles.FirstOrDefault(item => item.Name == role);
+
+                    if (rolefind != null && db.GroupRoles.FirstOrDefault(item => item.RoleId == rolefind.Id && item.GroupId == group.Id) == null)
+                        db.GroupRoles.Add(new GroupRole { GroupId = group.Id, RoleId = rolefind.Id });
                 }
                 db.SaveChanges();
             }
