@@ -47,7 +47,7 @@ namespace AutomobilMng.Controllers
             var departmentSearch = Convert.ToString(Request["departmentSearch"]);
 
             var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
-            if (identityUser.GroupId != (int)GroupModel.DirectorGeneral)
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
                 automobils = automobils.Where(ivar => ivar.DepartmentId == identityUser.DepartmentId);
 
             if (!string.IsNullOrWhiteSpace(plaqueSearch))

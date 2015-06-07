@@ -1,5 +1,5 @@
 ﻿
-    <div class="row-fluid">
+<div class="row-fluid">
     <div class="breadcrumbs" id="breadcrumbs">
         <div class="btn-group @AVAResource.Resource.Pull_Dir ">
             <button id="new" class="btn btn @AVAResource.Resource.Pull_Dir">
@@ -12,78 +12,20 @@
             </button>
         </div>
     </div>
-    <div class="row-fluid " id="content">
-        <div class="row-fluid loader" data-initialize="loader" id="content">
-        </div>
+</div>
+<div class="row-fluid " id="content">
+    <div class="row-fluid loader" data-initialize="loader" id="content">
     </div>
-    <div class="table-header">
-        @AVAResource.Resource.List_OilChange
-    </div>
-    <table id="table" width="100%" class="table table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>@AVAResource.Resource.Mobil_Plaque</th>
-                <th>@AVAResource.Resource.Driver</th>
-                <th>@AVAResource.Resource.Mobil_Maintenance_Department</th>
-                <th>@AVAResource.Resource.ChangeDate</th>
-                <th>@AVAResource.Resource.TypeOil</th>
-                <th>@AVAResource.Resource.Workshop</th>
-                <th>@AVAResource.Resource.AirFilterChanged</th>
-                <th>@AVAResource.Resource.OilFilterChanged</th>
-              
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody></tbody>
-    </table>
+</div>
+<div class="row-fluid" id="listcontent">
+    @Html.Partial("List")
 </div>
     <script type="text/javascript">
-
         var spinner;
-        $(function () {
-            var oTable1 = $('#table').dataTable({
-                "bFilter": false,
-                "language": {
-                    "lengthMenu": "نمایش _MENU_ سطرها در صفحه",
-                    "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
-                    "info": "نمایش صفحه _PAGE_ از _PAGES_",
-                    "infoEmpty": "رکوردی وجود ندارد",
-                    "infoFiltered": "(فیلتر شده از _MAX_ رکورد )"
-                },
-                "bServerSide": true,
-                "sAjaxSource": "/OilChange/GetOilChanges",
-                "bProcessing": false,
-                "aoColumns": [
-			           null, null, null, null, null, null,
-                       { "bSortable": false },
-                       { "bSortable": false },
-                       { "bSortable": false }
-                ],
-                "fnCreatedRow": function (nRow, aData, iDataIndex) {
-                  
-                
-                    //if (aData[6] == "True") {
-                    //    $('td:eq(7)', nRow).html('<label><input type="checkbox" checked="checked" disabled="disabled" /><span class="lbl"></span></label>').addClass('center');
-                    //}
-                    //else { $('td:eq(7)', nRow).html('<label><input type="checkbox"  readonly="true" disabled="disabled"/><span class="lbl"></span></label>').addClass('center'); }
-                    $('td:eq(6)', nRow).html('<label><input type="checkbox" checked="' + 'true' + '" disabled="disabled" /><span class="lbl"></span></label>').addClass('center');
-                    $('td:eq(7)', nRow).html('<label><input type="checkbox" checked="' + aData[8] + '"disabled="disabled" /><span class="lbl"></span></label>').addClass('center');
-                    $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[8] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[8] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
-                },
-                "fnServerParams": function (aoData) {
-                    aoData.push({ "name": "driverSearch", "value": $("#driverSearch").val() });
-                    aoData.push({ "name": "departmentSearch", "value": $("#departmentSearch").val() });
-                    aoData.push({ "name": "plaqueSearch", "value": $("#plaqueSearch").val() });
-                },
-            });
-        })
-
         $('#search').click(function () {
             Sppiner();
             var containerholder = $("#content");
             var url = "@Url.Action("Search", "OilChange")";
-
             $.ajax({
                 cache: false,
                 type: "GET",
@@ -98,7 +40,6 @@
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert('Error: ' + xhr.statusText);
                     spinner.stop();
-
                 }
             });
 
@@ -123,66 +64,4 @@
             });
 
         });
-
-        function onedit(element) {
-            var id = $(element).attr('id');
-            Sppiner();
-            var url = "@Url.Action("Edit", "OilChange")";
-            var containerholder = $("#content");
-            $.ajax({
-                cache: false,
-                type: "GET",
-                url: url,
-                data: { "id": id },
-                success: function (data) {
-                    containerholder.html('');
-                    containerholder.html(data);
-                    spinner.stop();
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert('Error: ' + xhr.statusText);
-                    spinner.stop();
-                }
-            });
-        };
-
-        function ondelete(element) {
-            var id = $(element).attr('id');
-            Sppiner();
-            var url = "@Url.Action("Delete", "OilChange")";
-            var containerholder = $("#content");
-            $.ajax({
-                cache: false,
-                type: "GET",
-                url: url,
-                data: { "id": id },
-                success: function (data) {
-                    containerholder.html('');
-                    containerholder.html(data);
-                    spinner.stop();
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert('Error: ' + xhr.statusText);
-                    spinner.stop();
-                }
-            });
-        };
-     
-        function filterGlobal() {
-            $('#warrantdataTable').DataTable().search(
-                $('#global_filter').val(),
-                $('#global_regex').prop('checked'),
-                $('#global_smart').prop('checked')
-            ).draw();
-        }
-
-
-        function filterColumn(i) {
-            $('#table').DataTable().column(i).search(
-                $('#col' + i + '_filter').val(),
-                $('#col' + i + '_regex').prop('checked'),
-                $('#col' + i + '_smart').prop('checked')
-            ).draw();
-        }
-
 </script>

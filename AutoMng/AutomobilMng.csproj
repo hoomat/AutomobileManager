@@ -225,6 +225,7 @@
     <Compile Include="Models\JQueryDataTableParamModel.cs" />
     <Compile Include="Models\JsonModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\OilChangeSearchModel.cs" />
     <Compile Include="Models\RepiarReportModel.cs" />
     <Compile Include="Models\FuelSearchModel.cs" />
     <Compile Include="Models\SettingModel.cs" />
@@ -552,6 +553,7 @@
     <Content Include="Views\Transit\TransitUnDeliveryList.cshtml" />
     <Content Include="Views\Repair\ConsumablePartEntryEditor.cshtml" />
     <Content Include="Views\Setting\Index.cshtml" />
+    <Content Include="Views\OilChange\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

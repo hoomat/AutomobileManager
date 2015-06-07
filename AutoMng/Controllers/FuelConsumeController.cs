@@ -44,7 +44,7 @@ namespace AutomobilMng.Controllers
             IQueryable<FuelConsume> repairs = applicationDbContext.FuelConsumes.AsQueryable();
             IEnumerable<FuelConsume> filtered;
             var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
-            if (identityUser.GroupId != (int)GroupModel.DirectorGeneral)
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
                 repairs = repairs.Where(ivar => ivar.Automobile.DepartmentId == identityUser.DepartmentId);
 
             var automobile = Convert.ToString(Request["automobile"]);
@@ -111,7 +111,7 @@ namespace AutomobilMng.Controllers
             IQueryable<FuelConsume> fuelConsumes = applicationDbContext.FuelConsumes.AsQueryable();
            
             var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
-            if (identityUser.GroupId != (int)GroupModel.DirectorGeneral)
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
                 fuelConsumes = fuelConsumes.Where(ivar => ivar.Automobile.ID == identityUser.DepartmentId);
 
             var automobile = Convert.ToString(Request["automobile"]);
@@ -321,7 +321,7 @@ namespace AutomobilMng.Controllers
             IQueryable<FuelConsume> fuelConsumes = applicationDbContext.FuelConsumes.AsQueryable();
 
             var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
-            if (identityUser.GroupId != (int)GroupModel.DirectorGeneral)
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
                 fuelConsumes = fuelConsumes.Where(ivar => ivar.Automobile.DepartmentId == identityUser.DepartmentId);
 
             IEnumerable<FuelConsume> filtered;
@@ -371,7 +371,7 @@ namespace AutomobilMng.Controllers
             IQueryable<FuelConsume> fuelConsumes = applicationDbContext.FuelConsumes.AsQueryable();
 
             var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
-            if (identityUser.GroupId != (int)GroupModel.DirectorGeneral)
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
                 fuelConsumes = fuelConsumes.Where(ivar => ivar.Automobile.DepartmentId == identityUser.DepartmentId);
 
          

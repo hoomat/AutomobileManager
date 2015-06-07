@@ -36,7 +36,7 @@ namespace AutomobilMng.Controllers
             IEnumerable<Repair> filtered;
 
             var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
-            if (identityUser.GroupId != (int)GroupModel.DirectorGeneral)
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
                 repairs = repairs.Where(ivar => ivar.Automobile.DepartmentId == identityUser.DepartmentId);
 
             var automobile = Convert.ToString(Request["automobile"]);
@@ -124,7 +124,7 @@ namespace AutomobilMng.Controllers
             IEnumerable<Repair> filtered;
 
             var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
-            if (identityUser.GroupId != (int)GroupModel.DirectorGeneral)
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
                 repairs = repairs.Where(ivar => ivar.Automobile.DepartmentId == identityUser.DepartmentId);
 
            // var automobile = Convert.ToString(Request["id"]);
@@ -421,7 +421,7 @@ namespace AutomobilMng.Controllers
             IQueryable<Repair> repairs = applicationDbContext.Repairs.AsQueryable();
 
             var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
-            if (identityUser.GroupId != (int)GroupModel.DirectorGeneral)
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
                 repairs = repairs.Where(ivar => ivar.Automobile.DepartmentId== identityUser.DepartmentId);
 
             IEnumerable<Repair> filtered;

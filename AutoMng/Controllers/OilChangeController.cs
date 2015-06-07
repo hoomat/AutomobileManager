@@ -22,19 +22,35 @@ namespace AutomobilMng.Controllers
             return View();
         }
 
+
+        [Authorize(Roles = "OilChange-Show")]
+        public ActionResult List()
+        {
+            return PartialView("List");
+        }
         public ActionResult GetOilChanges(JQueryDataTableParamModel param)
         {
             IQueryable<OilChange> oilChanges = applicationDbContext.OilChanges.AsQueryable();
+            var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
+                oilChanges = oilChanges.Where(ivar => ivar.Automobile.DepartmentId == identityUser.DepartmentId);
             IEnumerable<OilChange> filtered;
-            var driverSearch = Convert.ToString(Request["driverSearch"]);
-            var departmentSearch = Convert.ToString(Request["departmentSearch"]);
-            var plaqueSearch = Convert.ToString(Request["plaqueSearch"]);
-            if (!string.IsNullOrWhiteSpace(driverSearch))
-                oilChanges = oilChanges.Where(ivar => ivar.Driver.Name.Contains(driverSearch));
-            if (!string.IsNullOrWhiteSpace(departmentSearch))
-                oilChanges = oilChanges.Where(ivar => ivar.Department.Name.Contains(departmentSearch));
-            if (!string.IsNullOrWhiteSpace(plaqueSearch))
-                oilChanges = oilChanges.Where(ivar => ivar.Automobile.Plaque == plaqueSearch);
+            var automobile = Convert.ToString(Request["automobile"]);
+            var driver = Convert.ToString(Request["driver"]);
+
+
+
+            if (!string.IsNullOrWhiteSpace(automobile) && automobile != (-1).ToString())
+            {
+                var automobilid = int.Parse(automobile);
+                oilChanges = oilChanges.Where(ivar => ivar.AutomobileID == (automobilid));
+            }
+            if (!string.IsNullOrWhiteSpace(driver) && driver != (-1).ToString())
+            {
+                var driverid = int.Parse(driver);
+                oilChanges = oilChanges.Where(ivar => ivar.DriverID==(driverid));
+            }
+  
             filtered = oilChanges.ToList();
             var bSortable_1 = Convert.ToBoolean(Request["bSortable_1"]);
             var bSortable_2 = Convert.ToBoolean(Request["bSortable_2"]);
@@ -119,7 +135,7 @@ namespace AutomobilMng.Controllers
 
         public ActionResult Search()
         {
-            return PartialView("Search");
+            return PartialView("Search",new OilChangeSearchModel(this));
         }
 
         [Authorize(Roles = "OilChange-Edit")]

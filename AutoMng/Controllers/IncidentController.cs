@@ -36,7 +36,7 @@ namespace AutomobilMng.Controllers
             IQueryable<Incident> transits = applicationDbContext.Incidents.AsQueryable();
 
             var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
-            if (identityUser.GroupId != (int)GroupModel.DirectorGeneral)
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
                 transits = transits.Where(ivar => ivar.Automobile.DepartmentId == identityUser.DepartmentId);
 
             IEnumerable<Incident> filtered;

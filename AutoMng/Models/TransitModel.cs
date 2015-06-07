@@ -68,11 +68,12 @@ namespace AutomobilMng.Models
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
-                if (user.GroupId == (int)GroupModel.DirectorGeneral)
-                    foreach (var automobil in db.Automobils)
+                if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
+                        foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                   
                 else
-                    foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId))
+                    foreach (var automobil in db.Automobils)
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
 
                 foreach (var driver in db.Drivers)
@@ -146,11 +147,12 @@ namespace AutomobilMng.Models
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
 
                 if (user.GroupId == (int)GroupModel.DirectorGeneral)
-                    foreach (var automobil in db.Automobils.Where(item => item.ID != transit.Automobile.ID))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
-                else
-                    foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId && item.ID != transit.Automobile.ID))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
+                        foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId))
+                            Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    else
+                        foreach (var automobil in db.Automobils)
+                            Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
 
                 var drivers = db.Drivers.Where(item => item.ID != transit.Driver.ID).ToList();
                 Drivers.Add(new SelectListItem { Text = transit.Driver.Name.ToString(), Value = transit.Driver.ID.ToString() });
@@ -215,11 +217,13 @@ namespace AutomobilMng.Models
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
-                if (user.GroupId == (int)GroupModel.DirectorGeneral)
-                    foreach (var automobil in db.Automobils.Where(item => item.Transits.Any(transit => transit.ReturnDate != null)))
+                if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
+                     foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId && item.Transits.Any(transit => transit.ReturnDate != null)))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+
+               
                 else
-                    foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId && item.Transits.Any(transit => transit.ReturnDate != null)))
+                    foreach (var automobil in db.Automobils.Where(item => item.Transits.Any(transit => transit.ReturnDate != null)))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
 
                 foreach (var driver in db.Drivers)
@@ -282,11 +286,13 @@ namespace AutomobilMng.Models
                 Automobiles.Add(new SelectListItem { Text = transit.Automobile.Plaque.ToString(), Value = transit.Automobile.ID.ToString() });
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
 
-                if (user.GroupId == (int)GroupModel.DirectorGeneral)
-                    foreach (var automobil in db.Automobils.Where(item => item.ID != transit.Automobile.ID))
+                if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
+                    foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId && item.ID != transit.Automobile.ID))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
                 else
-                    foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId && item.ID != transit.Automobile.ID))
+
+
+                        foreach (var automobil in db.Automobils.Where(item => item.ID != transit.Automobile.ID))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
 
                 var drivers = db.Drivers.Where(item => item.ID != transit.Driver.ID).ToList();
