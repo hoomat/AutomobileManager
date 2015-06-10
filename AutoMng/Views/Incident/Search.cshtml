@@ -14,6 +14,9 @@
         </div>
         <div class="widget-body">
             <div class="widget-main">
+                <link rel="stylesheet" href="~/Content/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.css" />
+<script src="~/Scripts/NewFolder1/calendar.js" type="text/javascript"></script>
+<script src="~/Scripts/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>
                 <form class="form-search" id="formdata">
                     @Html.AntiForgeryToken()
                     <fieldset>
@@ -50,11 +53,18 @@
                     </fieldset>
                 </form>
                 <div class="row-fluid  ">
-                    <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                    <button class=" btn btn-small btn-primary" id="show" type="button">
                         <i class="icon-edit "></i>
-                        @AVAResource.Resource.Cancel
+                        نمایش
                     </button>
-                </div>
+                    <button class=" btn btn-small btn" id="report" type="button">
+                        <i class="icon-edit "></i>
+                        گزارش
+                        <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Cancel
+                        </button>
+</div>
             </div>
         </div>
     </div>
@@ -78,12 +88,56 @@
         filterColumn(id);
     });
     function filterColumn(i) {
-        
-        $('#table').DataTable().column(i).search(
+        $('#incidenttable').DataTable().column(i).search(
             $('#col' + i + '_filter').val(),
             $('#col' + i + '_regex').prop('checked'),
             $('#col' + i + '_smart').prop('checked')
         ).draw();
     }
+    $('#report').click(function () {
+        Sppiner();
+        var url = "@Url.Action("Report", "Incident")";
+        var containerholder = $("#listcontent");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: {
+                automobile: $('#automobile').val(),
+                driver: $('#driver').val(),
+                fromPersianIncidentDate: $('#fromPersianIncidentDate').val(),
+                toPersianIncidentDate: $('#toPersianIncidentDate').val(),
 
+            },
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    });
+
+    $('#show').click(function () {
+        Sppiner();
+        var url = "@Url.Action("List", "Incident")";
+        var containerholder = $("#listcontent");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    });
 </script>

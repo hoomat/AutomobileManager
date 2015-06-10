@@ -1,6 +1,8 @@
 ﻿using AutomobilMng.Models;
 using DAL;
 using MD.PersianDateTime;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -210,6 +212,71 @@ namespace AutomobilMng.Controllers
             }
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
            
+        }
+
+
+
+        [Authorize(Roles = "OilChange-Report")]
+        public ActionResult Report(string automobile, string driver)
+        {
+            ViewBag.automobile = automobile;
+            ViewBag.driver = driver;
+            return PartialView("Report");
+        }
+        public ActionResult FromLoadFileReport(string automobile, string driver)
+        {
+            IQueryable<OilChange> repairs = applicationDbContext.OilChanges.AsQueryable();
+
+            var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
+                repairs = repairs.Where(ivar => ivar.Automobile.DepartmentId == identityUser.DepartmentId);
+
+            IEnumerable<OilChange> filtered;
+
+            if (!string.IsNullOrWhiteSpace(automobile) && automobile != (-1).ToString())
+            {
+                var automobileid = int.Parse(automobile);
+                repairs = repairs.Where(ivar => ivar.AutomobileID == automobileid);
+            }
+
+            if (!string.IsNullOrWhiteSpace(driver) && driver != (-1).ToString())
+            {
+                var driverid = int.Parse(driver);
+                repairs = repairs.Where(ivar => ivar.DriverID == driverid);
+            }
+        
+
+            filtered = repairs.ToList();
+
+
+            StiReport report = new StiReport();
+            string Path = Server.MapPath("~" + ("//Reports//OilChange.mrt"));
+            report.Load(Path);
+            report.Compile();
+            report.Dictionary.Clear();
+            report["CurrentUser"] = User.Identity.Name;
+            report["CurrentDt"] = new PersianDateTime(DateTime.Now).ToString("yyyy/MM/dd HH:mm:ss");
+            var aut = filtered;
+            report.RegBusinessObject("Data", filtered.Select(item => new OilChangeReportModel
+            {
+                Automobile = item.Automobile.Plaque,
+                CaseChange = (item.OilFilterChanged? "فیلتر هوا":"" )+( item.AirFilterChanged?"فیلتر روغن":""),
+                DateChange = new PersianDateTime(item.ChangeDate).ToString("yyyy/MM/dd"),
+                Driver = item.Driver.Name,
+                Workshop = item.Workshop,
+                OilType=item.TypeOil
+            }).ToList());
+            return StiMvcViewer.GetReportSnapshotResult(HttpContext, report);
+        }
+        public ActionResult PrintReport()
+        {
+
+            return StiMvcViewer.PrintReportResult(this.HttpContext);
+
+        }
+        public ActionResult ExportReport()
+        {
+            return StiMvcViewer.ExportReportResult(this.HttpContext);
         }
     }
 }

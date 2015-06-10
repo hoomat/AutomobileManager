@@ -42,6 +42,9 @@ namespace AutomobilMng.Controllers
             IEnumerable<Incident> filtered;
             var automobile = Convert.ToString(Request["automobile"]);
             var driver = Convert.ToString(Request["driver"]);
+            var fromPersianIncidentDate = Convert.ToString(Request["fromPersianIncidentDate"]);
+            var toPersianIncidentDate = Convert.ToString(Request["toPersianIncidentDate"]);
+
             
 
             if (!string.IsNullOrWhiteSpace(automobile) && automobile != (-1).ToString())
@@ -55,7 +58,17 @@ namespace AutomobilMng.Controllers
                 var driverid = int.Parse(driver);
                 transits = transits.Where(ivar => ivar.DriverID == driverid);
             }
-
+            if (!string.IsNullOrWhiteSpace(fromPersianIncidentDate))
+            {
+                var persianIncidentDate = PersianDateTime.Parse(fromPersianIncidentDate ).ToDateTime();
+                transits = transits.Where(ivar => ivar.IncidentDate >= persianIncidentDate);
+            }
+            if (!string.IsNullOrWhiteSpace(toPersianIncidentDate))
+            {
+               
+                var persianIncidentDate = PersianDateTime.Parse(toPersianIncidentDate).ToDateTime();
+                transits = transits.Where(ivar => ivar.IncidentDate <= persianIncidentDate);
+            }
             filtered = transits.ToList();
             var bSortable_1 = Convert.ToBoolean(Request["bSortable_1"]);
             var bSortable_2 = Convert.ToBoolean(Request["bSortable_2"]);
@@ -171,13 +184,83 @@ namespace AutomobilMng.Controllers
                 return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
-
-
-
         public ActionResult IncidentRepairs(int? incidentid)
         {
             var repairs = applicationDbContext.Repairs.Where(item=>item.IncidentID==incidentid);
             return PartialView(repairs);
+        }
+
+
+
+        [Authorize(Roles = "Incident-Report")]
+        public ActionResult Report(string automobile, string driver, string fromPersianIncidentDate, string toPersianIncidentDate)
+        {
+            ViewBag.automobile = automobile;
+            ViewBag.driver = driver;
+            ViewBag.toPersianIncidentDate = toPersianIncidentDate;
+            ViewBag.fromPersianIncidentDate = fromPersianIncidentDate;
+            return PartialView("Report");
+        }
+        public ActionResult FromLoadFileReport(string automobile, string driver , string fromPersianIncidentDate, string toPersianIncidentDate)
+        {
+            IQueryable<Incident> transits = applicationDbContext.Incidents.AsQueryable();
+
+            var identityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
+            if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
+                transits = transits.Where(ivar => ivar.Automobile.DepartmentId == identityUser.DepartmentId);
+
+            IEnumerable<Incident> filtered;
+
+            if (!string.IsNullOrWhiteSpace(automobile) && automobile != (-1).ToString())
+            {
+                var automobileid = int.Parse(automobile);
+                transits = transits.Where(ivar => ivar.AutomobileID == automobileid);
+            }
+
+            if (!string.IsNullOrWhiteSpace(driver) && driver != (-1).ToString())
+            {
+                var driverid = int.Parse(driver);
+                transits = transits.Where(ivar => ivar.DriverID == driverid);
+            }
+            if (!string.IsNullOrWhiteSpace(fromPersianIncidentDate))
+            {
+                var persianIncidentDate = PersianDateTime.Parse(fromPersianIncidentDate).ToDateTime();
+                transits = transits.Where(ivar => ivar.IncidentDate >= persianIncidentDate);
+            }
+            if (!string.IsNullOrWhiteSpace(toPersianIncidentDate))
+            {
+                var persianIncidentDate = PersianDateTime.Parse(toPersianIncidentDate).ToDateTime();
+                transits = transits.Where(ivar => ivar.IncidentDate <= persianIncidentDate);
+            }
+            filtered = transits.ToList();
+
+
+            StiReport report = new StiReport();
+            string Path = Server.MapPath("~" + ("//Reports//Incident.mrt"));
+            report.Load(Path);
+            report.Compile();
+            report.Dictionary.Clear();
+            report["CurrentUser"] = User.Identity.Name;
+            report["CurrentDt"] = new PersianDateTime(DateTime.Now).ToString("yyyy/MM/dd HH:mm:ss");
+            var aut = filtered;
+            report.RegBusinessObject("Data", filtered.Select(item => new IncidentReportModel
+            {
+                Automobile = item.Automobile.Plaque,
+                IncidentDate = new PersianDateTime(item.IncidentDate).ToString("yyyy/MM/dd"),
+                Driver = item.Driver.Name,
+                Description = item.Description
+            }).ToList());
+            return StiMvcViewer.GetReportSnapshotResult(HttpContext, report);
+        }
+        public ActionResult PrintReport()
+        {
+
+            return StiMvcViewer.PrintReportResult(this.HttpContext);
+
+        }
+        public ActionResult ExportReport()
+        {
+            return StiMvcViewer.ExportReportResult(this.HttpContext);
         }
 
     }

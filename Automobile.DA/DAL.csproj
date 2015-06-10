@@ -134,8 +134,33 @@
     <Compile Include="Migrations\201506051915305_db_14.Designer.cs">
       <DependentUpon>201506051915305_db_14.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506101818524_db_15.cs" />
+    <Compile Include="Migrations\201506101818524_db_15.Designer.cs">
+      <DependentUpon>201506101818524_db_15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506101858301_db_16.cs" />
+    <Compile Include="Migrations\201506101858301_db_16.Designer.cs">
+      <DependentUpon>201506101858301_db_16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506101923181_db_17.cs" />
+    <Compile Include="Migrations\201506101923181_db_17.Designer.cs">
+      <DependentUpon>201506101923181_db_17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506101924279_db_18.cs" />
+    <Compile Include="Migrations\201506101924279_db_18.Designer.cs">
+      <DependentUpon>201506101924279_db_18.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506101954362_db_19.cs" />
+    <Compile Include="Migrations\201506101954362_db_19.Designer.cs">
+      <DependentUpon>201506101954362_db_19.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506101955075_db_20.cs" />
+    <Compile Include="Migrations\201506101955075_db_20.Designer.cs">
+      <DependentUpon>201506101955075_db_20.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="AutomobileStatus.cs" />
     <Compile Include="TrafficCardType.cs" />
     <Compile Include="FualType.cs" />
     <Compile Include="FuelCard.cs" />
@@ -207,6 +232,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506051915305_db_14.resx">
       <DependentUpon>201506051915305_db_14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506101818524_db_15.resx">
+      <DependentUpon>201506101818524_db_15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506101858301_db_16.resx">
+      <DependentUpon>201506101858301_db_16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506101923181_db_17.resx">
+      <DependentUpon>201506101923181_db_17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506101924279_db_18.resx">
+      <DependentUpon>201506101924279_db_18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506101954362_db_19.resx">
+      <DependentUpon>201506101954362_db_19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506101955075_db_20.resx">
+      <DependentUpon>201506101955075_db_20.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

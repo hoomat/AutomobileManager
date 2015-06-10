@@ -54,6 +54,7 @@ namespace DAL
 
         public virtual IDbSet<ConsumablePart> ConsumableParts { get; set; }
 
+        public virtual IDbSet<AutomobileStatus> AutomobileStatus { get; set; }
 
         public virtual IDbSet<PartType> PartTypes { get; set; }
 

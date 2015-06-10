@@ -666,4 +666,7 @@
   <data name="SettingMngMenu" xml:space="preserve">
     <value>Setting</value>
   </data>
+  <data name="Mobile_Status" xml:space="preserve">
+    <value>Automobile Status</value>
+  </data>
 </root>

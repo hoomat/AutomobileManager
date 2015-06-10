@@ -1186,6 +1186,15 @@ namespace AVAResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automobile Status.
+        /// </summary>
+        public static string Mobile_Status {
+            get {
+                return ResourceManager.GetString("Mobile_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Volume Tank.
         /// </summary>
         public static string Mobile_Volume_Tank {

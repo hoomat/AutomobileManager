@@ -278,7 +278,6 @@ namespace AutomobilMng.Controllers
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
-        
         [AllowAnonymous]
         public ActionResult ChartRepairAutomobile()
         {
@@ -405,6 +404,8 @@ namespace AutomobilMng.Controllers
             return PartialView(chart);
         }
 
+
+
         [Authorize(Roles = "Transit-Report")]
         public ActionResult Report(string automobile, string driver, string commander, string workshop)
         {
@@ -414,8 +415,6 @@ namespace AutomobilMng.Controllers
             ViewBag.workshop = workshop;
             return PartialView("Report");
         }
-
-        ////Reporter actions
         public ActionResult FromLoadFileReport(string automobile, string driver, string commander, string workshop)
         {
             IQueryable<Repair> repairs = applicationDbContext.Repairs.AsQueryable();
@@ -468,8 +467,6 @@ namespace AutomobilMng.Controllers
             }).ToList());
             return StiMvcViewer.GetReportSnapshotResult(HttpContext, report);
         }
-
- 
         public ActionResult PrintReport()
         {
 

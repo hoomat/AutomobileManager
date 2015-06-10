@@ -51,12 +51,13 @@ namespace DAL
         public virtual Department Department { get; set; }
         public int DepartmentId { get; set; }
 
-        [Required(ErrorMessage = "کارت سوخت")]
-        [StringLength(250)]
         public string FuelCard { get; set; }
 
         public virtual IdentityUser IdentityUser { get; set; }
 
         public virtual ICollection<Transit> Transits { get; set; }
+
+        public virtual AutomobileStatus AutomobileStatus { get; set; }
+        public int? AutomobileStatusId { get; set; }
     }
 }

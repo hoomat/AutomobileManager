@@ -215,6 +215,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AutomobileModel.cs" />
     <Compile Include="Models\AutomobileReportModel.cs" />
+    <Compile Include="Models\AutomobileStatus.cs" />
     <Compile Include="Models\ConsumablePartModel.cs" />
     <Compile Include="Models\FuelCompareConsumeReportModel.cs" />
     <Compile Include="Models\FuelConsumeReportModel.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Models\JQueryDataTableParamModel.cs" />
     <Compile Include="Models\JsonModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\OilChangeReportModel.cs" />
     <Compile Include="Models\OilChangeSearchModel.cs" />
     <Compile Include="Models\RepiarReportModel.cs" />
     <Compile Include="Models\FuelSearchModel.cs" />
@@ -232,6 +234,7 @@
     <Compile Include="Models\TrafficCardModel.cs" />
     <Compile Include="Models\TransitDistanceModel.cs" />
     <Compile Include="Models\IncidentModel.cs" />
+    <Compile Include="Models\IncidentReportModel.cs" />
     <Compile Include="Models\TransitReportModel.cs" />
     <Compile Include="Models\RepiarSearchModel.cs" />
     <Compile Include="Models\TransitSearchModel.cs" />
@@ -356,8 +359,14 @@
     <Content Include="Reports\TestReport.mrt" />
     <Content Include="Reports\Report.mrt" />
     <Content Include="Reports\Automobile.mrt" />
+    <Content Include="Reports\Transit.mrt" />
+    <Content Include="Reports\TransitDistance.mrt" />
+    <Content Include="Reports\Repair.mrt" />
+    <Content Include="Reports\FuelCompareConsume.mrt" />
+    <Content Include="Reports\FuelConsume.mrt" />
+    <Content Include="Reports\Incident.mrt" />
+    <Content Include="Reports\OilChange.mrt" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\Ace\jquery.slimscroll.min.js" />
     <Content Include="Scripts\additional-methods.min.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -399,15 +408,18 @@
     <Content Include="Scripts\fuelux.tree.min.js" />
     <Content Include="Scripts\fuelux.wizard.min.js" />
     <Content Include="Scripts\highcharts.js" />
-    <Content Include="Scripts\jquery-2.1.3.js" />
-    <Content Include="Scripts\jquery-2.1.3.min.js" />
-    <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
     <Content Include="Scripts\jquery-ui.unobtrusive.js" />
     <Content Include="Scripts\jquery.autosize-min.js" />
     <Content Include="Scripts\jquery.bootstrap-duallistbox.min.js" />
+    <Content Include="Scripts\jquery.bpopup.js" />
+    <Content Include="Scripts\jquery.bpopup.min.js" />
     <Content Include="Scripts\jquery.dataTables.bootstrap.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.gritter.min.js" />
@@ -549,11 +561,14 @@
     <Content Include="Views\Department\List.cshtml" />
     <Content Include="Views\Transit\AttendanceEntryEditor.cshtml" />
     <Content Include="Views\Transit\ReturnTransit.cshtml" />
-    <Content Include="Views\Transit\TransitUnDelivery.cshtml" />
-    <Content Include="Views\Transit\TransitUnDeliveryList.cshtml" />
+    <Content Include="Views\Transit\TransitUnReturn.cshtml" />
+    <Content Include="Views\Transit\TransitUnReturnList.cshtml" />
     <Content Include="Views\Repair\ConsumablePartEntryEditor.cshtml" />
     <Content Include="Views\Setting\Index.cshtml" />
     <Content Include="Views\OilChange\List.cshtml" />
+    <Content Include="Views\OilChange\Report.cshtml" />
+    <Content Include="Views\Incident\Report.cshtml" />
+    <Content Include="Views\Transit\ShowTransits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,6 +10,7 @@ using Stimulsoft.Report.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,6 +22,13 @@ namespace AutomobilMng.Controllers
     public class TransitController : BaseController
     {
         ApplicationDbContext applicationDbContext = new ApplicationDbContext();
+
+
+        [Authorize(Roles = "Transit-Show")]
+        public ActionResult ShowTransits(int automobileid)
+        {
+            return PartialView("ShowTransits");
+        }
 
         [Authorize(Roles = "Transit-Show")]
         public ActionResult Index()
@@ -229,15 +237,15 @@ namespace AutomobilMng.Controllers
         }
 
 
-        [Authorize(Roles = "Transit-UnDelivery-Show")]
-        public ActionResult TransitUnDelivery()
+        [Authorize(Roles = "Transit-UnReturn-Show")]
+        public ActionResult TransitUnReturn()
         {
             ViewBag.MenuShow = AVAResource.Resource.TransitMngMenu;
-            ViewBag.Menu = "TransitUnDelivery";
+            ViewBag.Menu = "TransitUnReturn";
             return View();
         }
 
-        public ActionResult GetUnDeliveryTransits(JQueryDataTableParamModel param)
+        public ActionResult GetTransitUnReturn(JQueryDataTableParamModel param)
         {
             IQueryable<Transit> transits = applicationDbContext.Transits.AsQueryable();
 
@@ -327,7 +335,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Transit-Delivery")]
         public ActionResult DeliveryTransit()
         {
-            return PartialView("DeliveryTransit", new TransitDeliveryModel());
+            return PartialView("DeliveryTransit", new TransitDeliveryModel(this));
         }
 
         [HttpPost]
@@ -351,7 +359,8 @@ namespace AutomobilMng.Controllers
 
                 var automobileID = int.Parse(model.AutomobileID);
                 transit.AutomobileID = automobileID;
-
+                var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileID);
+                automobile.AutomobileStatusId = (int)AutomobileStatusModel.Mission;
                 //var lastTransit = applicationDbContext.Transits.OrderByDescending(item => item.ID).Take(1); 
                 //if (lastTransit.Any())
                 //    transit.Distance = transit.MileagAfterTrip - lastTransit.FirstOrDefault().MileagAfterTrip;
@@ -366,9 +375,13 @@ namespace AutomobilMng.Controllers
                     var cardTrafficID = int.Parse(model.CardTrafficID);
                     transit.TrafficCardID = cardTrafficID;
                 }
-
-                applicationDbContext.Transits.Add(transit);
-                applicationDbContext.SaveChanges();
+                try
+                {
+                    applicationDbContext.Transits.Add(transit);
+                    applicationDbContext.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {}
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
     
             }
@@ -655,8 +668,8 @@ namespace AutomobilMng.Controllers
                 DeliveryDate = new PersianDateTime(item.DeliveryDate).ToString("yyyy/MM/dd"),
                 ReturnDate = new PersianDateTime(item.ReturnDate).ToString("yyyy/MM/dd"),
                 Distance = item.Distance.Value,
-                Driver = item.Driver.Name,
-                TrafficCard = item.TrafficCard.NumberCard,
+                Driver = item.Driver==null?"":item.Driver.Name,
+                TrafficCard = item.TrafficCard==null?"":item.TrafficCard.NumberCard,
                 Department=item.Automobile.Department.Name
             }));
             return StiMvcViewer.GetReportSnapshotResult(HttpContext, report);

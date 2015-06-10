@@ -48,6 +48,36 @@ namespace UnitTest
                     context.FualTypes.Add(new FualType { Value = "گاز" });
                 if (context.FualTypes.FirstOrDefault(item => item.Value == "برق") == null)
                     context.FualTypes.Add(new FualType { Value = "برق" });
+
+                context.SaveChanges();
+            }
+        }
+
+
+
+        [TestMethod]
+        public void DefineAutomobileStatus()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                if (context.AutomobileStatus.FirstOrDefault(item => item.Status == "موجود") == null)
+                    context.AutomobileStatus.Add(new AutomobileStatus { Id = 1, Status = "موجود" });
+
+                if (context.AutomobileStatus.FirstOrDefault(item => item.Status == "غیر عملیاتی") == null)
+                    context.AutomobileStatus.Add(new AutomobileStatus { Id = 2, Status = "غیر عملیاتی" });
+
+                if (context.AutomobileStatus.FirstOrDefault(item => item.Status == "در حال تعمیر") == null)
+                    context.AutomobileStatus.Add(new AutomobileStatus { Id = 3, Status = "در حال تعمیر" });
+
+                if (context.AutomobileStatus.FirstOrDefault(item => item.Status == "ماموریت") == null)
+                    context.AutomobileStatus.Add(new AutomobileStatus { Id = 4, Status = "ماموریت" });
+
+                if (context.AutomobileStatus.FirstOrDefault(item => item.Status == "کارواش") == null)
+                    context.AutomobileStatus.Add(new AutomobileStatus { Id = 5, Status = "کارواش" });
+
+                if (context.AutomobileStatus.FirstOrDefault(item => item.Status == "واگذار شده") == null)
+                    context.AutomobileStatus.Add(new AutomobileStatus { Id = 6, Status = "واگذار شده" });
+                context.SaveChanges();                
             }
         }
 
@@ -60,6 +90,7 @@ namespace UnitTest
                     context.TrafficCardTypes.Add(new TrafficCardType { Value = "شناور" });
                 if (context.TrafficCardTypes.FirstOrDefault(item => item.Value == "سالیانه") == null)
                     context.TrafficCardTypes.Add(new TrafficCardType { Value = "سالیانه" });
+                context.SaveChanges();
             }
         }
 
@@ -85,6 +116,7 @@ namespace UnitTest
                     context.PaymentTypes.Add(new PaymentType { Type = "کارت سوخت" });
                 if (context.PaymentTypes.FirstOrDefault(item => item.Type == "آزاد") == null)
                     context.PaymentTypes.Add(new PaymentType { Type = "آزاد" });
+                context.SaveChanges();
             }
         }
 
@@ -388,7 +420,8 @@ namespace UnitTest
              idManager.CreateRole("OilChange-New", "تعریف تعویض روغن");
              idManager.CreateRole("OilChange-Edit", "بروزرسانی تعویض روغن");
              idManager.CreateRole("OilChange-Delete", "حذف تعویض روغن");
-
+             idManager.CreateRole("OilChange-Report", "گزارش تعویض روغن");
+            
             var newUser = new ApplicationUser()
             {
                 Id = "f0d11eca-c593-4816-8f2d-a1c8ddb350c1",
@@ -404,6 +437,7 @@ namespace UnitTest
              idManager.AddUserToRole(newUser.Id, "OilChange-New");
              idManager.AddUserToRole(newUser.Id, "OilChange-Edit");
              idManager.AddUserToRole(newUser.Id, "OilChange-Delete");
+             idManager.AddUserToRole(newUser.Id, "OilChange-Report");
 
         }
 

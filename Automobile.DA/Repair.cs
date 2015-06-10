@@ -20,25 +20,25 @@ namespace DAL
         public virtual Department Department { get; set; }
         public int? DepartmentId { get; set; }
 
-
-        // تاریخ و ساعت تعمیر
-        [Required(ErrorMessage = "زمان تعمیر الزامی است")]
+        // تاریخ و ساعت ارسال به تعمیرگاه
+        [Required(ErrorMessage = "*")]
         public DateTime DateRepair { get; set; }
 
+        // تاریخ و ساعت بازگشت از تعمیرگاه
+        public DateTime? DateReturnRepair { get; set; }
+
         // نام تعمیرگاه
-        [Required(ErrorMessage = "نام تعمیرگاه الزامی است")]
+        [Required(ErrorMessage = "*")]
         public string Workshop { get; set; }
 
         // شماره فاکتور تعمیرگاه
-        [Required(ErrorMessage = "شماره فاکتور الزامی است")]
+        [Required(ErrorMessage = "*")]
         public string InvoiceNo { get; set; }
 
         // هزینه کرد
-        
         public int? Cost { get; set; }
 
         // هزینه کرد
-
         public int? Wage { get; set; }
         //نظریه میکانیک
         public string RepairmanDescription { get; set; }

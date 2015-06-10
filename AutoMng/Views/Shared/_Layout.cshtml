@@ -12,7 +12,7 @@
     <link rel="stylesheet"  href="~/Content/Ace/font-awesome/4.2.0/css/font-awesome.min.css" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="~/Content/Ace/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery-ui-1.8.14.css" />
     <link rel="stylesheet" href="~/Content/fonts.googleapis.com.css" />
     <link rel="stylesheet" href="@Url.Content("~/Content/fonts-rtl.css")" />
 
@@ -37,7 +37,7 @@
 
    
     @*<script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>*@
-    <script src="~/Scripts/Ace/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
     <script src="~/Scripts/Ace/jquery.ui.touch-punch.min.js"></script>
     <script src="~/Scripts/Ace/jquery.slimscroll.min.js"></script>
  
@@ -185,9 +185,9 @@
                             </li>
                         }
                     }
-                    if (User.IsInRole("Transit-Menu") || User.IsInRole("Transit-Report") || User.IsInRole("Transit-UnDelivery-Show"))
+                    if (User.IsInRole("Transit-Menu") || User.IsInRole("Transit-Report") || User.IsInRole("Transit-UnReturn-Show"))
                     {
-                        if (ViewBag.Menu == "Transit" || ViewBag.Menu == "ReportTransit" || ViewBag.Menu == "ReportDistance" || ViewBag.Menu == "TransitUnDelivery")
+                        if (ViewBag.Menu == "Transit" || ViewBag.Menu == "ReportTransit" || ViewBag.Menu == "ReportDistance" || ViewBag.Menu == "TransitUnReturn")
                         {
                             <li class="active open">
                                 <a href="#" class="dropdown-toggle">
@@ -218,12 +218,12 @@
                                             </li>
                                         }
                                     }
-                                    @if (User.IsInRole("Transit-UnDelivery-Show"))
+                                    @if (User.IsInRole("Transit-UnReturn-Show"))
                                     {
-                                        if (ViewBag.Menu == "TransitUnDelivery")
+                                        if (ViewBag.Menu == "TransitUnReturn")
                                         {
                                             <li class="active">
-                                                <a href="/Transit/TransitUnDelivery">
+                                                <a href="/Transit/TransitUnReturn">
                                                     <i class="icon-refresh"></i>
                                                     <span class="menu-text"> @AVAResource.Resource.TransitUnDeliveryMenu </span>
                                                 </a>
@@ -232,7 +232,7 @@
                                         else
                                         {
                                             <li>
-                                                <a href="/Transit/TransitUnDelivery">
+                                                <a href="/Transit/TransitUnReturn">
                                                     <i class="icon-refresh"></i>
                                                     <span class="menu-text"> @AVAResource.Resource.TransitUnDeliveryMenu </span>
                                                 </a>
@@ -316,12 +316,12 @@
                                             </li>
                                         }
                                     }
-                                    @if (User.IsInRole("Transit-UnDelivery-Show"))
+                                    @if (User.IsInRole("Transit-UnReturn-Show"))
                                     {
-                                        if (ViewBag.Menu == "TransitUnDelivery")
+                                        if (ViewBag.Menu == "TransitUnReturn")
                                         {
                                             <li class="active">
-                                                <a href="/Transit/TransitUnDelivery">
+                                                <a href="/Transit/TransitUnReturn">
                                                     <i class="icon-refresh"></i>
                                                     <span class="menu-text"> @AVAResource.Resource.TransitUnDeliveryMenu </span>
                                                 </a>
@@ -330,7 +330,7 @@
                                         else
                                         {
                                             <li>
-                                                <a href="/Transit/TransitUnDelivery">
+                                                <a href="/Transit/TransitUnReturn">
                                                     <i class="icon-refresh"></i>
                                                     <span class="menu-text"> @AVAResource.Resource.TransitUnDeliveryMenu </span>
                                                 </a>

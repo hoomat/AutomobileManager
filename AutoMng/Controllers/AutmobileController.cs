@@ -89,7 +89,6 @@ namespace AutomobilMng.Controllers
             var resultlist = filtered.Skip(param.iDisplayStart).Take(param.iDisplayLength);
             var result = from c in resultlist
                          select new[] {
-                         
                              c.Plaque,
                              c.Chassis,
                             c.Model,
@@ -98,7 +97,8 @@ namespace AutomobilMng.Controllers
                              new PersianDateTime(c.DateBuy).ToString("yyyy/MM/dd"),
                              c.Color,
                              c.Department.Name,
-                             
+                             c.AutomobileStatus==null?"":c.AutomobileStatus.Status,
+                             c.ID.ToString(),
                              c.ID.ToString()
                
             };
@@ -435,8 +435,6 @@ namespace AutomobilMng.Controllers
             }
             return models;
         }
-
-
 
         [Authorize(Roles = "Automobile-Report")]
         public ActionResult Report(string plaqueSearch, string chassisSearch, string modelSearch, string produceYear, string fualTypeSearch, string departmentSearch)
