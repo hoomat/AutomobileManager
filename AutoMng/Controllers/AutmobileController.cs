@@ -94,7 +94,7 @@ namespace AutomobilMng.Controllers
             else
                 filtered = filtered.OrderByDescending(item => item.ID);
 
-            var resultlist = filtered.Skip(param.iDisplayStart).Take(param.iDisplayLength);
+            var resultlist = filtered.OrderByDescending(item=>item.ID).Skip(param.iDisplayStart).Take(param.iDisplayLength);
             var result = from c in resultlist
                          select new[] {
                              c.Plaque,
@@ -145,6 +145,7 @@ namespace AutomobilMng.Controllers
                 var search = applicationDbContext.Automobils.FirstOrDefault(item => item.Chassis == model.Automobile.Chassis);
                 if (search == null)
                 {
+                    model.Automobile.AutomobileStatusId = 1;
                     model.Automobile.LastService = DateTime.Now;
                     applicationDbContext.Automobils.Add(model.Automobile);
                     model.Automobile.IdentityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
