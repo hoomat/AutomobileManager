@@ -33,6 +33,12 @@ namespace AutomobilMng.Log
             {
                 t.Properties.Add(new TrapDetail { Key = item.Attribute("name").Value, Value = item.Attribute("value").Value });
             }
+
+
+            var objectid = t.Properties.FirstOrDefault(p => p.Key.ToLower() == "objectid");
+            //if (objectid != null)
+            //    t.Username = objectid.Value; 
+
             var user = t.Properties.FirstOrDefault(p => p.Key.ToLower() == "user");
             if (user != null)
                 t.Username = user.Value;
@@ -45,13 +51,15 @@ namespace AutomobilMng.Log
              
                 DAL.Log log = new DAL.Log
                   {
+                     
                       DateTime = t.TimeSpan,
                       Level = t.Level,
                       Message = t.Message,
                       Username = t.Username,
                       LogDetails=new List<LogDetail>()
                   };
-                foreach (var item in t.Properties.Where(p => p.Key.ToLower() != "log4net:HostName" && p.Key != "user"))
+                log.ObjectId = objectid == null ? 0 : int.Parse(objectid.Value);
+                foreach (var item in t.Properties.Where(p => p.Key.ToLower() != "log4net:HostName" && p.Key != "user" && p.Key != "objectid"))
                 {
                     LogDetail ld = new LogDetail {  Name = item.Key, Value = item.Value };
                     log.LogDetails.Add(ld);

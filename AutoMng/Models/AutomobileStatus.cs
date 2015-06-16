@@ -11,6 +11,7 @@ namespace AutomobilMng.Models
         NonOperating=2,
         Repairing=3,
         Mission=4,
-        Carwash=5
+        Carwash=5,
+        Transferred=6
     }
 }

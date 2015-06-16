@@ -31,7 +31,7 @@ namespace AutomobilMng.Models
             {
                 var identityUser = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
 
-                foreach (var automobil in db.Automobils.Where(item => item.IdentityUser.Id == identityUser.Id))
+                foreach (var automobil in db.Automobils.Where(item => item.Department.ID == identityUser.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
                     Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
 
                 foreach (var driver in db.Drivers)

@@ -13,7 +13,8 @@
 }
 <div class="span12">
     @using (Ajax.BeginForm("New", "Incident", options))
-    {  @Html.AntiForgeryToken()
+    { 
+         @Html.AntiForgeryToken()
         <div class="row-fluid">
             <div class="span8 @AVAResource.Resource.Pull_Dir">
                 <div class="span widget-container-span ">
@@ -48,7 +49,7 @@
                                             <label class="">@AVAResource.Resource.IncidentDate</label>
                                             <label class="">
                                                 <span class="block input-icon @AVAResource.Resource.Input_icon ">
-                                                    <input type="text" class="form-control" id="exampleInput3" value=@Model.PersianIncidentDate name="PersianDeliveryDate" placeholder=@AVAResource.Resource.IncidentDate data-mddatetimepicker="true" data-placement="right" />
+                                                    <input type="text" class="form-control" id="exampleInput3" value=@Model.PersianIncidentDate name="PersianIncidentDate" placeholder=@AVAResource.Resource.IncidentDate data-mddatetimepicker="true" data-placement="right" />
                                                     <i class="icon-calendar"></i>
                                                 </span>
                                             </label>

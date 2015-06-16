@@ -17,39 +17,54 @@
                 <form class="form-search" id="formdata">
                     @Html.AntiForgeryToken()
                     <fieldset>
-                        <label>
-                            <span data-column="1" class="block input-icon @AVAResource.Resource.Input_icon ">
-                                <input type="text" id="plaqueSearch" class="column_filter span12" placeholder="@AVAResource.Resource.Mobil_Plaque " />
-                            </span>
-                        </label>
+                        <div class="span4 @AVAResource.Resource.Pull_Dir">
+                            <label>
+                                <label>پلاک خودرو:</label>
+                                <span data-column="1" class="block input-icon @AVAResource.Resource.Input_icon ">
+                                    <input type="text" id="plaqueSearch" class="column_filter " placeholder="@AVAResource.Resource.Mobil_Plaque " />
+                                </span>
+                            </label>
 
-                        <label>
-                            <span data-column="2"  class="block input-icon @AVAResource.Resource.Input_icon">
-                                <input type="text" id="chassisSearch" class="column_filter span12" placeholder="@AVAResource.Resource.Mobil_Chassis" />
-                            </span>
-                        </label>
+                            <label>
+                                <label>  شاسی خودرو:</label>
+                                <span data-column="2" class="block input-icon @AVAResource.Resource.Input_icon">
+                                    <input type="text" id="chassisSearch" class="column_filter " placeholder="@AVAResource.Resource.Mobil_Chassis" />
+                                </span>
+                            </label>
+                        </div>
+                        <div class="span4 @AVAResource.Resource.Pull_Dir">
+                            <label>
+                                <label>  مدل خودرو:</label>
+                                <span data-column="3" class="block input-icon @AVAResource.Resource.Input_icon">
+                                    <input type="text" id="modelSearch" class="column_filter " placeholder="@AVAResource.Resource.Mobile_Model" />
+                                </span>
+                            </label>
+                            <label>
+                                <label> سال تولید:</label>
+                                <span data-column="4" class="block input-icon @AVAResource.Resource.Input_icon">
+                                    <input type="text" id="produceYearSearch" class="column_filter " placeholder="@AVAResource.Resource.Mobile_Produce_Year" />
+                                </span>
+                            </label>
+                        </div>
+                        <div class="span4 @AVAResource.Resource.Pull_Dir">
+                            <label>
+                                <label>نوع سوخت:</label>
+                                <span data-column="5" class="block input-icon @AVAResource.Resource.Input_icon">
+                                    @Html.DropDownListFor(model => model.Automobile.FualType, Model.FualTypes, new { @class = "column_filter ", @id = "fualTypeSearch" })
+                                </span>
+                            </label>
+                            <label>
+                                <label> اداره:</label>
+                                <span data-column="6" class="block input-icon @AVAResource.Resource.Input_icon">
+                                    @Html.DropDownListFor(model => model.Automobile.Department, Model.Departments, new { @class = "column_filter ", @id = "departmentSearch" })
+                                </span>
+                            </label>
+                        </div>
 
-                        <label>
-                            <span data-column="3"  class="block input-icon @AVAResource.Resource.Input_icon">
-                                <input type="text" id="modelSearch" class="column_filter span12" placeholder="@AVAResource.Resource.Mobile_Model" />
-                            </span>
-                        </label>
-                        <label>
-                            <span data-column="4"  class="block input-icon @AVAResource.Resource.Input_icon">
-                                <input type="text" id="produceYearSearch" class="column_filter span12" placeholder="@AVAResource.Resource.Mobile_Produce_Year" />
-                            </span>
-                        </label>
-                   
-                        <label>
-                            <span data-column="5" class="block input-icon @AVAResource.Resource.Input_icon">
-                                @Html.DropDownListFor(model => model.Automobile.FualType, Model.FualTypes, new { @class = "column_filter span12", @id = "fualTypeSearch" })
-                            </span>
-                        </label>
-                        <label>
-                            <span data-column="6"  class="block input-icon @AVAResource.Resource.Input_icon">
-                                @Html.DropDownListFor(model => model.Automobile.Department, Model.Departments, new { @class = "column_filter span12", @id = "departmentSearch" })
-                            </span>
-                        </label>
+
+
+
+
                     </fieldset>
                 </form>
                 <div class="row-fluid  ">

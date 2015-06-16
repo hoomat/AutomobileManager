@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using AutomobilMng.Infrastructure;
+using System.Web;
 using System.Web.Mvc;
 
 namespace AutomobilMng
@@ -9,6 +10,7 @@ namespace AutomobilMng
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new AuthorizeAttribute());
+            filters.Add(new LoggingFilterAttribute());
         }
     }
 }

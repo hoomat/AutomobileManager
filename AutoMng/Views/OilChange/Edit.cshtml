@@ -51,7 +51,7 @@
                                 <label class="control-label">@AVAResource.Resource.Driver</label>
                                 <div class="controls">
 
-                                    @Html.DropDownListFor(model => model.DriverID, Model.Drivers, new { @id = "driverlist" })
+                                    @Html.DropDownListFor(model => model.DriverID, Model.Drivers, new {@class = "chzn-select ", @id = "driverlist" })
                                     @Html.ValidationMessageFor(model => model.OilChange.Driver, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -89,22 +89,22 @@
                                     @Html.ValidationMessageFor(model => model.OilChange.TypeOil, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="">
-                                <div class="">
+                            <div class="control-group">
+                                <span class="control-label"> @AVAResource.Resource.AirFilterChanged</span>
+                                <div class="controls">
                                     <label class=@AVAResource.Resource.Pull_Dir>
-                                        <input type="checkbox" value=@Model.OilFilterChanged name="OilFilterChanged" />
-                                        <span class="lbl"> @AVAResource.Resource.AirFilterChanged</span>
+                                        @Html.CheckBoxFor(model => model.OilChange.AirFilterChanged, new { @class = " ace-switch ace-switch-6" })
+                                        @Html.ValidationMessageFor(model => model.OilChange.AirFilterChanged, "", new { @class = "text-danger" })
                                     </label>
-                                 
                                 </div>
                             </div>
-                            <div class="">
-                                <div class="">
-                                    <label class=@AVAResource.Resource.Pull_Dir>
-                                        <input type="checkbox" value=@Model.AirFilterChanged name="AirFilterChanged" />
-                                        <span class="lbl"> @AVAResource.Resource.OilFilterChanged</span>
+                            <div class="control-group">
+                                <span class="control-label"> @AVAResource.Resource.OilFilterChanged</span>
+                                <div class="controls">
+                                    <label>
+                                        @Html.CheckBoxFor(model => model.OilChange.OilFilterChanged, new { @class = " ace-switch ace-switch-6" })
+                                        @Html.ValidationMessageFor(model => model.OilChange.OilFilterChanged, "", new { @class = "text-danger" })
                                     </label>
-                                   
                                 </div>
                             </div>
                         </div>

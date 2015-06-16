@@ -27,12 +27,8 @@ namespace DAL
         // تاریخ و ساعت بازگشت از تعمیرگاه
         public DateTime? DateReturnRepair { get; set; }
 
-        // نام تعمیرگاه
-        [Required(ErrorMessage = "*")]
         public string Workshop { get; set; }
 
-        // شماره فاکتور تعمیرگاه
-        [Required(ErrorMessage = "*")]
         public string InvoiceNo { get; set; }
 
         // هزینه کرد

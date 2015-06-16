@@ -1,0 +1,208 @@
+﻿<div class="span12 widget-container-span">
+        <div class="widget-box  ">
+            <div class="widget-header">
+                <h6 class="lighter smaller">
+                    @AVAResource.Resource.Mobile_Header_Grid
+                </h6>
+            </div>
+            <div class="widget-body">
+                <table id="user-table" width="100%" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>@AVAResource.Resource.Mobil_Plaque</th>
+                            <th>@AVAResource.Resource.Mobil_Chassis</th>
+                            <th>@AVAResource.Resource.Mobile_Model</th>
+                            <th>@AVAResource.Resource.Mobile_Produce_Year</th>
+                            <th>@AVAResource.Resource.Mobile_Fual_Type</th>
+                            <th>@AVAResource.Resource.Mobile_Date_Buy</th>
+                            <th>@AVAResource.Resource.Mobile_Color</th>
+                            <th>@AVAResource.Resource.Mobil_Maintenance_Department</th>
+                            <th>@AVAResource.Resource.Mobile_Status</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<div class="modal fade" id="myModalFullscreen" >
+    
+</div>
+
+<script>
+    $(function () {
+        var oTable1 = $('#user-table').dataTable({
+            "bFilter": false,
+            "language": {
+                "lengthMenu": "نمایش _MENU_ سطر در صفحه",
+                "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
+                "info": "نمایش صفحه _PAGE_ از _PAGES_",
+                "infoEmpty": "رکوردی وجود ندارد",
+                "infoFiltered": "(فیلتر شده از _MAX_ رکورد )"
+            },
+            "bServerSide": true,
+            "sAjaxSource": "/Autmobile/GetAutomobils",
+            "bProcessing": false,
+            "aoColumns": [null, null, null, null, null, null, null, null, null, null, { "bSortable": false }],
+            "fnCreatedRow": function (nRow, aData, iDataIndex) {
+                if (aData[8] == 'ماموریت')
+                    $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><span class="label label-warning arrowed-in">' + aData[8] + '</span></div>').addClass('td-actions');
+                //$('td:eq(8)', nRow).html(action).addClass('');
+                var action = '<div class="btn-group"><button data-toggle="dropdown" class="btn btn-inverse btn-mini dropdown-toggle">رویدادها<span class="caret">'
+                 + '</span></button><ul class="dropdown-menu dropdown-default">' +
+                                             '<li><a [data-modal]  title="' + aData[0] + 'ترددهای خودروی "data-id=' + aData[9] + ' action="ShowTransits" controller="Transit" onclick=getForm(this)>تردد</a></li>' +
+                                             '<li><a [data-modal]  title="' + aData[0] + ' تعمیرات "data-id=' + aData[9] + ' action="ShowRepairs"  controller="Repair" onclick=getForm(this)>تعمیرات</a></li>' +
+                                             '<li><a [data-modal]  title="' + aData[0] + ' سوختگیری "data-id=' + aData[9] + ' action="ShowFuels"  controller="FuelConsume" onclick=getForm(this)>سوختگیری</a></li>' +
+                                             '<li><a [data-modal]  title="' + aData[0] + ' تصادف "data-id=' + aData[9] + ' action="ShowIncidents"  controller="Incident" onclick=getForm(this)>تصادف</a></li>' +
+                                              '<li><a [data-modal]  title="' + aData[0] + ' تعویض روغن "data-id=' + aData[9] + ' action="ShowOilChanges"  controller="OilChange" onclick=getForm(this)>تعویض روغن</a></li>' +
+                                             '</ul></div>';
+                $('td:eq(9)', nRow).html(action).addClass('td-actions');
+                $('td:eq(10)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[8] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[8] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "plaqueSearch", "value": $("#plaqueSearch").val() });
+                aoData.push({ "name": "chassisSearch", "value": $("#chassisSearch").val() });
+                aoData.push({ "name": "modelSearch", "value": $("#modelSearch").val() });
+                aoData.push({ "name": "produceYearSearch", "value": $("#produceYearSearch").val() });
+                aoData.push({ "name": "fualTypeSearch", "value": $("#fualTypeSearch").val() });
+                aoData.push({ "name": "departmentSearch", "value": $("#departmentSearch").val() });
+
+            },
+        });
+    })
+    function onedit(element) {
+        var id = $(element).attr('id');
+        Sppiner();
+        var url = "@Url.Action("Edit", "Autmobile")";
+        var containerholder = $("#content");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: { "id": id },
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    };
+
+    function ondelete(element) {
+        var id = $(element).attr('id');
+        Sppiner();
+        var url = "@Url.Action("Delete", "Autmobile")";
+            var containerholder = $("#content");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: url,
+                data: { "id": id },
+                success: function (data) {
+                    containerholder.html('');
+                    containerholder.html(data);
+                    spinner.stop();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Error: ' + xhr.statusText);
+                    spinner.stop();
+                }
+            });
+        };
+    //$("a[data-modal]").click(function (e) {
+    //    $('#modalContent').load(this.href, function () {
+    //        $('#dialogmodal').modal({
+    //            /*backdrop: 'static',*/
+    //            keyboard: true
+    //        }, 'show').width;
+    //        bindForm(this);
+    //    });
+    //    e.preventDefault();
+    //    e.stopPropagation();
+    //    return false;
+    //});
+    function getForm(element) {
+        var title = $(element).attr('title');
+        var controller = $(element).attr('controller');
+        var action = $(element).attr('action');
+        var url = "@Url.Action("action", "cotroller")";
+        url = url.replace('action', action);
+        url = url.replace('cotroller', controller);
+        var automobileid = $(element).attr('data-id');
+        url = url + '/' + automobileid;
+
+        //$('#modalContent').load(url, function () {
+        //    $('#dialogmodal').modal({
+        //        keyboard: true
+        //    }, 'show').width;
+        //});
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: { automobileid: automobileid },
+            success: function (data) {
+                $('#myModalFullscreen').html(data).modal('show')
+            }
+        });
+    };
+
+    
+//        $('a[data-modal]').click(function () {
+//            var url = "/Transit/ShowTransits"; // the url to the controller
+////var id = $(this).attr('data-id'); // the id that's given to each button in the list
+//            $.get(url, function (data) {
+//                alert(data)
+//                $('#edit-person-container').html(data);
+//                $('#edit-person').html(data).modal('show');
+//            });
+//        });
+  
+       // $('#dialog').dialog({
+       //autoOpen: true,
+       //width: 400,
+       //resizable: false,
+       //title: title,
+       //modal: true,
+       //open: function (event, ui) {
+           
+       //    $(this).load(url);
+       //     },
+       //     buttons: {
+       //         "Close": function () {
+       //             $(this).dialog("close");
+       //         }
+       //     }
+       // });
+    
+
+    @*function getForm(element) {
+        var containerholder = $("#dialog");
+        var title = $(element).attr('title');
+        var controller = $(element).attr('controller');
+        var action = $(element).attr('action');
+        var url = "@Url.Action("action", "cotroller")";
+        url = url.replace('action', action);
+        url = url.replace('cotroller', controller);
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            //data: { "id": id },
+            success: function (data) {
+                containerholder.html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    }*@
+</script>

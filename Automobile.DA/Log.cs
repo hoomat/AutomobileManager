@@ -22,6 +22,8 @@ namespace DAL
 
         public string Message { get; set; }
 
+        public int? ObjectId { get; set; }
+
         public virtual ICollection<LogDetail> LogDetails { get; set; }
     }
 

@@ -54,8 +54,16 @@ namespace AutomobilMng.Controllers
                 automobils = automobils.Where(ivar => ivar.Plaque.Contains(plaqueSearch));
             if (!string.IsNullOrWhiteSpace(chassisSearch))
                 automobils = automobils.Where(ivar => ivar.Chassis.Contains(chassisSearch));
-            if (!string.IsNullOrWhiteSpace(modelSearch))
-                automobils = automobils.Where(ivar => ivar.Model == modelSearch);
+            //if (!string.IsNullOrWhiteSpace(modelSearch))
+            //    automobils = automobils.Where(ivar => ivar.Model == modelSearch);
+
+            if (!string.IsNullOrWhiteSpace(modelSearch) && modelSearch != (-1).ToString())
+            {
+                var modelSearchid = int.Parse(modelSearch);
+                var automobileClass = applicationDbContext.AutomobileClasses.FirstOrDefault(item => item.ID == modelSearchid);
+                automobils = automobils.Where(ivar => ivar.AutomobileClassId == automobileClass.ID);
+            }
+
 
             if (!string.IsNullOrWhiteSpace(produceYear))
                 automobils = automobils.Where(ivar => ivar.ProduceYear == produceYear);
@@ -91,11 +99,11 @@ namespace AutomobilMng.Controllers
                          select new[] {
                              c.Plaque,
                              c.Chassis,
-                            c.Model,
+                            c.AutomobileClass==null?"":c.AutomobileClass.Class,
                               c.ProduceYear,
                                c.FualType,
                              new PersianDateTime(c.DateBuy).ToString("yyyy/MM/dd"),
-                             c.Color,
+                             c.Color==null?"":c.Color.Value,
                              c.Department.Name,
                              c.AutomobileStatus==null?"":c.AutomobileStatus.Status,
                              c.ID.ToString(),
@@ -163,6 +171,19 @@ namespace AutomobilMng.Controllers
                         var fualType = applicationDbContext.FualTypes.FirstOrDefault(item => item.ID == fualTypeid);
                         model.Automobile.FualType= fualType.Value;
                     }
+                    if (!string.IsNullOrWhiteSpace(model.ClasssId))
+                    {
+                        int classid = int.Parse(model.ClasssId);
+                      
+
+                        model.Automobile.AutomobileClassId = classid;
+                    }
+                    if (!string.IsNullOrWhiteSpace(model.ColorId))
+                    {
+                        int colorId = int.Parse(model.ColorId);
+
+                        model.Automobile.ColorId = colorId;
+                    }
                     applicationDbContext.SaveChanges();
                     if (!string .IsNullOrWhiteSpace(Request.Files[0].FileName))
                     {
@@ -190,10 +211,52 @@ namespace AutomobilMng.Controllers
             return PartialView("Search",new AutomobileModel(true));
         }
 
+
+
+
+
+
+        [Authorize(Roles = "Automobile-ChangeStatus")]
+        public ActionResult ChangeStatus(int id)
+        {
+            var automobile = applicationDbContext.Automobils.First(item => item.ID== id);
+            var model = new AutomobileModel(automobile);
+            return PartialView("ChangeStatus", model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Automobile-ChangeStatus")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeStatus(AutomobileModel model)
+        {
+            if (ModelState.IsValid)
+            {
+              var auto=  applicationDbContext.Automobils.FirstOrDefault(item => item.ID == model.Automobile.ID);
+
+                if (!string.IsNullOrWhiteSpace(model.StatusId))
+                {
+                    int automobileStatusId = int.Parse(model.StatusId);
+                    auto.AutomobileStatusId = automobileStatusId;
+                }
+
+               // applicationDbContext.Entry(model.Automobile).State = System.Data.Entity.EntityState.Modified;
+                 applicationDbContext.SaveChanges();
+                var messageModel = new MessageModel { Code = 0, Message = "success" };
+                return PartialView("MessageHandle", messageModel);
+            }
+            return PartialView("ChangeStatus", model);
+        }
+
+
+
+
+
+
+
         [Authorize(Roles = "Automobile-Edit")]
         public ActionResult Edit(int id)
         {
-            var automobile = applicationDbContext.Automobils.First(item => item.ID== id);
+            var automobile = applicationDbContext.Automobils.First(item => item.ID == id);
             var model = new AutomobileModel(automobile);
             return PartialView("Edit", model);
         }
@@ -201,7 +264,7 @@ namespace AutomobilMng.Controllers
         [HttpPost]
         [Authorize(Roles = "Automobile-Edit")]
         [ValidateAntiForgeryToken]
-        public  ActionResult Edit(AutomobileModel model)
+        public ActionResult Edit(AutomobileModel model)
         {
             if (ModelState.IsValid)
             {
@@ -213,14 +276,14 @@ namespace AutomobilMng.Controllers
                     HttpPostedFileBase file = Request.Files["zipfile"];
                     file.SaveAs(Server.MapPath("~/AutomobilImages/" + model.Automobile.ID + "." + file.FileName.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries)[1]));
                     model.Automobile.ImageAddress = (model.Automobile.ID + "." + file.FileName.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries)[1]);
-               
+
                 }
                 if (!string.IsNullOrWhiteSpace(model.DepartmentID))
                 {
                     int departmentID = int.Parse(model.DepartmentID.ToString());
                     var department = applicationDbContext.Departments.FirstOrDefault(item => item.ID == departmentID);
                     model.Automobile.Department = department;
-                   // applicationDbContext.Entry(department).State = EntityState.Modified;
+                    // applicationDbContext.Entry(department).State = EntityState.Modified;
                 }
 
                 if (!string.IsNullOrWhiteSpace(model.Automobile.FualType))
@@ -228,6 +291,19 @@ namespace AutomobilMng.Controllers
                     int fualTypeid = int.Parse(model.Automobile.FualType);
                     var fualType = applicationDbContext.FualTypes.FirstOrDefault(item => item.ID == fualTypeid);
                     model.Automobile.FualType = fualType.Value;
+                }
+                if (!string.IsNullOrWhiteSpace(model.ClasssId))
+                {
+                    int classid = int.Parse(model.ClasssId);
+
+
+                    model.Automobile.AutomobileClassId = classid;
+                }
+                if (!string.IsNullOrWhiteSpace(model.ColorId))
+                {
+                    int colorId = int.Parse(model.ColorId);
+
+                    model.Automobile.ColorId = colorId;
                 }
                 //if (model.Automobile.AutomobileDrivers == null)
                 //    model.Automobile.AutomobileDrivers = new List<AutomobileDriver>();
@@ -245,12 +321,15 @@ namespace AutomobilMng.Controllers
                 //    }
                 //}
                 applicationDbContext.Entry(model.Automobile).State = System.Data.Entity.EntityState.Modified;
-                 applicationDbContext.SaveChanges();
+                applicationDbContext.SaveChanges();
                 var messageModel = new MessageModel { Code = 0, Message = "success" };
                 return PartialView("MessageHandle", messageModel);
             }
             return PartialView("Edit", model);
         }
+
+
+
 
         [Authorize(Roles = "Automobile-Delete")]
         public ActionResult Delete(int id )
@@ -345,7 +424,7 @@ namespace AutomobilMng.Controllers
             return models;
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Automobile-Statistics-Analysis")]
         public ActionResult ChartDeliverAutomobile()
         {
             string[] categories = applicationDbContext.Departments.Select(item => item.Name).ToArray();
@@ -403,6 +482,99 @@ namespace AutomobilMng.Controllers
             return PartialView(chart);
         }
 
+
+        [Authorize(Roles = "Automobile-Statistics-Analysis")]
+        public ActionResult StatisticsAnalysis()
+        {
+            ViewBag.MenuShow = AVAResource.Resource.AutomobileStatisticsAnalysis;
+            ViewBag.Menu = "AutomobileStatisticsAnalysis";
+            return View();
+        }
+
+        
+        [Authorize(Roles = "Automobile-Statistics-Analysis")]
+        public ActionResult ChartCompareFuelDistance()
+        {
+            List<Series> Series = new List<Series>();
+        //    List<object> listdatadistance = new List<object>();
+            List<object> listvolume = new List<object>();
+
+            List<FuelConsumeChartModel> filtered =
+              (from row in applicationDbContext.FuelConsumes
+               group row by new { row.Automobile.Plaque } into grouped
+               select new FuelConsumeChartModel()
+               {
+                   Automobile = grouped.Key.Plaque,
+                   Volume = (grouped.Sum(x => x.VolumeFuel) * 100) / grouped.Sum(x => x.Distance)
+               }).ToList();
+
+            foreach (var filter in filtered)
+                listvolume.Add(filter.Volume);
+            Series.Add(new Series { Name = "مصرف سوخت به مسافت ", Data = new Data(listvolume.ToArray()) });
+
+
+
+            //List<TransitDistanceModel> filteredcost =
+            //    (from row in applicationDbContext.FuelConsumes
+            //     group row by new { row.Automobile.Plaque } into grouped
+            //     select new TransitDistanceModel()
+            //     {
+            //         Automobile = grouped.Key.Plaque,
+            //         Distance = grouped.Sum(x => x.Distance)
+            //     }).ToList();
+
+            //foreach (var filter in filteredcost)
+            //    listdatadistance.Add(filter.Distance);
+            //Series.Add(new Series { Name = "مسافت ", Data = new Data(listdatadistance.ToArray()) });
+
+
+
+            Highcharts chart = new Highcharts("chart") { }
+
+                  .InitChart(new Chart { DefaultSeriesType = ChartTypes.Column })
+                  .SetTitle(new Title { Text = "نمودار مسافت طی شده و مصرف سوخت خودروها" })
+                  .SetXAxis(new XAxis { Categories = filtered.Select(item => item.Automobile).ToArray() })
+                  .SetYAxis(new YAxis
+                  {
+                      AllowDecimals = false,
+                      Min = 0,
+                      Title = new YAxisTitle { Text = "بر اساس تعداد" }
+                  })
+                  .SetLegend(new Legend
+                  {
+
+                      Rtl = true,
+                      Layout = Layouts.Vertical,
+                      Align = HorizontalAligns.Left,
+                      VerticalAlign = VerticalAligns.Top,
+                      X = 100,
+                      Y = 70,
+                       Floating = true,
+                      BackgroundColor = new BackColorOrGradient(ColorTranslator.FromHtml("#FFFFFF")),
+                      Shadow = true
+                  })
+                  .SetTooltip(new Tooltip { Formatter = @"function() { return ''+ this.x +': '+ this.y ; }" })
+                  .SetPlotOptions(new PlotOptions
+                  {
+                      Column = new PlotOptionsColumn
+                      {
+                          PointPadding = 0.2,
+                          BorderWidth = 0
+                      }
+                  })
+                  .SetSeries(
+                  Series.ToArray()
+                //  new[]
+                //{
+                //    new Series { Name = "تحویل دایمی", Data = new Data(new object[] { 49.9, 71.5 }) },
+                //   // new Series { Name = "تحویل موقت", Data = new Data(new object[] { 48.9, 38.8}) },
+                //}
+                );
+
+
+            return PartialView(chart);
+        }
+        
         [HttpPost]
         public ActionResult InfinateScrollSearch(int BlockNumber, string plaqueSearch)
         {
@@ -459,8 +631,13 @@ namespace AutomobilMng.Controllers
                 automobils = automobils.Where(ivar => ivar.Plaque.Contains(plaqueSearch));
             if (!string.IsNullOrWhiteSpace(chassisSearch))
                 automobils = automobils.Where(ivar => ivar.Chassis.Contains(chassisSearch));
-            if (!string.IsNullOrWhiteSpace(modelSearch))
-                automobils = automobils.Where(ivar => ivar.Model == modelSearch);
+            if (!string.IsNullOrWhiteSpace(modelSearch) && modelSearch != (-1).ToString())
+            {
+                var modelSearchid = int.Parse(modelSearch);
+                var automobileClass = applicationDbContext.AutomobileClasses.FirstOrDefault(item => item.ID == modelSearchid);
+                automobils = automobils.Where(ivar => ivar.AutomobileClassId == automobileClass.ID);
+            }
+
             if (!string.IsNullOrWhiteSpace(produceYear))
                 automobils = automobils.Where(ivar => ivar.ProduceYear == produceYear);
             if (!string.IsNullOrWhiteSpace(fualTypeSearch) && fualTypeSearch != (-1).ToString())
@@ -490,11 +667,11 @@ namespace AutomobilMng.Controllers
             report.RegBusinessObject("Data", aut.Select(item => new AutomobileReportModel
             {
                 Chassis = item.Chassis,
-                Color = item.Color,
+                Color = item.Color==null?"":item.Color.Value,
                 DateBuy = new PersianDateTime(item.DateBuy).ToString("yyyy/MM/dd"),
                 FualConsume = item.FualConsume,
                 FualType = item.FualType,
-                Model = item.Model,
+                Model = item.AutomobileClass==null?"":item.AutomobileClass.Class,
                 Price = item.Price,
                 ProduceYear = item.ProduceYear
             }));

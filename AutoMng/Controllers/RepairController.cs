@@ -30,6 +30,13 @@ namespace AutomobilMng.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Repair-Show")]
+        public ActionResult ShowRepairs(int automobileid)
+        {
+            var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileid);
+            return PartialView("ShowRepairs", automobile);
+        }
+
         public ActionResult GetRepairs(JQueryDataTableParamModel param)
         {
             IQueryable<Repair> repairs = applicationDbContext.Repairs.AsQueryable();
@@ -118,6 +125,7 @@ namespace AutomobilMng.Controllers
         {
             return PartialView("IncidentRepairs",applicationDbContext.Incidents.FirstOrDefault(item=>item.ID==id));
         }
+
         public ActionResult GetIncidentRepairs(JQueryDataTableParamModel param)
         {
             IQueryable<Repair> repairs = applicationDbContext.Repairs.AsQueryable();
@@ -174,13 +182,12 @@ namespace AutomobilMng.Controllers
             return Json(new
             {
                 sEcho = param.sEcho,
-                iTotalRecords = applicationDbContext.Automobils.Count(),
+                iTotalRecords = applicationDbContext.Repairs.Count(),
                 iTotalDisplayRecords = filtered.Count(),
                 aaData = result
             },
                         JsonRequestBehavior.AllowGet);
         }
-
 
         public ActionResult ConsumablePartEntryEditor()
         {

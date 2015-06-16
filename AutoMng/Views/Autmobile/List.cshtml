@@ -1,27 +1,4 @@
-﻿@*<style>
-    .modal.modal-wide .modal-dialog {
-        width: 900px;
-    }
-
-    .modal-wide .modal-body {
-        overflow-y: auto;
-    }
-
-    /* irrelevant styling */
-    body {
-        text-align: center;
-    }
-
-        body p {
-            max-width: 400px;
-            margin: 20px auto;
-        }
-
-    #tallModal .modal-body p {
-        margin-bottom: 900px;
-    }
-</style>*@
-<div class="span12 widget-container-span">
+﻿<div class="span12 widget-container-span">
         <div class="widget-box  ">
             <div class="widget-header">
                 <h6 class="lighter smaller">
@@ -51,37 +28,17 @@
             </div>
         </div>
     </div>
-<div class="span12">
-    <div id='dialogmodal' style="width:1250px; margin-left:-630px;" class='modal modal-wide fade'>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div id='modalContent'></div>
-        </div>
-    </div>
-</div>
-</div>
 
+<div class="modal fade" id="myModalFullscreen" >
+    
+</div>
 
 <script>
-    $(".modal-wide").on("show.bs.modal", function () {
-        var height = $(window).height();
-        $(this).find(".modal-wide").css("height", "100%");
-        //$(this).find(".modal-body").css("max-width", height);
-    });
-    //jQuery.browser = {};
-    //(function () {
-    //    jQuery.browser.msie = false;
-    //    jQuery.browser.version = 0;
-    //    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
-    //        jQuery.browser.msie = true;
-    //        jQuery.browser.version = RegExp.$1;
-    //    }
-    //})();
     $(function () {
         var oTable1 = $('#user-table').dataTable({
             "bFilter": false,
             "language": {
-                "lengthMenu": "نمایش _MENU_ سطرها در صفحه",
+                "lengthMenu": "نمایش _MENU_ سطر در صفحه",
                 "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
                 "info": "نمایش صفحه _PAGE_ از _PAGES_",
                 "infoEmpty": "رکوردی وجود ندارد",
@@ -92,16 +49,41 @@
             "bProcessing": false,
             "aoColumns": [null, null, null, null, null, null, null, null, null, null, { "bSortable": false }],
             "fnCreatedRow": function (nRow, aData, iDataIndex) {
+                $('td:eq(6)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><span class="badge " style = "background-color:' + aData[6] + '!important">' + aData[6] + '</span></div>').addClass('td-actions');
 
+                switch (aData[8])
+                {
+                    case 'ماموریت':
+                        $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="label label-info arrowed-in-right arrowed bigger-130" data-id=' + aData[9] + ' onclick="changestatus(this)">' + aData[8] + '</a></div>').addClass('td-actions');
+                        break;
+                    case 'موجود':
+                        $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="label label-success arrowed bigger-130" data-id=' + aData[9] + ' onclick="changestatus(this)">' + aData[8] + '</a></div>').addClass('td-actions');
+                        break;
+                    case 'غیر عملیاتی':
+                        $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="label label-grey arrowed-in-right arrowed-in bigger-130" data-id=' + aData[9] + ' onclick="changestatus(this)">' + aData[8] + '</a></div>').addClass('td-actions');
+                        break;
+                    case 'در حال تعمیر':
+                        $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="label label-yellow arrowed-in bigger-130" data-id=' + aData[9] + ' onclick="changestatus(this)">' + aData[8] + '</a></div>').addClass('td-actions');
+                        break;
+                    case 'کارواش':
+                        $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="label label-purple bigger-130" data-id=' + aData[9] + ' onclick="changestatus(this)">' + aData[8] + '</a></div>').addClass('td-actions');
+                        break;
+                    case 'واگذار شده':
+                        $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="label label-pink arrowed-right bigger-130" data-id=' + aData[9] + ' onclick="changestatus(this)">' + aData[8] + '</a></div>').addClass('td-actions');
+                        break;
+                }
+                //if (aData[8] == 'ماموریت')
+                    //$('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><span class="label label-warning arrowed-in" data-id=' + aData[9] + ' onclick="onedit(this)">' + aData[8] + '</span></div>').addClass('td-actions');
                 var action = '<div class="btn-group"><button data-toggle="dropdown" class="btn btn-inverse btn-mini dropdown-toggle">رویدادها<span class="caret">'
                  + '</span></button><ul class="dropdown-menu dropdown-default">' +
-                                             '<li><a [data-modal]  title="' + aData[0] + 'ترددهای خودروی "data-id=' + aData[8] + ' action="ShowTransits" controller="Transit"onclick=getForm(this)>تردد</a></li>' +
-                                             '<li><a href="#">تعمیرات</a></li>' +
-                                             '<li><a href="#">سوخت گیری</a></li>' +
-                                             '<li><a href="#">تصادف</a></li>' +
-                                             '<li><a href="#">تعویض روغن</a></li></ul></div>';
+                                             '<li><a [data-modal]  title="' + aData[0] + 'ترددهای خودروی " data-id=' + aData[9] + ' action="ShowTransits" controller="Transit" onclick=getForm(this)>تردد</a></li>' +
+                                             '<li><a [data-modal]  title="' + aData[0] + ' تعمیرات " data-id=' + aData[9] + ' action="ShowRepairs"  controller="Repair" onclick=getForm(this)>تعمیرات</a></li>' +
+                                             '<li><a [data-modal]  title="' + aData[0] + ' سوختگیری " data-id=' + aData[9] + ' action="ShowFuels"  controller="FuelConsume" onclick=getForm(this)>سوختگیری</a></li>' +
+                                             '<li><a [data-modal]  title="' + aData[0] + ' تصادف " data-id=' + aData[9] + ' action="ShowIncidents"  controller="Incident" onclick=getForm(this)>تصادف</a></li>' +
+                                              '<li><a [data-modal]  title="' + aData[0] + ' تعویض روغن " data-id=' + aData[9] + ' action="ShowOilChanges"  controller="OilChange" onclick=getForm(this)>تعویض روغن</a></li>' +
+                                             '</ul></div>';
                 $('td:eq(9)', nRow).html(action).addClass('td-actions');
-                $('td:eq(10)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[8] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[8] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
+                $('td:eq(10)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[10] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[10] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
             },
             "fnServerParams": function (aoData) {
                 aoData.push({ "name": "plaqueSearch", "value": $("#plaqueSearch").val() });
@@ -156,7 +138,28 @@
                     spinner.stop();
                 }
             });
-        };
+    };
+    function changestatus(element) {
+        var id = $(element).attr('data-id');
+        Sppiner();
+        var url = "@Url.Action("ChangeStatus", "Autmobile")";
+        var containerholder = $("#content");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: url,
+            data: { "id": id },
+            success: function (data) {
+                containerholder.html('');
+                containerholder.html(data);
+                spinner.stop();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.statusText);
+                spinner.stop();
+            }
+        });
+    };
     //$("a[data-modal]").click(function (e) {
     //    $('#modalContent').load(this.href, function () {
     //        $('#dialogmodal').modal({
@@ -189,7 +192,7 @@
             type: 'GET',
             data: { automobileid: automobileid },
             success: function (data) {
-                $('#dialogmodal').html(data).modal('show')
+                $('#myModalFullscreen').html(data).modal('show')
             }
         });
     };

@@ -1,0 +1,84 @@
+﻿@model AutomobilMng.Models.AutomobileModel
+<div>
+    @{
+        AjaxOptions options = new AjaxOptions();
+        options.HttpMethod = "POST";
+        options.OnBegin = "OnBegin";
+        options.OnComplete = "OnComplete";
+        options.OnFailure = "OnFailure";
+        options.OnSuccess = "OnSuccess";
+        options.LoadingElementId = "2";
+        options.LoadingElementDuration = 1000;
+        options.UpdateTargetId = "d";
+        options.InsertionMode = InsertionMode.Replace;
+    }
+    <div class="span12 widget-container-span">
+        <div class="widget-box  ">
+            <div class="widget-header">
+                <h6 class="lighter smaller">
+                    @AVAResource.Resource.DeleteAutomobile
+                    <strong class="green">
+                        @Model.Automobile.Plaque
+                    </strong>
+                </h6>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    @using (Ajax.BeginForm("ChangeStatus", "Automobile", options, new { @class = "form-horizontal" }))
+                    { 
+                         @Html.HiddenFor(model => model.Automobile.ID)
+                    @Html.HiddenFor(model => model.Automobile.LastService)
+                    @Html.HiddenFor(model => model.Automobile.ImageAddress)
+                    @*@Html.HiddenFor(model => model.Automobile.Department)*@
+                         @Html.HiddenFor(model => model.Automobile.Plaque)
+                         @Html.HiddenFor(model => model.Automobile.Chassis)
+                    @Html.AntiForgeryToken()
+                        <div class=" alert-block alert-warning">
+                            تغییر وضعیت خودرو با پلاک
+                            <strong class="green">
+                                <small>@Model.Automobile.Plaque </small>
+                            </strong>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@AVAResource.Resource.Mobil_Maintenance_Department</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(model => model.StatusId, Model.Statuses, new { @class = "chzn-select    " })
+                                @Html.ValidationMessageFor(model => model.Automobile.AutomobileStatusId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <button class=" btn btn-small btn-primary">
+                            <i class="icon-minus"></i>
+                            @AVAResource.Resource.Save
+                        </button>
+                        <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Cancel
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".chzn-select").chosen();
+        function cancel() {
+            var containerholder = $("#content");
+            containerholder.html('');            
+        }
+        function OnBegin() {
+            Sppiner();
+        }
+        function OnComplete() {
+            spinner.stop();
+        }
+        function OnFailure(arg) {
+            spinner.stop();
+        }
+        function OnSuccess(data) {
+            $('#content').html(data);
+            $('#user-table').DataTable().ajax.reload();
+            spinner.stop();
+        }
+    </script>
+</div>
+

@@ -45,11 +45,11 @@ namespace AutomobilMng.Models
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
 
                 if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
-                    foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId))
+                    foreach (var automobil in db.Automobils.Where(item => item.DepartmentId == user.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
                   
                 else
-                    foreach (var automobil in db.Automobils)
+                    foreach (var automobil in db.Automobils.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
                         Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
 
                 foreach (var driver in db.Drivers)

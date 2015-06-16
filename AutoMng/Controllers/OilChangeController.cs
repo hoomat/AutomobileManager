@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using DAL;
 using MD.PersianDateTime;
 using Stimulsoft.Report;
@@ -24,6 +25,12 @@ namespace AutomobilMng.Controllers
             return View();
         }
 
+        [Authorize(Roles = "OilChange-Show")]
+        public ActionResult ShowOilChanges(int automobileid)
+        {
+            var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileid);
+            return PartialView("ShowOilChanges", automobile);
+        }
 
         [Authorize(Roles = "OilChange-Show")]
         public ActionResult List()
@@ -67,16 +74,18 @@ namespace AutomobilMng.Controllers
             else
                 filtered = filtered.OrderByDescending(item => item.ID);
 
-            var resultlist = filtered.Skip(param.iDisplayStart).Take(param.iDisplayLength);
+            var resultlist = filtered.OrderByDescending(item=>item.ID).Skip(param.iDisplayStart).Take(param.iDisplayLength);
             var result = from c in resultlist
                          select new[] { 
                              c.Automobile.Plaque,
                              c.Driver.Name,
                              c.Department.Name,
                             new PersianDateTime(c.ChangeDate).ToString("yyyy/MM/dd"),
-                             c.TypeOil,c.Workshop,
-                             c.OilFilterChanged.ToString(),
+                             c.TypeOil,
+                             c.Workshop,
                              c.AirFilterChanged.ToString(),
+                             c.OilFilterChanged.ToString(),
+                             
                              c.ID.ToString()
             };
             return Json(new
@@ -93,13 +102,14 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "OilChange-New")]
         public ActionResult New()
         {
-            return PartialView("New", new OilChangeModel());
+            return PartialView("New", new OilChangeModel(this));
         }
 
 
         [HttpPost]
         [Authorize(Roles = "OilChange-New")]
         [ValidateAntiForgeryToken]
+     //   [LogAttribute(Message = "ثبت عملیات تعویض روغن", ObjectID = ObjectID.OilChangeNew.ToString())]
         public ActionResult New(OilChangeModel model)
         {
             if (ModelState.IsValid)
@@ -108,15 +118,6 @@ namespace AutomobilMng.Controllers
                 model.OilChange.ChangeDate = persianDateTime.ToDateTime();
 
                 model.OilChange.IdentityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
-
-                if (model.OilFilterChanged != null && model.OilFilterChanged == "on")
-                    model.OilChange.OilFilterChanged = true;
-                else
-                    model.OilChange.OilFilterChanged = false;
-                if (model.AirFilterChanged != null && model.AirFilterChanged == "on")
-                    model.OilChange.AirFilterChanged = true;
-                else
-                    model.OilChange.AirFilterChanged = false;
 
                 var automobileid = int.Parse(model.AutomobileID);
                 model.OilChange.AutomobileID = automobileid;
@@ -129,9 +130,15 @@ namespace AutomobilMng.Controllers
 
                 applicationDbContext.OilChanges.Add(model.OilChange);
                 applicationDbContext.SaveChanges();
-                var messageModel = new MessageModel { Code = 0, Message = "success" };
+
+                var dic = LogAttribute.GetProperties<OilChange>(model.OilChange, ((int)Subject.OilChangeNew).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "ثبت عملیات تعویض روغن", null, dic.ToArray());
+
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+
+            var dicfail = LogAttribute.GetProperties<OilChange>(model.OilChange, ((int)Subject.OilChangeNew).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "ثبت عملیات تعویض روغن", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -144,7 +151,7 @@ namespace AutomobilMng.Controllers
         public ActionResult Edit(int id)
         {
             var OilChanges = applicationDbContext.OilChanges.First(item => item.ID == id);
-            var model = new OilChangeModel(OilChanges);
+            var model = new OilChangeModel(OilChanges,this);
             return PartialView("Edit", model);
         }
 
@@ -157,14 +164,17 @@ namespace AutomobilMng.Controllers
             {
                 var persianDateTime = PersianDateTime.Parse(model.PersianChangeDate);
                 model.OilChange.ChangeDate = persianDateTime.ToDateTime();
-                if (model.OilFilterChanged != null && model.OilFilterChanged == "on")
-                    model.OilChange.OilFilterChanged = true;
-                else
-                    model.OilChange.OilFilterChanged = false;
-                if (model.AirFilterChanged != null && model.AirFilterChanged == "on")
-                    model.OilChange.AirFilterChanged = true;
-                else
-                    model.OilChange.OilFilterChanged = false;
+
+                //if (model.OilFilterChanged != null && model.OilFilterChanged == "on")
+                //    model.OilChange.OilFilterChanged = true;
+                //else
+                //    model.OilChange.OilFilterChanged = false;
+                //if (model.AirFilterChanged != null && model.AirFilterChanged == "on")
+                //    model.OilChange.AirFilterChanged = true;
+                //else
+                //    model.OilChange.OilFilterChanged = false;
+
+
                 var automobileid = int.Parse(model.AutomobileID);
                 model.OilChange.AutomobileID = automobileid;
 
@@ -187,7 +197,7 @@ namespace AutomobilMng.Controllers
         public ActionResult Delete(int id)
         {
             var OilChanges = applicationDbContext.OilChanges.First(u => u.ID == id);
-            var model = new OilChangeModel(OilChanges);
+            var model = new OilChangeModel(OilChanges,this);
             if (OilChanges == null)
             {
                 return HttpNotFound();

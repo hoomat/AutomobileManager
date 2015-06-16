@@ -1,10 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace AutomobilMng.Log
 {
+    public enum Subject
+    {
+        OilChangeMenu = 5001,
+        OilChangeShow = 5002,
+        OilChangeNew = 5003,
+        OilChangeEdit = 5004,
+        OilChangeDelete = 5005,
+        OilChangeReport = 5006,
+    }
+
     public class LogAttribute : Attribute
     {
         public LogAttribute()
@@ -25,6 +36,25 @@ namespace AutomobilMng.Log
 
         public string Message { get; set; }
 
+        public static List<KeyValuePair<string, string>> GetProperties<T>(T obj, string objectid, string result)
+        {
+            List<KeyValuePair<string, string>> dic = new List<KeyValuePair<string, string>>();
+            dic.Add(new KeyValuePair<string, string>("objectid", ((int)Subject.OilChangeNew).ToString()));
+            dic.Add(new KeyValuePair<string, string>("result", "success"));
+
+           // T myClass = default(T); ;
+            var type = typeof(T);
+            PropertyInfo[] properties = type.GetProperties();
+
+            foreach (PropertyInfo property in properties)
+            {
+                dic.Add(new KeyValuePair<string, string>(property.Name, property.GetValue(obj, null) == null ? "" : property.GetValue(obj, null).ToString()));
+
+                // dic.Add(property.Name, property.GetValue(myClass, null) == null ? "" : property.GetValue(myClass, null).ToString());
+                // Console.WriteLine("Name: " + property.Name + ", Value: " + property.GetValue(myClass, null));
+            }
+            return dic;
+        }
     
     }
 }

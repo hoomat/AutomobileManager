@@ -30,6 +30,25 @@ namespace AutomobilMng.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Incident-Show")]
+        public ActionResult ShowIncidents(int automobileid)
+        {
+            var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileid);
+            return PartialView("ShowIncidents", automobile);
+        }
+
+        [Authorize(Roles = "Incident-Show")]
+        public ActionResult ShowDriverIncidents(int driverid)
+        {
+            var driver = applicationDbContext.Drivers.FirstOrDefault(item => item.ID == driverid);
+            return PartialView("ShowDriverIncidents", driver);
+        }
+
+        public ActionResult ShowDepartmentIncidents(int departmentid)
+        {
+            var department = applicationDbContext.Departments.FirstOrDefault(item => item.ID == departmentid);
+            return PartialView("ShowDepartmentIncidents", department);
+        }
         public ActionResult GetIncidents(JQueryDataTableParamModel param)
         {
 
@@ -83,7 +102,7 @@ namespace AutomobilMng.Controllers
             else
                 filtered = filtered.OrderByDescending(item => item.ID);
 
-            var resultlist = filtered.Skip(param.iDisplayStart).Take(param.iDisplayLength);
+            var resultlist = filtered.OrderByDescending(item=>item.ID).Skip(param.iDisplayStart).Take(param.iDisplayLength);
             var result = from c in resultlist
                          select new[] { 
                              c.ID.ToString(),
@@ -113,7 +132,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Incident-New")]
         public ActionResult New()
         {
-            return PartialView("New", new IncidentModel());
+            return PartialView("New", new IncidentModel(this));
         }
 
         public ActionResult DamageEntryEditor()

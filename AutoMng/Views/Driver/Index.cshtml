@@ -30,6 +30,7 @@
                                 <th>@AVAResource.Resource.NameDriver</th>
                                 <th>@AVAResource.Resource.Category</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -38,14 +39,16 @@
         </div>
     </div>
 </div>
-    <script type="text/javascript">
+<div class="modal fade" id="myModalFullscreen">
 
+</div>
+    <script type="text/javascript">
         var spinner;
         $(function () {
             var oTable1 = $('#table').dataTable({
                 "bFilter": false,
                 "language": {
-                    "lengthMenu": "نمایش _MENU_ سطرها در صفحه",
+                    "lengthMenu": "نمایش _MENU_ سطر در صفحه",
                     "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
                     "info": "نمایش صفحه _PAGE_ از _PAGES_",
                     "infoEmpty": "رکوردی وجود ندارد",
@@ -55,11 +58,17 @@
                 "sAjaxSource": "/Driver/GetDrivers",
                 "bProcessing": false,
                 "aoColumns": [
-			           null, null,null,
+			           null, null, null, null,
                        { "bSortable": false }
                 ],
                 "fnCreatedRow": function (nRow, aData, iDataIndex) {
-                    $('td:eq(3)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[3] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[3] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
+                    var action = '<div class="btn-group"><button data-toggle="dropdown" class="btn btn-inverse btn-mini dropdown-toggle">رویدادها<span class="caret">'
+                                     + '</span></button><ul class="dropdown-menu dropdown-default">' +
+                                     '<li><a [data-modal]  title="  ترددهای راننده  ' + aData[1] + '"data-id=' + aData[3] + ' action="ShowDriverTransits" controller="Transit" onclick=getForm(this)>تردد</a></li>' +
+                                     '<li><a [data-modal]  title="  تصادف راننده  ' + aData[1] + '"data-id=' + aData[3] + ' action="ShowDriverIncidents"  controller="Incident" onclick=getForm(this)>تصادف</a></li>' +
+                                     '</ul></div>';
+                    $('td:eq(3)', nRow).html(action).addClass('td-actions');
+                    $('td:eq(4)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[3] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[3] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
                 },
                 "fnServerParams": function (aoData) {
                     aoData.push({ "name": "driverNameSearch", "value": $("#driverNameSearch").val() });
@@ -72,7 +81,6 @@
             Sppiner();
             var containerholder = $("#content");
             var url = "@Url.Action("Search", "Driver")";
-
             $.ajax({
                 cache: false,
                 type: "GET",
@@ -87,10 +95,8 @@
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert('Error: ' + xhr.statusText);
                     spinner.stop();
-
                 }
             });
-
         });
         $('#new').click(function () {
             Sppiner();
@@ -110,7 +116,6 @@
                     spinner.stop();
                 }
             });
-
         });
 
         function onedit(element) {
@@ -156,5 +161,29 @@
                 }
             });
         };
-     
+        function getForm(element) {
+            var title = $(element).attr('title');
+            var controller = $(element).attr('controller');
+            var action = $(element).attr('action');
+            var url = "@Url.Action("action", "cotroller")";
+            url = url.replace('action', action);
+            url = url.replace('cotroller', controller);
+            var driverid = $(element).attr('data-id');
+            url = url + '/' + driverid;
+
+            //$('#modalContent').load(url, function () {
+            //    $('#dialogmodal').modal({
+            //        keyboard: true
+            //    }, 'show').width;
+            //});
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: { driverid: driverid },
+                success: function (data) {
+                    $('#myModalFullscreen').html(data).modal('show')
+                }
+            });
+        };
+
 </script>

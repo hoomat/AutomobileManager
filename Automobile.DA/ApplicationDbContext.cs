@@ -61,8 +61,11 @@ namespace DAL
         public virtual IDbSet<Log> Logs { get; set; }
 
         public virtual IDbSet<LogDetail> LogDetails { get; set; }
-        
 
+        public virtual IDbSet<AutomobileClass> AutomobileClasses { get; set; }
+
+        public virtual IDbSet<Color> Colors { get; set; }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Attendance>()

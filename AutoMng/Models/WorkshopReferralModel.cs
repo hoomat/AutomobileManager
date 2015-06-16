@@ -18,7 +18,10 @@ namespace AutomobilMng.Models
             public int Distance { get; set; }
 
             public string Department { get; set; }
+
+            public string Automobile { get; set; }
         }
+
         public class TransitDriverDistanceModel
         {
             public int Distance { get; set; }

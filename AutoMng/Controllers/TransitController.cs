@@ -23,12 +23,27 @@ namespace AutomobilMng.Controllers
     {
         ApplicationDbContext applicationDbContext = new ApplicationDbContext();
 
-
         [Authorize(Roles = "Transit-Show")]
         public ActionResult ShowTransits(int automobileid)
         {
-            return PartialView("ShowTransits");
+            var automobile = applicationDbContext.Automobils.FirstOrDefault(item=>item.ID==automobileid);
+            return PartialView("ShowTransits", automobile);
         }
+
+        [Authorize(Roles = "Transit-Show")]
+        public ActionResult ShowDriverTransits(int driverid)
+        {
+            var driver = applicationDbContext.Drivers.FirstOrDefault(item => item.ID == driverid);
+            return PartialView("ShowDriverTransits", driver);
+        }
+
+        [Authorize(Roles = "Transit-Show")]
+        public ActionResult ShowDepartmentTransits(int departmentid)
+        {
+            var department = applicationDbContext.Departments.FirstOrDefault(item => item.ID == departmentid);
+            return PartialView("ShowDepartmentTransits", department);
+        }
+        
 
         [Authorize(Roles = "Transit-Show")]
         public ActionResult Index()
@@ -419,6 +434,10 @@ namespace AutomobilMng.Controllers
                         transit.Distance = model.MileagAfterTrip.Value;
                    // transit.Automobile.Distance = model.MileagAfterTrip.Value;
                 }
+
+            
+                var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == transit.AutomobileID);
+                automobile.AutomobileStatusId = (int)AutomobileStatusModel.Available;
                 applicationDbContext.SaveChanges();
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }

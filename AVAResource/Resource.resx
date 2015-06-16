@@ -669,4 +669,49 @@
   <data name="Mobile_Status" xml:space="preserve">
     <value>Automobile Status</value>
   </data>
+  <data name="Menu_AutomobileClass" xml:space="preserve">
+    <value>Automobile Model</value>
+  </data>
+  <data name="Menu_Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="AutomobileClass_Define" xml:space="preserve">
+    <value>Define Model</value>
+  </data>
+  <data name="AutomobileClass_Delete" xml:space="preserve">
+    <value>Delete Model</value>
+  </data>
+  <data name="AutomobileClass_Edit" xml:space="preserve">
+    <value>Edit Model</value>
+  </data>
+  <data name="AutomobileClass_List" xml:space="preserve">
+    <value>List of Model</value>
+  </data>
+  <data name="Color_Define" xml:space="preserve">
+    <value>Color Define</value>
+  </data>
+  <data name="Color_Delete" xml:space="preserve">
+    <value>Color Delete</value>
+  </data>
+  <data name="Color_Edit" xml:space="preserve">
+    <value>Color Edit</value>
+  </data>
+  <data name="Color_List" xml:space="preserve">
+    <value>Color of List</value>
+  </data>
+  <data name="Color_Name" xml:space="preserve">
+    <value>Color Name</value>
+  </data>
+  <data name="Color_Value" xml:space="preserve">
+    <value>Color Value</value>
+  </data>
+  <data name="AutomobileStatisticsAnalysis" xml:space="preserve">
+    <value>Statistics Analysis</value>
+  </data>
+  <data name="Chart_Fuel_Distance" xml:space="preserve">
+    <value>مقایسه سوخت با مسافت</value>
+  </data>
+  <data name="Chart_Repiar_Buy" xml:space="preserve">
+    <value>مقایسه هزینه خرید به تعمیر</value>
+  </data>
 </root>

@@ -26,11 +26,11 @@ namespace DAL
         [StringLength(250)]
         public string Chassis { get; set; }
 
-        public string Model { get; set; }
+
 
         public string ProduceYear { get; set; }
 
-        public string Color { get; set; }
+
 
         public string FualType { get; set; }
 
@@ -47,6 +47,14 @@ namespace DAL
         public DateTime LastService { get; set; }
 
         public string ImageAddress { get; set; }
+
+        public virtual AutomobileClass AutomobileClass { get; set; }
+        public int? AutomobileClassId { get; set; }
+
+
+
+        public virtual Color Color { get; set; }
+        public int? ColorId { get; set; }
 
         public virtual Department Department { get; set; }
         public int DepartmentId { get; set; }

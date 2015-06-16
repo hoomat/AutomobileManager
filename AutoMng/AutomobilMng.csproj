@@ -188,6 +188,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ColorController.cs" />
+    <Compile Include="Controllers\AutomobileClassController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\FuelCardController.cs" />
     <Compile Include="Controllers\FuelConsumeController.cs" />
@@ -207,6 +209,7 @@
     </Compile>
     <Compile Include="Config.cs" />
     <Compile Include="Infrastructure\CollectionEditingHtmlExtensions.cs" />
+    <Compile Include="Infrastructure\LoggingFilterAttribute.cs" />
     <Compile Include="Log\DatabaseAppender.cs" />
     <Compile Include="Log\Logger.cs" />
     <Compile Include="Log\LogAttribute.cs" />
@@ -267,12 +270,14 @@
     <Content Include="Content\Ace\font-awesome\4.2.0\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\bootstrap-duallistbox.min.css" />
     <Content Include="Content\bootstrap-editable.css" />
+    <Content Include="Content\bootstrap-modal-carousel.min.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-timepicker.css" />
     <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\chosen.css" />
+    <Content Include="Content\evol.colorpicker.min.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts.googleapis.com.css" />
     <Content Include="Content\Ace\jquery-ui-1.10.3.custom.min.css" />
@@ -371,6 +376,7 @@
     <Content Include="Scripts\additional-methods.min.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-editable.min.js" />
+    <Content Include="Scripts\bootstrap-modal-carousel.js" />
     <Content Include="Scripts\bootstrap-tag.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -404,6 +410,7 @@
     <Content Include="Scripts\date-time\span.bootstrap-timepicker-second.html" />
     <Content Include="Scripts\date-time\td.available.html" />
     <Content Include="Scripts\date-time\tfoot th.today.html" />
+    <Content Include="Scripts\evol.colorpicker.min.js" />
     <Content Include="Scripts\exporting.js" />
     <Content Include="Scripts\fuelux.tree.min.js" />
     <Content Include="Scripts\fuelux.wizard.min.js" />
@@ -569,6 +576,29 @@
     <Content Include="Views\OilChange\Report.cshtml" />
     <Content Include="Views\Incident\Report.cshtml" />
     <Content Include="Views\Transit\ShowTransits.cshtml" />
+    <Content Include="Views\Repair\ShowRepairs.cshtml" />
+    <Content Include="Views\FuelConsume\ShowFuels.cshtml" />
+    <Content Include="Views\Incident\ShowIncidents.cshtml" />
+    <Content Include="Views\OilChange\ShowOilChanges.cshtml" />
+    <Content Include="Views\Transit\ShowDriverTransits.cshtml" />
+    <Content Include="Views\Incident\ShowDriverIncidents.cshtml" />
+    <Content Include="Views\Transit\ShowDepartmentTransits.cshtml" />
+    <Content Include="Views\Incident\ShowDepartmentIncidents.cshtml" />
+    <Content Include="Views\AutomobileClass\Delete.cshtml" />
+    <Content Include="Views\AutomobileClass\Edit.cshtml" />
+    <Content Include="Views\AutomobileClass\Index.cshtml" />
+    <Content Include="Views\AutomobileClass\List.cshtml" />
+    <Content Include="Views\AutomobileClass\New.cshtml" />
+    <Content Include="Views\AutomobileClass\Search.cshtml" />
+    <Content Include="Views\Color\Delete.cshtml" />
+    <Content Include="Views\Color\Edit.cshtml" />
+    <Content Include="Views\Color\Index.cshtml" />
+    <Content Include="Views\Color\List.cshtml" />
+    <Content Include="Views\Color\New.cshtml" />
+    <Content Include="Views\Color\Search.cshtml" />
+    <Content Include="Views\Autmobile\StatisticsAnalysis.cshtml" />
+    <Content Include="Views\Autmobile\ChartCompareFuelDistance.cshtml" />
+    <Content Include="Views\Autmobile\ChangeStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,83 @@
+﻿@model DAL.Automobile
+<div class="widget-box ">
+    <div class="widget-header">
+        <h3 class="header smaller lighter blue">نمایش سوخت گیری خودروبه پلاک @Model.Plaque </h3>
+     @Html.HiddenFor(model => model.ID, new { @id = "automobile" })
+        <div class="widget-toolbar">
+
+            <a href="#" style="font-size:25px;margin-top:5px" class="close" data-dismiss="modal">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main ">
+            <table id="table" width="100%" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>@AVAResource.Resource.Mobil_Plaque</th>
+                        <th>@AVAResource.Resource.Driver</th>
+                        <th>@AVAResource.Resource.DeliveryDepartment</th>
+                        <th>@AVAResource.Resource.DateReFual</th>
+                        <th>@AVAResource.Resource.VolumeFuel</th>
+                        <th>@AVAResource.Resource.AmountPaid</th>
+                        <th>@AVAResource.Resource.DistanceBeforReFual</th>
+                        <th>@AVAResource.Resource.PaymentType</th>
+                        <th>@AVAResource.Resource.FuelCardNumber</th>
+                        <th>@AVAResource.Resource.FualStation</th>
+                        <th>@AVAResource.Resource.Description</th>
+                        @*<th></th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var spinner;
+    $(function () {
+        var oTable1 = $('#table').dataTable({
+            "bFilter": false,
+            "language": {
+                "lengthMenu": "نمایش _MENU_ سطر در صفحه",
+                "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
+                "info": "نمایش صفحه _PAGE_ از _PAGES_",
+                "infoEmpty": "رکوردی وجود ندارد",
+                "infoFiltered": "(فیلتر شده از _MAX_ رکورد )"
+            },
+            "bServerSide": true,
+            "sAjaxSource": "/FuelConsume/GetFuels",
+            "bProcessing": false,
+            "aoColumns": [
+                   null, null, null, null, null, null, null, null, null, null, null,
+                   //{ "bSortable": false }
+            ],
+            "fnCreatedRow": function (nRow, aData, iDataIndex) {
+               // $('td:eq(11)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[11] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[11] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "automobile", "value": $("#automobile").val() });
+                aoData.push({ "name": "driver", "value": $("#driver").val() });
+                aoData.push({ "name": "fualstation", "value": $("#fualstation").val() });
+            },
+        });
+        $('table th input:checkbox').on('click', function () {
+            var that = this;
+            $(this).closest('table').find('tr > td:first-child input:checkbox')
+            .each(function () {
+                this.checked = that.checked;
+                $(this).closest('tr').toggleClass('selected');
+            });
+        });
+    })
+
+</script>
+
+
+
+
+

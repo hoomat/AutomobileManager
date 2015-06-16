@@ -124,11 +124,56 @@ namespace AVAResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Define Model.
+        /// </summary>
+        public static string AutomobileClass_Define {
+            get {
+                return ResourceManager.GetString("AutomobileClass_Define", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Model.
+        /// </summary>
+        public static string AutomobileClass_Delete {
+            get {
+                return ResourceManager.GetString("AutomobileClass_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Model.
+        /// </summary>
+        public static string AutomobileClass_Edit {
+            get {
+                return ResourceManager.GetString("AutomobileClass_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of Model.
+        /// </summary>
+        public static string AutomobileClass_List {
+            get {
+                return ResourceManager.GetString("AutomobileClass_List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automobile.
         /// </summary>
         public static string AutomobileMngMenu {
             get {
                 return ResourceManager.GetString("AutomobileMngMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistics Analysis.
+        /// </summary>
+        public static string AutomobileStatisticsAnalysis {
+            get {
+                return ResourceManager.GetString("AutomobileStatisticsAnalysis", resourceCulture);
             }
         }
         
@@ -178,6 +223,15 @@ namespace AVAResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to مقایسه سوخت با مسافت.
+        /// </summary>
+        public static string Chart_Fuel_Distance {
+            get {
+                return ResourceManager.GetString("Chart_Fuel_Distance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chart Repair Automobile.
         /// </summary>
         public static string Chart_Repair_Automobile {
@@ -192,6 +246,15 @@ namespace AVAResource {
         public static string Chart_RepairWorkshop_Referral {
             get {
                 return ResourceManager.GetString("Chart_RepairWorkshop_Referral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to مقایسه هزینه خرید به تعمیر.
+        /// </summary>
+        public static string Chart_Repiar_Buy {
+            get {
+                return ResourceManager.GetString("Chart_Repiar_Buy", resourceCulture);
             }
         }
         
@@ -219,6 +282,60 @@ namespace AVAResource {
         public static string Chassis_Not_Unique {
             get {
                 return ResourceManager.GetString("Chassis_Not_Unique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color Define.
+        /// </summary>
+        public static string Color_Define {
+            get {
+                return ResourceManager.GetString("Color_Define", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color Delete.
+        /// </summary>
+        public static string Color_Delete {
+            get {
+                return ResourceManager.GetString("Color_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color Edit.
+        /// </summary>
+        public static string Color_Edit {
+            get {
+                return ResourceManager.GetString("Color_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color of List.
+        /// </summary>
+        public static string Color_List {
+            get {
+                return ResourceManager.GetString("Color_List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color Name.
+        /// </summary>
+        public static string Color_Name {
+            get {
+                return ResourceManager.GetString("Color_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color Value.
+        /// </summary>
+        public static string Color_Value {
+            get {
+                return ResourceManager.GetString("Color_Value", resourceCulture);
             }
         }
         
@@ -975,6 +1092,24 @@ namespace AVAResource {
         public static string LogOff {
             get {
                 return ResourceManager.GetString("LogOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automobile Model.
+        /// </summary>
+        public static string Menu_AutomobileClass {
+            get {
+                return ResourceManager.GetString("Menu_AutomobileClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        public static string Menu_Color {
+            get {
+                return ResourceManager.GetString("Menu_Color", resourceCulture);
             }
         }
         

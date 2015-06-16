@@ -51,7 +51,7 @@
                                 <label class="control-label">@AVAResource.Resource.Driver</label>
                                 <div class="controls">
 
-                                    @Html.DropDownListFor(model => model.DriverID, Model.Drivers, new { @id = "driverlist" })
+                                    @Html.DropDownListFor(model => model.DriverID, Model.Drivers, new { @class = "chzn-select", })
                                     @Html.ValidationMessageFor(model => model.FuelConsume.Driver, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -109,8 +109,8 @@
                             <div class="control-group">
                                 <label class="control-label">@AVAResource.Resource.DistanceBeforReFual</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(model => model.FuelConsume.Distance, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.FuelConsume.Distance, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(model => model.FuelConsume.Mileag, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.FuelConsume.Mileag, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="control-group">
@@ -191,7 +191,7 @@
         $('#table').DataTable().ajax.reload();
         spinner.stop();
     }
-    $('#automobilelist').change(function () {
+    @*$('#automobilelist').change(function () {
         alert("")
         var url = "@Url.Action("GetDrivers", "Autmobile")";
         $.ajax({
@@ -212,5 +212,5 @@
                 alert("")
             }
         });
-    });
+    });*@
 </script>

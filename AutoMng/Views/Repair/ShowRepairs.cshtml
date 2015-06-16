@@ -1,0 +1,73 @@
+﻿@model DAL.Automobile
+<div class="widget-box ">
+    <div class="widget-header">
+        <h3 class="header smaller lighter blue">نمایش تعمیرات خودروبه پلاک @Model.Plaque </h3>
+        @Html.HiddenFor(model => model.ID, new { @id = "automobile" })
+        <div class="widget-toolbar">
+
+            <a href="#" style="font-size:25px;margin-top:5px" class="close" data-dismiss="modal">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main ">
+            <table id="table" width="100%" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>@AVAResource.Resource.Mobil_Plaque</th>
+                        <th>@AVAResource.Resource.Driver</th>
+                        <th>@AVAResource.Resource.CommanderPerson</th>
+                        <th>@AVAResource.Resource.DateRepair</th>
+                        <th>@AVAResource.Resource.Workshop</th>
+                        <th>@AVAResource.Resource.InvoiceNo</th>
+                        <th>@AVAResource.Resource.Wage</th>
+                        <th>@AVAResource.Resource.RepairCost</th>
+                        <th>@AVAResource.Resource.RepairmanDescription</th>
+                        <th>@AVAResource.Resource.ActionDescription</th>
+                        <th>@AVAResource.Resource.Description</th>
+                        
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var spinner;
+    $(function () {
+        var oTable1 = $('#table').dataTable({
+            "bFilter": false,
+            "language": {
+                "lengthMenu": "نمایش _MENU_ سطر در صفحه",
+                "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
+                "info": "نمایش صفحه _PAGE_ از _PAGES_",
+                "infoEmpty": "رکوردی وجود ندارد",
+                "infoFiltered": "(فیلتر شده از _MAX_ رکورد )"
+            },
+            "bServerSide": true,
+            "sAjaxSource": "/Repair/GetRepairs",
+            "bProcessing": false,
+            "aoColumns": [null, null, null, null, null, null, null, null, null, null, null,
+                  
+            ],
+            "fnCreatedRow": function (nRow, aData, iDataIndex) {
+                //$('td:eq(11)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[11] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[11] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "automobile", "value": $("#automobile").val() });
+                aoData.push({ "name": "driver", "value": $("#driver").val() });
+                aoData.push({ "name": "commander", "value": $("#commander").val() });
+                aoData.push({ "name": "workshop", "value": $("#workshop").val() });
+            },
+        });
+    })
+
+</script>
+
+
+
+
+

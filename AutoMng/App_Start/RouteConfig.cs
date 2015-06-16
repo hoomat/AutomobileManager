@@ -110,14 +110,34 @@ namespace AutomobilMng
                 "TrafficCard", // Route name
                 "TrafficCard/{action}", // URL with parameters
                 new {controller = "TrafficCard", action = "Login"});
+
             routes.MapRoute(
                 "Incident", // Route name
                 "Incident/{action}", // URL with parameters
                 new { controller = "Incident", action = "Login" });
+
             routes.MapRoute(
                      "setting", // Route name
                      "Setting/{action}", // URL with parameters
                      new { controller = "Setting", action = "Login" });
+            routes.MapRoute(
+         "Color", // Route name
+         "Color/{action}", // URL with parameters
+         new { controller = "Color", action = "Login" });
+
+            routes.MapRoute(
+ "AutomobileClass", // Route name
+ "AutomobileClass/{action}", // URL with parameters
+ new { controller = "AutomobileClass", action = "Login" });
+
+                        routes.MapRoute(
+ "StatisticsAnalysis", // Route name
+ "StatisticsAnalysis/{action}", // URL with parameters
+ new { controller = "StatisticsAnalysis", action = "Login" });
+
+
+
+            
             routes.MapRoute(
                 "Localization", // Route name
                 "{lang}/{controller}/{action}/{id}", // URL with parameters

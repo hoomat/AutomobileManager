@@ -51,13 +51,24 @@
                 ],
                 "fnCreatedRow": function (nRow, aData, iDataIndex) {
 
+                    switch (aData[6]) {
+                        case 'True':
+                            $('td:eq(6)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="badge badge-success " ><i class="icon-ok  "></i></a></div>').addClass('td-actions');
+                            break;
+                        case 'False':
+                            $('td:eq(6)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="badge badge-important" ><i class="fa fa-close  "></i></a></div>').addClass('td-actions');
+                            break;
+                    }
 
-                    //if (aData[6] == "True") {
-                    //    $('td:eq(7)', nRow).html('<label><input type="checkbox" checked="checked" disabled="disabled" /><span class="lbl"></span></label>').addClass('center');
-                    //}
-                    //else { $('td:eq(7)', nRow).html('<label><input type="checkbox"  readonly="true" disabled="disabled"/><span class="lbl"></span></label>').addClass('center'); }
-                    $('td:eq(6)', nRow).html('<label><input type="checkbox" checked="' + 'true' + '" disabled="disabled" /><span class="lbl"></span></label>').addClass('center');
-                    $('td:eq(7)', nRow).html('<label><input type="checkbox" checked="' + aData[8] + '"disabled="disabled" /><span class="lbl"></span></label>').addClass('center');
+                    switch (aData[7]) {
+                        case 'True':
+                            $('td:eq(7)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="badge badge-success" ><i class="icon-ok "></i></a></div>').addClass('td-actions');
+                            break;
+                        case 'False':
+                            $('td:eq(7)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="badge badge-important" ><i class="fa fa-close "></i></a></div>').addClass('td-actions');
+                            break;
+                    }
+                    
                     $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[8] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[8] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
                 },
                 "fnServerParams": function (aoData) {

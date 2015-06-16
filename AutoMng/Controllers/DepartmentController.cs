@@ -56,6 +56,7 @@ namespace AutomobilMng.Controllers
             var result = from c in resultlist
                          select new[] { 
                              c.Name,
+                             c.ID.ToString(),
                              c.ID.ToString()
                          };
                         
@@ -97,9 +98,9 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Department-Edit")]
         public ActionResult Edit(int id)
         {
-            var driver = applicationDbContext.Departments.First(item => item.ID == id);
+            var department= applicationDbContext.Departments.First(item => item.ID == id);
 
-            return PartialView("Edit", driver);
+            return PartialView("Edit", department);
         }
 
         [HttpPost]
@@ -119,7 +120,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Department-Delete")]
         public ActionResult Delete(int id)
         {
-            var department = applicationDbContext.Departments.First(u => u.ID == id);
+            var department = applicationDbContext.AutomobileClasses.First(u => u.ID == id);
             if (department == null)
                 return HttpNotFound();
             return PartialView("Delete", department);

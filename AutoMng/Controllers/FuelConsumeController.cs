@@ -6,6 +6,7 @@ using Stimulsoft.Report.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -23,6 +24,14 @@ namespace AutomobilMng.Controllers
             ViewBag.MenuShow = AVAResource.Resource.FuelMngMenu;
             ViewBag.Menu = "Fuel";
             return View();
+        }
+
+
+        [Authorize(Roles = "Fuel-Show")]
+        public ActionResult ShowFuels(int automobileid)
+        {
+            var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileid);
+            return PartialView("ShowFuels", automobile);
         }
 
         [Authorize(Roles = "Fuel-ReportCompareFuel")]
@@ -80,7 +89,7 @@ namespace AutomobilMng.Controllers
             else
                 filtered = filtered.OrderByDescending(item => item.ID);
 
-            var resultlist = filtered.Skip(param.iDisplayStart).Take(param.iDisplayLength);
+            var resultlist = filtered.OrderByDescending(item=>item.ID).Skip(param.iDisplayStart).Take(param.iDisplayLength);
             var result = from c in resultlist
                          select new[] { 
                              c.Automobile.Plaque,
@@ -153,7 +162,7 @@ namespace AutomobilMng.Controllers
             return Json(new
             {
                 sEcho = param.sEcho,
-                iTotalRecords = applicationDbContext.Automobils.Count(),
+                iTotalRecords = applicationDbContext.FuelConsumes.Count(),
                 iTotalDisplayRecords = filtered.Count(),
                 aaData = result
             },
@@ -203,11 +212,25 @@ namespace AutomobilMng.Controllers
                     model.FuelConsume.FuelCardID = fuelcardid;
                 }
 
+
                 //  var paymentType= applicationDbContext.PaymentTypes.FirstOrDefault(item => item.ID == model.PaymentTypeID);
                 model.FuelConsume.PaymentTypeID = model.PaymentTypeID;
 
-                applicationDbContext.FuelConsumes.Add(model.FuelConsume);
-                applicationDbContext.SaveChanges();
+
+                var lastTransit = applicationDbContext.FuelConsumes.Where(item =>  item.AutomobileID == automobileID).OrderByDescending(item => item.ID).Take(1);
+                if (lastTransit.Any())
+                    model.FuelConsume.Distance = model.FuelConsume.Mileag - lastTransit.FirstOrDefault().Mileag;
+                else
+                    model.FuelConsume.Distance = model.FuelConsume.Mileag;
+                // transit.Automobile.Distance = model.MileagAfterTrip.Value;
+
+                try
+                {
+                    applicationDbContext.FuelConsumes.Add(model.FuelConsume);
+                    applicationDbContext.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                { }
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
 
             }
@@ -253,12 +276,20 @@ namespace AutomobilMng.Controllers
                 //  var department = applicationDbContext.Departments.FirstOrDefault(item => item.ID == departmentid);
                 model.FuelConsume.DepartmentID = departmentid;
 
-                if (!string.IsNullOrWhiteSpace(model.FuelCardID))
+                if (!string.IsNullOrWhiteSpace(model.FuelCardID) && model.FuelCardID != (-1).ToString())
                 {
                     var fuelcardid = int.Parse(model.FuelCardID);
                     // var fuelcard = applicationDbContext.FuelCards.FirstOrDefault(item => item.ID == fuelcardid);
                     model.FuelConsume.FuelCardID = fuelcardid;
                 }
+
+                var lastTransit = applicationDbContext.FuelConsumes.Where(item => item.ID < model.FuelConsume.ID && item.AutomobileID == automobileID).OrderByDescending(item => item.ID).Take(1);
+                if (lastTransit.Any())
+                    model.FuelConsume.Distance = model.FuelConsume.Mileag - lastTransit.FirstOrDefault().Mileag;
+                else
+                    model.FuelConsume.Distance = model.FuelConsume.Mileag;
+                // transit.Automobile.Distance = model.MileagAfterTrip.Value;
+
 
                 //  var paymentType= applicationDbContext.PaymentTypes.FirstOrDefault(item => item.ID == model.PaymentTypeID);
                 model.FuelConsume.PaymentTypeID = model.PaymentTypeID;

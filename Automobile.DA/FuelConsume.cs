@@ -16,7 +16,7 @@ namespace DAL
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-     
+
 
         //-3 تاریخ و ساعت سوخت گیری
         [Required(ErrorMessage = "زمان سوخت گیری الزامی می باشد")]
@@ -33,8 +33,7 @@ namespace DAL
         public int AmountPaid { get; set; }
 
         //-6 میزان مسافت طی شده قبل از سوخت گیری )کیلومتر(
-        [Required(ErrorMessage = "مسافت قبل از سوخت گیری لازمی می باشد")]
-        [RegularExpression(@"^[1-9][0-9]*$", ErrorMessage = "*")]
+       
         public int Distance { get; set; }
 
         //-9 نام جایگاه سوخت
@@ -64,6 +63,10 @@ namespace DAL
         //-8 شماره کارت سوخت مصرفی
         public virtual FuelCard FuelCard { get; set; }
         public int? FuelCardID { get; set; }
+
+        [Required(ErrorMessage = "مسافت قبل از سوخت گیری لازمی می باشد")]
+        [RegularExpression(@"^[1-9][0-9]*$", ErrorMessage = "*")]
+        public int Mileag { get; set; }
     }
 
       [Table("PaymentType")]

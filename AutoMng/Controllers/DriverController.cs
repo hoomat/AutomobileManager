@@ -55,6 +55,7 @@ namespace AutomobilMng.Controllers
                                  c.PersonalNumber,
                                  c.Name,
                                  c.Category,
+                                 c.ID.ToString(),
                                  c.ID.ToString()
                          };
                         
