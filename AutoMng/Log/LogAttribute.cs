@@ -45,14 +45,14 @@ namespace AutomobilMng.Log
            // T myClass = default(T); ;
             var type = typeof(T);
             PropertyInfo[] properties = type.GetProperties();
+            if (obj!=null)
+                foreach (PropertyInfo property in properties)
+                {
+                    dic.Add(new KeyValuePair<string, string>(property.Name, property.GetValue(obj, null) == null ? "" : property.GetValue(obj, null).ToString()));
 
-            foreach (PropertyInfo property in properties)
-            {
-                dic.Add(new KeyValuePair<string, string>(property.Name, property.GetValue(obj, null) == null ? "" : property.GetValue(obj, null).ToString()));
-
-                // dic.Add(property.Name, property.GetValue(myClass, null) == null ? "" : property.GetValue(myClass, null).ToString());
-                // Console.WriteLine("Name: " + property.Name + ", Value: " + property.GetValue(myClass, null));
-            }
+                    // dic.Add(property.Name, property.GetValue(myClass, null) == null ? "" : property.GetValue(myClass, null).ToString());
+                    // Console.WriteLine("Name: " + property.Name + ", Value: " + property.GetValue(myClass, null));
+                }
             return dic;
         }
     

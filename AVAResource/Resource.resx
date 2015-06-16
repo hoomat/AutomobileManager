@@ -714,4 +714,13 @@
   <data name="Chart_Repiar_Buy" xml:space="preserve">
     <value>مقایسه هزینه خرید به تعمیر</value>
   </data>
+  <data name="Mobile_MaxAllowedDistance" xml:space="preserve">
+    <value>Max Allowed Distance</value>
+  </data>
+  <data name="Mobile_MaxAllowedRepairDistance" xml:space="preserve">
+    <value>Max Allowed Repair Distanc</value>
+  </data>
+  <data name="Mobile_MaxReferralWorkshop" xml:space="preserve">
+    <value>Max Referral Workshop</value>
+  </data>
 </root>

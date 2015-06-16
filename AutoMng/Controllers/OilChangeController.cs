@@ -22,6 +22,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.OilChangeMngMenu;
             ViewBag.Menu = "OilChange";
+            var dic = LogAttribute.GetProperties<OilChange>(null, ((int)Subject.OilChangeShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش عملیاتهای سوخت گیری", null, dic.ToArray());
             return View();
         }
 
@@ -29,6 +31,10 @@ namespace AutomobilMng.Controllers
         public ActionResult ShowOilChanges(int automobileid)
         {
             var automobile = applicationDbContext.Automobils.FirstOrDefault(item => item.ID == automobileid);
+
+            var dic = LogAttribute.GetProperties<Automobile>(automobile, ((int)Subject.OilChangeShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name,
+                string.Format( "{0} نمایش عملیاتهای سوخت گیری خودروی ",automobile.Plaque),null, dic.ToArray());
             return PartialView("ShowOilChanges", automobile);
         }
 
@@ -144,6 +150,8 @@ namespace AutomobilMng.Controllers
 
         public ActionResult Search()
         {
+
+     
             return PartialView("Search",new OilChangeSearchModel(this));
         }
 
@@ -188,8 +196,16 @@ namespace AutomobilMng.Controllers
                 applicationDbContext.Entry(model.OilChange).State = System.Data.Entity.EntityState.Modified;
                 applicationDbContext.SaveChanges();
                 var messageModel = new MessageModel { Code = 0, Message = "success" };
+
+                var dic = LogAttribute.GetProperties<OilChange>(model.OilChange, ((int)Subject.OilChangeEdit).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name,
+             string.Format("بروزرسانی عملیات سوخت گیری"), null, dic.ToArray());
+
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<OilChange>(model.OilChange, ((int)Subject.OilChangeEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name,
+         string.Format("بروزرسانی عملیات سوخت گیری"), null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -215,13 +231,20 @@ namespace AutomobilMng.Controllers
             applicationDbContext.OilChanges.Remove(OilChanges);
             applicationDbContext.SaveChanges();
             var messageModel = new MessageModel { Code = 0, Message = "success" };
+            var dic = LogAttribute.GetProperties<OilChange>(model.OilChange, ((int)Subject.OilChangeDelete).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name,
+         string.Format("حذف عملیات سوخت گیری"), null, dic.ToArray());
+
             return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             if (OilChanges == null)
             {
                 return HttpNotFound();
             }
+            var dicfail = LogAttribute.GetProperties<OilChange>(model.OilChange, ((int)Subject.OilChangeDelete).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name,
+         string.Format("حذف عملیات سوخت گیری"), null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
-           
+
         }
 
 

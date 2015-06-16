@@ -289,7 +289,7 @@
     <value>راننده</value>
   </data>
   <data name="NextChangeDest" xml:space="preserve">
-    <value>کیلومتر بعدی تعوض</value>
+    <value>کیلومتر بعدی تعویض</value>
   </data>
   <data name="OilFilterChanged" xml:space="preserve">
     <value>تعویض فیلتر روغن</value>
@@ -701,5 +701,14 @@
   </data>
   <data name="Chart_Repiar_Buy" xml:space="preserve">
     <value>مقایسه هزینه خرید به تعمیر</value>
+  </data>
+  <data name="Mobile_MaxAllowedDistance" xml:space="preserve">
+    <value>ماکزیمم مسافت مجاز</value>
+  </data>
+  <data name="Mobile_MaxAllowedRepairDistance" xml:space="preserve">
+    <value>ماکزیمم  مسافت مجاز سرویس</value>
+  </data>
+  <data name="Mobile_MaxReferralWorkshop" xml:space="preserve">
+    <value>ماکزیمم مراجعه به تعمیرگاه در ماه</value>
   </data>
 </root>

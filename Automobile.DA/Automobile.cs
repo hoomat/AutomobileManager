@@ -67,5 +67,19 @@ namespace DAL
 
         public virtual AutomobileStatus AutomobileStatus { get; set; }
         public int? AutomobileStatusId { get; set; }
+
+
+        public int? AllowedDistance { get; set; }
+        public int? MaxAllowedDistance { get; set; }
+        public DateTime? LastCheckAllowedDistance { get; set; }
+
+        public int? AllowedRepairDistance { get; set; }
+        public int? MaxAllowedRepairDistance { get; set; }
+        public DateTime? LastCheckAllowedRepairDistance { get; set; }
+
+
+        public int? ReferralWorkshop { get; set; }
+        public int? MaxReferralWorkshop { get; set; }
+        public DateTime? LastCheckReferralWorkshop { get; set; }
     }
 }

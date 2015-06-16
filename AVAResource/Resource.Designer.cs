@@ -1294,6 +1294,33 @@ namespace AVAResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max Allowed Distance.
+        /// </summary>
+        public static string Mobile_MaxAllowedDistance {
+            get {
+                return ResourceManager.GetString("Mobile_MaxAllowedDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max Allowed Repair Distanc.
+        /// </summary>
+        public static string Mobile_MaxAllowedRepairDistance {
+            get {
+                return ResourceManager.GetString("Mobile_MaxAllowedRepairDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max Referral Workshop.
+        /// </summary>
+        public static string Mobile_MaxReferralWorkshop {
+            get {
+                return ResourceManager.GetString("Mobile_MaxReferralWorkshop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Model .
         /// </summary>
         public static string Mobile_Model {
