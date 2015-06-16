@@ -371,6 +371,7 @@
     <Content Include="Reports\FuelConsume.mrt" />
     <Content Include="Reports\Incident.mrt" />
     <Content Include="Reports\OilChange.mrt" />
+    <Content Include="Bug Tracker.xlsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Ace\jquery.slimscroll.min.js" />
     <Content Include="Scripts\additional-methods.min.js" />
