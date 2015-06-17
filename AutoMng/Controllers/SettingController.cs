@@ -25,34 +25,32 @@ namespace AutomobilMng.Controllers
            MessageModel messageModel = null;
            if (ModelState.IsValid)
            {
-               if (!string.IsNullOrWhiteSpace(Request.Files[0].FileName))
+              
+               try
                {
-                   HttpPostedFileBase file = Request.Files["zipfile"];
-                   file.SaveAs(Server.MapPath("~/Content/Images/background.jpg"));
-                   try
+                   if (!string.IsNullOrWhiteSpace(Request.Files[0].FileName))
                    {
-                       System.Configuration.Configuration config = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
-                       System.Configuration.KeyValueConfigurationElement titleLogin = config.AppSettings.Settings["TitleLogin"];
-                       System.Configuration.KeyValueConfigurationElement tittleTab = config.AppSettings.Settings["TittleTab"];
-                       if (null != titleLogin)
-                           config.AppSettings.Settings["TitleLogin"].Value = model.TitleLogin;
-                       else
-                           config.AppSettings.Settings.Add("TitleLogin", model.TitleLogin);
-                       if (null != tittleTab)
-                           config.AppSettings.Settings["TittleTab"].Value = model.TittleTab;
-                       else
-                           config.AppSettings.Settings.Add("TittleTab", model.TittleTab);
-                       config.Save();
+                       HttpPostedFileBase file = Request.Files["zipfile"];
+                       file.SaveAs(Server.MapPath("~/Content/Images/background.jpg"));
+
                    }
-                   catch (System.Exception exc)
-                   {
-                       messageModel = new MessageModel { Code = 1, Message = exc.Message };
-                       return PartialView("MessageHandle", messageModel);
-                   }
+                
+                   System.Configuration.Configuration config = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
+                   System.Configuration.KeyValueConfigurationElement titleLogin = config.AppSettings.Settings["TitleLogin"];
+                   System.Configuration.KeyValueConfigurationElement tittleTab = config.AppSettings.Settings["TittleTab"];
+                   if (null != titleLogin)
+                       config.AppSettings.Settings["TitleLogin"].Value = model.TitleLogin;
+                   else
+                       config.AppSettings.Settings.Add("TitleLogin", model.TitleLogin);
+                   if (null != tittleTab)
+                       config.AppSettings.Settings["TittleTab"].Value = model.TittleTab;
+                   else
+                       config.AppSettings.Settings.Add("TittleTab", model.TittleTab);
+                   config.Save();
                }
-               else
+               catch (System.Exception exc)
                {
-                    messageModel = new MessageModel { Code = 1, Message = (AVAResource.Resource.Chassis_Not_Unique) };
+                   messageModel = new MessageModel { Code = 1, Message = exc.Message };
                    return PartialView("MessageHandle", messageModel);
                }
                 messageModel = new MessageModel { Code = 0, Message = "success" };
