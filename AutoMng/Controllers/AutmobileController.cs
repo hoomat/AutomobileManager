@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using DAL;
 using DotNet.Highcharts;
 using DotNet.Highcharts.Enums;
@@ -29,7 +30,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.AutomobileMngMenu;
             ViewBag.Menu = "Automobile";
-           // return View();
+            var dic = LogAttribute.GetProperties<ApplicationUser>(null, ((int)Subject.AutomobileShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش خودروها", null, dic.ToArray());
             int BlockSize = 10;
             var autos = GetAutomobilsPaging(1, BlockSize);
             return View(autos);
@@ -120,16 +122,16 @@ namespace AutomobilMng.Controllers
                         JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Automobile-New")]
-        public ActionResult New()
-        {
-            return PartialView("New", new AutomobileModel());
-        }
-
         [Authorize(Roles = "Automobile-Show")]
         public ActionResult List()
         {
             return PartialView("List");
+        }
+
+        [Authorize(Roles = "Automobile-New")]
+        public ActionResult New()
+        {
+            return PartialView("New", new AutomobileModel());
         }
 
         [HttpPost]
@@ -193,12 +195,15 @@ namespace AutomobilMng.Controllers
                         model.Automobile.ImageAddress = (model.Automobile.ID + "." + file.FileName.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries)[1]);
                         applicationDbContext.SaveChanges();
                     }
-                   
+                    var dic = LogAttribute.GetProperties<AutomobileModel>(model, ((int)Subject.AutomobileNew).ToString(), "success");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف خودرو", null, dic.ToArray());
                     var messageModel = new MessageModel { Code = 0, Message = "success" };
                     return PartialView("MessageHandle", messageModel);
                 }
                 else
                 {
+                    var dic = LogAttribute.GetProperties<AutomobileModel>(model, ((int)Subject.AutomobileNew).ToString(), "fail");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف خودرو", null, dic.ToArray());
                     var messageModel = new MessageModel { Code = 1, Message = (AVAResource.Resource.Chassis_Not_Unique) };
                     return PartialView("MessageHandle", messageModel);
                 }
@@ -239,12 +244,14 @@ namespace AutomobilMng.Controllers
                     int automobileStatusId = int.Parse(model.StatusId);
                     auto.AutomobileStatusId = automobileStatusId;
                 }
-
-               // applicationDbContext.Entry(model.Automobile).State = System.Data.Entity.EntityState.Modified;
                  applicationDbContext.SaveChanges();
+                 var dic = LogAttribute.GetProperties<AutomobileModel>(model, ((int)Subject.AutomobileChangeStatus).ToString(), "success");
+                 Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تغییر وضعیت خودرو", null, dic.ToArray());
                 var messageModel = new MessageModel { Code = 0, Message = "success" };
                 return PartialView("MessageHandle", messageModel);
             }
+            var dicfail = LogAttribute.GetProperties<AutomobileModel>(model, ((int)Subject.AutomobileChangeStatus).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تغییر وضعیت خودرو", null, dicfail.ToArray());
             return PartialView("ChangeStatus", model);
         }
 
@@ -284,7 +291,6 @@ namespace AutomobilMng.Controllers
                     int departmentID = int.Parse(model.DepartmentID.ToString());
                     var department = applicationDbContext.Departments.FirstOrDefault(item => item.ID == departmentID);
                     model.Automobile.Department = department;
-                    // applicationDbContext.Entry(department).State = EntityState.Modified;
                 }
 
                 if (!string.IsNullOrWhiteSpace(model.Automobile.FualType))
@@ -306,26 +312,15 @@ namespace AutomobilMng.Controllers
 
                     model.Automobile.ColorId = colorId;
                 }
-                //if (model.Automobile.AutomobileDrivers == null)
-                //    model.Automobile.AutomobileDrivers = new List<AutomobileDriver>();
-                //else
-                //    model.Automobile.AutomobileDrivers.Clear();
-
-                //if (model.SelectedDrivers != null)
-                //{
-                //    foreach (var select in model.SelectedDrivers)
-                //    {
-                //        int driverid = int.Parse(select.ToString());
-                //        var driver = applicationDbContext.Drivers.FirstOrDefault(item => item.ID == driverid);
-                //        if (driver != null)
-                //            model.Automobile.AutomobileDrivers.Add(new AutomobileDriver { Automobile = model.Automobile, Driver = driver });
-                //    }
-                //}
                 applicationDbContext.Entry(model.Automobile).State = System.Data.Entity.EntityState.Modified;
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<AutomobileModel>(model, ((int)Subject.AutomobileEdit).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی خودرو", null, dic.ToArray());
                 var messageModel = new MessageModel { Code = 0, Message = "success" };
                 return PartialView("MessageHandle", messageModel);
             }
+            var dicfail = LogAttribute.GetProperties<AutomobileModel>(model, ((int)Subject.AutomobileEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی خودرو", null, dicfail.ToArray());
             return PartialView("Edit", model);
         }
 
@@ -353,16 +348,18 @@ namespace AutomobilMng.Controllers
             var automobile = applicationDbContext.Automobiles.First(u => u.ID == model.Automobile.ID);
             applicationDbContext.Automobiles.Remove(automobile);
             applicationDbContext.SaveChanges();
+            var dic = LogAttribute.GetProperties<AutomobileModel>(model, ((int)Subject.AutomobileDelete).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف خودرو", null, dic.ToArray());
             var messageModel = new MessageModel { Code = 0, Message = "success" };
             return PartialView("MessageHandle", messageModel);
-
-          //  var model = new AutomobileModel(automobile);
             if (automobile == null)
             {
                 return HttpNotFound();
             }
+            var dicfail = LogAttribute.GetProperties<AutomobileModel>(model, ((int)Subject.AutomobileDelete).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف خودرو", null, dicfail.ToArray());
             return PartialView("Delete", model);
-            return RedirectToAction("Index");
+            
         }
 
         public ActionResult GetAutomobilList(List<AutomobileModel> automobiles)
@@ -478,8 +475,9 @@ namespace AutomobilMng.Controllers
                 //   // new Series { Name = "تحویل موقت", Data = new Data(new object[] { 48.9, 38.8}) },
                 //}
                 );
-            
 
+            var dic = LogAttribute.GetProperties<AutomobileModel>(null, ((int)Subject.AutomobileStatisticsAnalysis).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, " تحلیل آماری خودروها", null, dic.ToArray());
             return PartialView(chart);
         }
 
@@ -572,7 +570,8 @@ namespace AutomobilMng.Controllers
                 //}
                 );
 
-
+            var dic = LogAttribute.GetProperties<AutomobileModel>(null, ((int)Subject.AutomobileStatisticsAnalysis).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, " تحلیل آماری خودروها", null, dic.ToArray());
             return PartialView(chart);
         }
         
@@ -609,6 +608,7 @@ namespace AutomobilMng.Controllers
             return models;
         }
 
+
         [Authorize(Roles = "Automobile-Report")]
         public ActionResult Report(string plaqueSearch, string chassisSearch, string modelSearch, string produceYear, string fualTypeSearch, string departmentSearch)
         {
@@ -618,7 +618,8 @@ namespace AutomobilMng.Controllers
             ViewBag.produceYear = produceYear;
             ViewBag.fualTypeSearch = fualTypeSearch;
             ViewBag.departmentSearch = departmentSearch;
-            
+            var dic = LogAttribute.GetProperties<AutomobileModel>(null, ((int)Subject.AutomobileReport).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, " گزارش خودروها", null, dic.ToArray());
             return PartialView("Report");
         }
 
