@@ -35,7 +35,7 @@ namespace AutomobilMng.Controllers
             return View(autos);
         }
 
-        public ActionResult GetAutomobils(JQueryDataTableParamModel param)
+        public ActionResult GetAutomobiles(JQueryDataTableParamModel param)
         {
             IQueryable<Automobile> automobils = applicationDbContext.Automobiles.AsQueryable();
             IEnumerable<Automobile> filtered;
