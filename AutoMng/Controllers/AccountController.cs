@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using AutomobilMng.Models;
 using System;
 using DAL;
+using AutomobilMng.Log;
 
 namespace AutomobilMng.Controllers
 {
@@ -45,15 +46,17 @@ namespace AutomobilMng.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
+                    var dic = LogAttribute.GetProperties<LoginViewModel>(model, ((int)Subject.UserLogin).ToString(), "success");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "ورود به سیستم", null, dic.ToArray());
                     return RedirectToLocal(returnUrl);
                 }
                 else
                 {
+                    var dic = LogAttribute.GetProperties<LoginViewModel>(model, ((int)Subject.UserLogin).ToString(), "fail");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "ورود به سیستم", null, dic.ToArray());
                     ModelState.AddModelError("", @AVAResource.Resource.Invalid_username_or_password);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -80,6 +83,9 @@ namespace AutomobilMng.Controllers
               
                 if (result.Succeeded)
                 {
+                    var dic = LogAttribute.GetProperties<RegisterViewModel>(model, ((int)Subject.UserRegister).ToString(), "success");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف کاربر", null, dic.ToArray());
+
                     foreach (var role in roles)
                         UserManager.AddToRole(user.Id, role);
                     var messageModel = new MessageModel { Code = 0, Message = "success" };
@@ -87,6 +93,8 @@ namespace AutomobilMng.Controllers
                 }
                 else
                 {
+                    var dic = LogAttribute.GetProperties<RegisterViewModel>(model, ((int)Subject.UserRegister).ToString(), "fail");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "ورود به سیستم", null, dic.ToArray());
                     var error = ((string[])(result.Errors))[0];
                     var messageModel = new MessageModel { Code = 1, Message = ((string[])(result.Errors))[0] };
                     return PartialView("MessageHandle", messageModel);
@@ -171,6 +179,8 @@ namespace AutomobilMng.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
+            var dic = LogAttribute.GetProperties<System.Security.Principal.IPrincipal>(User, ((int)Subject.UserLogout).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "خروج", null, dic.ToArray());
             return RedirectToAction("Login", "Account");
         }
 
@@ -189,16 +199,10 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "User-Show")]
         public ActionResult Index()
         {
+            var dic = LogAttribute.GetProperties<OilChange>(null, ((int)Subject.UserShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش کاربران", null, dic.ToArray());
             ViewBag.Menu = "Account";
             ViewBag.MenuShow = AVAResource.Resource.UserMngMenu;
-            //var Db = new ApplicationDbContext();
-            //var users = Db.Users;
-            //var model = new List<EditUserViewModel>();
-            //foreach (var user in users)
-            //{
-            //    var u = new EditUserViewModel(user);
-            //    model.Add(u);
-            //}
             return View();
         }
 
@@ -210,13 +214,6 @@ namespace AutomobilMng.Controllers
         public ActionResult GetUsers(JQueryDataTableParamModel param)
         {
             var Db = new ApplicationDbContext();
-          //  var users = Db.Users;
-            //var model = new List<EditUserViewModel>();
-            //foreach (var user in users)
-            //{
-            //    var u = new EditUserViewModel(user);
-            //    model.Add(u);
-            //}
             IQueryable<ApplicationUser> users = Db.Users.AsQueryable();
             IEnumerable<ApplicationUser> filteredUsers;
             var usernameSearch = Convert.ToString(Request["usernameSearch"]);
@@ -275,8 +272,8 @@ namespace AutomobilMng.Controllers
             var user = Db.Users.First(u => u.UserName == id);
             var model = new EditUserViewModel(user);
             ViewBag.MessageId = Message;
+
             return PartialView("Edit", model);
-            return View(model);
         }
         
         [HttpPost]
@@ -309,14 +306,15 @@ namespace AutomobilMng.Controllers
                     //idManager.AddUserToRole(user.Id, grouprole.Role.Name);
                 }
                 um.Update(user);
-              
+                var dic = LogAttribute.GetProperties<EditUserViewModel>(model, ((int)Subject.UserEdit).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی کاربر", null, dic.ToArray());
                 var messageModel = new MessageModel { Code = 0, Message = "success" };
                 return PartialView("MessageHandle", messageModel);
                 //return RedirectToAction("Index");
             }
+            var dicfail = LogAttribute.GetProperties<EditUserViewModel>(model, ((int)Subject.UserEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی کاربر", null, dicfail.ToArray());
             return PartialView("Edit", model);
-            // If we got this far, something failed, redisplay form
-            return View(model);
         }
 
 
@@ -331,7 +329,6 @@ namespace AutomobilMng.Controllers
                 return HttpNotFound();
             }
             return PartialView("Delete", model);
-            return View(model);
         }
 
 
@@ -344,6 +341,8 @@ namespace AutomobilMng.Controllers
             var user = Db.Users.First(u => u.UserName == id);
             Db.Users.Remove(user);
             Db.SaveChanges();
+            var dic = LogAttribute.GetProperties<ApplicationUser>(user, ((int)Subject.UserDelete).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف کاربر", null, dic.ToArray());
             var messageModel = new MessageModel { Code = 0, Message = "success" };
             return PartialView("MessageHandle", messageModel);
 
@@ -352,8 +351,9 @@ namespace AutomobilMng.Controllers
             {
                 return HttpNotFound();
             }
+            var dicfail = LogAttribute.GetProperties<ApplicationUser>(user, ((int)Subject.UserDelete).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف کاربر", null, dicfail.ToArray());
             return PartialView("Edit", model);
-            return RedirectToAction("Index");
         }
 
 
@@ -364,7 +364,6 @@ namespace AutomobilMng.Controllers
             var user = Db.Users.First(u => u.UserName == id);
             var model = new SelectUserRolesViewModel(user);
             return PartialView("UserRoles", model);
-            return View(model);
         }
 
 
@@ -382,12 +381,16 @@ namespace AutomobilMng.Controllers
                 foreach (var role in model.Roles)
                     if (role.Selected)
                         idManager.AddUserToRole(user.Id, role.RoleName);
+                var dic = LogAttribute.GetProperties<SelectUserRolesViewModel>(model, ((int)Subject.UserRoles).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "ثبت مجوز کاربر", null, dic.ToArray());
+
                 var messageModel = new MessageModel { Code = 0, Message = "success" };
                 return PartialView("MessageHandle", messageModel);
-                return RedirectToAction("index");
             }
+            var dicfail = LogAttribute.GetProperties<SelectUserRolesViewModel>(model, ((int)Subject.UserRoles).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "ثبت مجوز کاربر", null, dicfail.ToArray());
             return PartialView("UserRoles", model);
-            return View();
+          
         }
 
 
