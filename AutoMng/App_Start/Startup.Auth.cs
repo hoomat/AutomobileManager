@@ -47,13 +47,6 @@ namespace AutomobilMng
            var path=  HostingEnvironment.MapPath(@"~/Log/log4netconfig.xml");
            Logger.Initialize(new System.Uri(path));
 
-           Logger.Send(GetType(), Logger.CriticalityLevel.Info,"" ,"statistical",null,
-                                    new[]{ new KeyValuePair<string, string>("value",""),
-                                                     new KeyValuePair<string, string>("analyzerid", "")});
-            var type = typeof(DatabaseAppender);
-            Logger.Send(GetType(), Logger.CriticalityLevel.Info, "", "statistical", null,
-                                        new[]{ new KeyValuePair<string, string>("value",""),
-                                                     new KeyValuePair<string, string>("analyzerid", "")});
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
