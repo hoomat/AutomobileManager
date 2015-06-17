@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using DAL;
 using MD.PersianDateTime;
 using System;
@@ -20,6 +21,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.Menu_Color;
             ViewBag.Menu = "Color";
+            var dic = LogAttribute.GetProperties<Color>(null, ((int)Subject.ColorShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش رنگ خودرو ", null, dic.ToArray());
             return View();
         }
 
@@ -84,8 +87,12 @@ namespace AutomobilMng.Controllers
             {
                 applicationDbContext.Colors.Add(model);
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<Color>(null, ((int)Subject.ColorNew).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف رنگ خودرو ", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<Color>(null, ((int)Subject.ColorNew).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف رنگ خودرو ", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -110,8 +117,12 @@ namespace AutomobilMng.Controllers
             {
                 applicationDbContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<Color>(null, ((int)Subject.ColorEdit).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی رنگ خودرو ", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<Color>(null, ((int)Subject.ColorEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی رنگ خودرو ", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -133,13 +144,16 @@ namespace AutomobilMng.Controllers
             var color = applicationDbContext.Colors.First(u => u.ID == model.ID);
             applicationDbContext.Colors.Remove(color);
             applicationDbContext.SaveChanges();
+            var dic = LogAttribute.GetProperties<Color>(null, ((int)Subject.ColorDelete).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف رنگ خودرو ", null, dic.ToArray());
             return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             if (color == null)
             {
                 return HttpNotFound();
             }
+            var dicfail = LogAttribute.GetProperties<Color>(null, ((int)Subject.ColorDelete).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف رنگ خودرو ", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
-           
         }
     }
 }
