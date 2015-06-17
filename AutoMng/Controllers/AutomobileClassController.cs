@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using DAL;
 using MD.PersianDateTime;
 using System;
@@ -20,6 +21,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.Menu_AutomobileClass;
             ViewBag.Menu = "AutomobileClass";
+            var dic = LogAttribute.GetProperties<AutomobileClass>(null, ((int)Subject.AutomobileClassShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش مدل خودرو ", null, dic.ToArray());
             return View();
         }
 
@@ -83,8 +86,12 @@ namespace AutomobilMng.Controllers
             {
                 applicationDbContext.AutomobileClasses.Add(model);
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<AutomobileClass>(null, ((int)Subject.AutomobileClassNew).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف مدل خودرو ", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<AutomobileClass>(null, ((int)Subject.AutomobileClassNew).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف مدل خودرو ", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -110,8 +117,12 @@ namespace AutomobilMng.Controllers
             {
                 applicationDbContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<AutomobileClass>(null, ((int)Subject.AutomobileClassEdit).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی مدل خودرو ", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<AutomobileClass>(null, ((int)Subject.AutomobileClassEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی مدل خودرو ", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -133,11 +144,15 @@ namespace AutomobilMng.Controllers
             var automobileModel = applicationDbContext.AutomobileClasses.First(u => u.ID == model.ID);
             applicationDbContext.AutomobileClasses.Remove(automobileModel);
             applicationDbContext.SaveChanges();
+            var dic = LogAttribute.GetProperties<AutomobileClass>(null, ((int)Subject.AutomobileClassDelete).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف مدل خودرو ", null, dic.ToArray());
             return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             if (automobileModel == null)
             {
                 return HttpNotFound();
             }
+            var dicfail = LogAttribute.GetProperties<AutomobileClass>(null, ((int)Subject.AutomobileClassDelete).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف مدل خودرو ", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
            
         }
