@@ -45,6 +45,53 @@ namespace AutomobilMng.Log
         OilChangeEdit = 504,
         OilChangeDelete = 505,
         OilChangeReport = 506,
+
+
+
+        DepartmentMenu = 606,
+        DepartmentShow = 606,
+        DepartmentNew = 606,
+        DepartmentEdit = 606,
+        DepartmentDelete = 606,
+
+        DriverMenu = 701,
+        DriverShow = 702,
+        DriverNew = 703,
+        DriverEdit = 704,
+        DriverDelete = 705,
+
+
+        FuelMenu = 800,
+        FuelShow = 801,
+        FuelNew = 802,
+        FuelEdit = 803,
+        FuelDelete = 804,
+        FuelReport = 805,
+        FuelReportCompareFuel = 806,
+
+        IncidentMenu = 900,
+        IncidentShow = 901,
+        IncidentNew = 902,
+        IncidentEdit = 903,
+        IncidentDelete = 904,
+        IncidentReport = 906,
+
+        RepairMenu = 150,
+        RepairShow = 151,
+        RepairNew = 152,
+        RepairEdit = 153,
+        RepairDelete = 154,
+        RepairChartAutomobile = 155,
+        RepairChartWorkshopReferral = 156,
+
+        SaveSetting = 250,
+        ShowSetting = 251,
+
+        TrafficCardMenu = 350,
+        TrafficCardShow = 351,
+        TrafficCardNew = 352,
+        TrafficCardEdit = 353,
+        TrafficCardDelete = 354,
     }
 
     public class LogAttribute : Attribute

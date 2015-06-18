@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using DAL;
 using MD.PersianDateTime;
 using Stimulsoft.Report;
@@ -23,6 +24,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.FuelMngMenu;
             ViewBag.Menu = "Fuel";
+            var dic = LogAttribute.GetProperties<FuelConsumeModel>(null, ((int)Subject.FuelShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش سوخت گیری", null, dic.ToArray());
             return View();
         }
 
@@ -31,6 +34,8 @@ namespace AutomobilMng.Controllers
         public ActionResult ShowFuels(int automobileid)
         {
             var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileid);
+            var dic = LogAttribute.GetProperties<Automobile>(automobile, ((int)Subject.FuelShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش سوخت گیری", null, dic.ToArray());
             return PartialView("ShowFuels", automobile);
         }
 
@@ -39,6 +44,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.FuelReportCompareMngMenu;
             ViewBag.Menu = "ReportCompareFuel";
+            var dic = LogAttribute.GetProperties<FuelConsumeModel>(null, ((int)Subject.FuelReportCompareFuel).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش مقایسه سوخت گیری", null, dic.ToArray());
             return View(new FuelSearchModel(this));
         }
 
@@ -228,9 +235,16 @@ namespace AutomobilMng.Controllers
                 {
                     applicationDbContext.FuelConsumes.Add(model.FuelConsume);
                     applicationDbContext.SaveChanges();
+                    var dic = LogAttribute.GetProperties<FuelConsumeModel>(model, ((int)Subject.FuelNew).ToString(), "success");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف سوخت گیری", null, dic.ToArray());
                 }
                 catch (DbEntityValidationException ex)
-                { }
+                {
+                    var dicfail = LogAttribute.GetProperties<FuelConsumeModel>(model, ((int)Subject.FuelNew).ToString(), "fail");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف سوخت گیری", null, dicfail.ToArray());
+                }
+                var dicfail0 = LogAttribute.GetProperties<FuelConsumeModel>(model, ((int)Subject.FuelNew).ToString(), "fail");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف سوخت گیری", null, dicfail0.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
 
             }
@@ -295,8 +309,12 @@ namespace AutomobilMng.Controllers
                 model.FuelConsume.PaymentTypeID = model.PaymentTypeID;
                 applicationDbContext.Entry(model.FuelConsume).State = System.Data.Entity.EntityState.Modified;
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<FuelConsumeModel>(model, ((int)Subject.FuelEdit).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی سوخت گیری", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<FuelConsumeModel>(model, ((int)Subject.FuelEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی سوخت گیری", null, dicfail.ToArray());
             return PartialView("Edit", model);
         }
 
@@ -318,11 +336,12 @@ namespace AutomobilMng.Controllers
             var fuelConsume = applicationDbContext.FuelConsumes.First(u => u.ID == model.FuelConsume.ID);
             applicationDbContext.FuelConsumes.Remove(fuelConsume);
             applicationDbContext.SaveChanges();
+            var dic = LogAttribute.GetProperties<FuelConsumeModel>(model, ((int)Subject.FuelDelete).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف سوخت گیری", null, dic.ToArray());
+
             return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
-            if (fuelConsume == null)
-            {
-                return HttpNotFound();
-            }
+            var dicfail = LogAttribute.GetProperties<FuelConsumeModel>(model, ((int)Subject.FuelDelete).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف سوخت گیری", null, dicfail.ToArray());
             return PartialView("Delete", model);
 
         }
@@ -335,6 +354,8 @@ namespace AutomobilMng.Controllers
             ViewBag.automobile = automobile;
             ViewBag.driver = driver;
             ViewBag.fualstation = fualstation;
+            var dic = LogAttribute.GetProperties<FuelConsumeModel>(null, ((int)Subject.FuelReport).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "گزارش سوخت گیری", null, dic.ToArray());
             return PartialView("Report");
         }
 

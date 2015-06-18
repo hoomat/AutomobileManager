@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using DAL;
 using MD.PersianDateTime;
 using System;
@@ -20,6 +21,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.Menu_Department;
             ViewBag.Menu = "Department";
+            var dic = LogAttribute.GetProperties<Department>(null, ((int)Subject.DepartmentShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش اداره ها ", null, dic.ToArray());
             return View();
         }
 
@@ -85,8 +88,12 @@ namespace AutomobilMng.Controllers
             {
                 applicationDbContext.Departments.Add(model);
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<Department>(model, ((int)Subject.DepartmentNew).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف اداره", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<Department>(model, ((int)Subject.DepartmentNew).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف اداره", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -112,8 +119,12 @@ namespace AutomobilMng.Controllers
             {
                 applicationDbContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<Department>(model, ((int)Subject.DepartmentEdit).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی اداره", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<Department>(model, ((int)Subject.DepartmentEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی اداره", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -130,18 +141,22 @@ namespace AutomobilMng.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Department-Delete")]
-        public ActionResult DeleteConfirmed(Driver model)
+        public ActionResult DeleteConfirmed(Department model)
         {
             var department = applicationDbContext.Departments.First(u => u.ID == model.ID);
             applicationDbContext.Departments.Remove(department);
             applicationDbContext.SaveChanges();
+            var dic = LogAttribute.GetProperties<Department>(model, ((int)Subject.DepartmentEdit).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف اداره", null, dic.ToArray());
             return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             if (department == null)
             {
                 return HttpNotFound();
             }
+            var dicfail = LogAttribute.GetProperties<Department>(model, ((int)Subject.DepartmentEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف اداره", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
-           
+
         }
     }
 }

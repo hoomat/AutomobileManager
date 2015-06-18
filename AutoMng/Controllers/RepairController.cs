@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using DAL;
 using DotNet.Highcharts;
 using DotNet.Highcharts.Enums;
@@ -27,6 +28,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.RepairMngMenu;
             ViewBag.Menu = "Repair";
+            var dic = LogAttribute.GetProperties<RepairModel>(null, ((int)Subject.RepairShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش تعمیرات", null, dic.ToArray());
             return View();
         }
 
@@ -215,15 +218,21 @@ namespace AutomobilMng.Controllers
             {
                 if (model.Define(User))
                 {
+                    var dic = LogAttribute.GetProperties<RepairModel>(model, ((int)Subject.RepairNew).ToString(), "success");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف تعمیرات", null, dic.ToArray());
                     var messageModel = new MessageModel { Code = 0, Message = "success" };
                     return PartialView("MessageHandle", messageModel);
                 }
                 else
                 {
+                    var dicfail = LogAttribute.GetProperties<RepairModel>(model, ((int)Subject.RepairNew).ToString(), "fail");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف تعمیرات", null, dicfail.ToArray());
                     var messageModel = new MessageModel { Code = 1, Message = (AVAResource.Resource.Chassis_Not_Unique) };
                     return PartialView("MessageHandle", messageModel);
                 }
             }
+            var dicfail0 = LogAttribute.GetProperties<RepairModel>(model, ((int)Subject.RepairNew).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف تعمیرات", null, dicfail0.ToArray());
             return PartialView("New", model);
             
         }
@@ -251,14 +260,21 @@ namespace AutomobilMng.Controllers
 
                 if (model.Modify())
                 {
+                    var dic = LogAttribute.GetProperties<RepairModel>(model, ((int)Subject.RepairEdit).ToString(), "success");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی تعمیرات", null, dic.ToArray());
                     var messageModel = new MessageModel { Code = 0, Message = "success" };
                     return PartialView("MessageHandle", messageModel);
                 }
                 else
                 {
+                    var dicfail = LogAttribute.GetProperties<RepairModel>(model, ((int)Subject.RepairEdit).ToString(), "fail");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی تعمیرات", null, dicfail.ToArray());
                     var messageModel = new MessageModel { Code = 1, Message = (AVAResource.Resource.Chassis_Not_Unique) };
                     return PartialView("MessageHandle", messageModel);
                 }
+
+                var dicfail0 = LogAttribute.GetProperties<RepairModel>(model, ((int)Subject.RepairEdit).ToString(), "fail");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی تعمیرات", null, dicfail0.ToArray());
                 return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
             }
             return PartialView("Edit", model);
@@ -281,7 +297,13 @@ namespace AutomobilMng.Controllers
         public ActionResult DeleteConfirmed(RepairModel model)
         {
             if (model.Delete())
+            {
+                var dic = LogAttribute.GetProperties<RepairModel>(model, ((int)Subject.RepairDelete).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف تعمیرات", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
+            }
+            var dicfail = LogAttribute.GetProperties<RepairModel>(model, ((int)Subject.RepairDelete).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف تعمیرات", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -339,7 +361,8 @@ namespace AutomobilMng.Controllers
                 //   // new Series { Name = "تحویل موقت", Data = new Data(new object[] { 48.9, 38.8}) },
                 //}
                 );
-
+            var dic = LogAttribute.GetProperties<RepairModel>(null, ((int)Subject.RepairChartAutomobile ).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش نمودار تعداد تعمیرات خودرو", null, dic.ToArray());
 
             return PartialView(chart);
         }
@@ -407,7 +430,8 @@ namespace AutomobilMng.Controllers
                 //}
                 );
 
-
+            var dic = LogAttribute.GetProperties<RepairModel>(null, ((int)Subject.RepairChartWorkshopReferral).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش نمودار مراجعه به تعمیرگاه", null, dic.ToArray());
             return PartialView(chart);
         }
 
@@ -420,6 +444,12 @@ namespace AutomobilMng.Controllers
             ViewBag.driver = driver;
             ViewBag.commander = commander;
             ViewBag.workshop = workshop;
+            var dic = LogAttribute.GetProperties<RepairModel>(null, ((int)Subject.RepairChartWorkshopReferral).ToString(), "success");
+            dic.Add(new KeyValuePair<string, string>("automobile", automobile == null ? "" : automobile));
+            dic.Add(new KeyValuePair<string, string>("driver", driver == null ? "" : driver));
+            dic.Add(new KeyValuePair<string, string>("commander", commander == null ? "" : commander));
+            dic.Add(new KeyValuePair<string, string>("workshop", workshop == null ? "" : workshop));
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش گزارش", null, dic.ToArray());
             return PartialView("Report");
         }
         public ActionResult FromLoadFileReport(string automobile, string driver, string commander, string workshop)

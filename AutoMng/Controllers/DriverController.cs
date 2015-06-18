@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using DAL;
 using MD.PersianDateTime;
 using System;
@@ -20,6 +21,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.Menu_Driver;
             ViewBag.Menu = "Driver";
+            var dic = LogAttribute.GetProperties<Driver>(null, ((int)Subject.DriverShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش راننده ها", null, dic.ToArray());
             return View();
         }
 
@@ -86,8 +89,12 @@ namespace AutomobilMng.Controllers
             {
                 applicationDbContext.Drivers.Add(model);
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<Driver>(model, ((int)Subject.DriverNew).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف راننده", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<Driver>(model, ((int)Subject.DriverNew).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف راننده", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -113,8 +120,12 @@ namespace AutomobilMng.Controllers
             {
                 applicationDbContext.Entry(model).State = System.Data.Entity.EntityState.Modified;
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<Driver>(model, ((int)Subject.DriverEdit).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی راننده", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<Driver>(model, ((int)Subject.DriverEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی راننده", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -136,11 +147,12 @@ namespace AutomobilMng.Controllers
             var driver = applicationDbContext.Drivers.First(u => u.ID == model.ID);
             applicationDbContext.Drivers.Remove(driver);
             applicationDbContext.SaveChanges();
+            var dic = LogAttribute.GetProperties<Driver>(model, ((int)Subject.DriverDelete).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف راننده", null, dic.ToArray());
             return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
-            if (driver == null)
-            {
-                return HttpNotFound();
-            }
+
+            var dicfail = LogAttribute.GetProperties<Driver>(model, ((int)Subject.DriverDelete).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف راننده", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
            
         }

@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using DAL;
 using MD.PersianDateTime;
 using System;
@@ -20,6 +21,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.TransitMngMenu;
             ViewBag.Menu = "TrafficCard";
+            var dic = LogAttribute.GetProperties<RepairModel>(null, ((int)Subject.TrafficCardShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش کارت ترافیک", null, dic.ToArray());
             return View();
         }
 
@@ -118,9 +121,14 @@ namespace AutomobilMng.Controllers
                 model.TrafficCard.TrafficCardType = applicationDbContext.TrafficCardTypes.FirstOrDefault(item => item.ID == cardtype).Value;
                 applicationDbContext.TrafficCards.Add(model.TrafficCard);
                 applicationDbContext.SaveChanges();
+
+                var dic = LogAttribute.GetProperties<TrafficCardModel>(model, ((int)Subject.TrafficCardNew).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف کارت ترافیک", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
     
             }
+            var dicfail = LogAttribute.GetProperties<TrafficCardModel>(model, ((int)Subject.TrafficCardNew).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف کارت ترافیک", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -153,8 +161,12 @@ namespace AutomobilMng.Controllers
                 model.TrafficCard.TrafficCardType = applicationDbContext.TrafficCardTypes.FirstOrDefault(item => item.ID == cardtype).Value;
                 applicationDbContext.Entry(model.TrafficCard).State = System.Data.Entity.EntityState.Modified;
                 applicationDbContext.SaveChanges();
+                var dic = LogAttribute.GetProperties<TrafficCardModel>(model, ((int)Subject.TrafficCardEdit).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی کارت ترافیک", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
+            var dicfail = LogAttribute.GetProperties<TrafficCardModel>(model, ((int)Subject.TrafficCardEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی کارت ترافیک", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -177,11 +189,15 @@ namespace AutomobilMng.Controllers
             var trafficcard = applicationDbContext.TrafficCards.First(u => u.ID == model.TrafficCard.ID);
             applicationDbContext.TrafficCards.Remove(trafficcard);
             applicationDbContext.SaveChanges();
+            var dic = LogAttribute.GetProperties<TrafficCardModel>(model, ((int)Subject.TrafficCardDelete).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف کارت ترافیک", null, dic.ToArray());
             return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             if (trafficcard == null)
             {
                 return HttpNotFound();
             }
+            var dicfail = LogAttribute.GetProperties<TrafficCardModel>(model, ((int)Subject.TrafficCardDelete).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف کارت ترافیک", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
            
         }

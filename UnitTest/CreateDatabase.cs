@@ -412,7 +412,8 @@ namespace UnitTest
             idManager.CreateRole("Repair-New", "تعریف تعمیرات");
             idManager.CreateRole("Repair-Edit", "بروزرسانی تعمیرات");
             idManager.CreateRole("Repair-Delete", "حذف تعمیرات");
-
+            idManager.CreateRole("Repair_Chart_Automobile", "نمودار تعداد تعمیرات خودرو");
+            idManager.CreateRole("Repair_Chart_WorkshopReferral", "نمودار مراجعه به تعمیرگاه");
             var newUser = new ApplicationUser()
             {
                 Id = "f0d11eca-c593-4816-8f2d-a1c8ddb350c1",
@@ -428,7 +429,8 @@ namespace UnitTest
             idManager.AddUserToRole(newUser.Id, "Repair-New");
             idManager.AddUserToRole(newUser.Id, "Repair-Edit");
             idManager.AddUserToRole(newUser.Id, "Repair-Delete");
-
+            idManager.AddUserToRole(newUser.Id, "Repair_Chart_Automobile");
+            idManager.AddUserToRole(newUser.Id, "Repair_Chart_WorkshopReferral");
         }
         //15
         [TestMethod]

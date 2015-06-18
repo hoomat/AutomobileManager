@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using DAL;
 using DotNet.Highcharts;
 using DotNet.Highcharts.Enums;
@@ -27,6 +28,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.IncidentMngMenu;
             ViewBag.Menu = "Incident";
+            var dic = LogAttribute.GetProperties<IncidentModel>(null, ((int)Subject.IncidentShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش تصادفات", null, dic.ToArray());
             return View();
         }
 
@@ -34,6 +37,8 @@ namespace AutomobilMng.Controllers
         public ActionResult ShowIncidents(int automobileid)
         {
             var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileid);
+            var dic = LogAttribute.GetProperties<Automobile>(automobile, ((int)Subject.IncidentShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش تصادفات", null, dic.ToArray());
             return PartialView("ShowIncidents", automobile);
         }
 
@@ -41,12 +46,16 @@ namespace AutomobilMng.Controllers
         public ActionResult ShowDriverIncidents(int driverid)
         {
             var driver = applicationDbContext.Drivers.FirstOrDefault(item => item.ID == driverid);
+            var dic = LogAttribute.GetProperties<Driver>(driver, ((int)Subject.IncidentShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش تصادفات", null, dic.ToArray());
             return PartialView("ShowDriverIncidents", driver);
         }
 
         public ActionResult ShowDepartmentIncidents(int departmentid)
         {
             var department = applicationDbContext.Departments.FirstOrDefault(item => item.ID == departmentid);
+            var dic = LogAttribute.GetProperties<Department>(department, ((int)Subject.IncidentShow).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش تصادفات", null, dic.ToArray());
             return PartialView("ShowDepartmentIncidents", department);
         }
         public ActionResult GetIncidents(JQueryDataTableParamModel param)
@@ -149,10 +158,20 @@ namespace AutomobilMng.Controllers
             if (ModelState.IsValid)
             {
                 if (model.Define(User))
+                {
+                    var dic = LogAttribute.GetProperties<IncidentModel>(model, ((int)Subject.IncidentNew).ToString(), "success");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف تصادف", null, dic.ToArray());
                     return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
+                }
                 else
+                {
+                    var dicfail = LogAttribute.GetProperties<IncidentModel>(model, ((int)Subject.IncidentNew).ToString(), "fail");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف تصادف", null, dicfail.ToArray());
                     return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
+                }
             }
+            var dicfail0 = LogAttribute.GetProperties<IncidentModel>(model, ((int)Subject.IncidentNew).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "تعریف تصادف", null, dicfail0.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -177,8 +196,14 @@ namespace AutomobilMng.Controllers
             if (ModelState.IsValid)
             {
                 if (model.Modify())
+                {
+                    var dic = LogAttribute.GetProperties<IncidentModel>(model, ((int)Subject.IncidentEdit).ToString(), "success");
+                    Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی تصادف", null, dic.ToArray());
                     return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
+                }
             }
+            var dicfail = LogAttribute.GetProperties<IncidentModel>(model, ((int)Subject.IncidentEdit).ToString(), "fail");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "بروزرسانی تصادف", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
         }
 
@@ -198,9 +223,17 @@ namespace AutomobilMng.Controllers
         public ActionResult DeleteConfirmed(IncidentModel model)
         {
             if (model.Delete())
+            {
+                var dic = LogAttribute.GetProperties<IncidentModel>(model, ((int)Subject.IncidentDelete).ToString(), "success");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف تصادف", null, dic.ToArray());
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
+            }
             else
+            {
+                var dicfail = LogAttribute.GetProperties<IncidentModel>(model, ((int)Subject.IncidentDelete).ToString(), "fail");
+                Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف تصادف", null, dicfail.ToArray());
                 return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
+            }
         }
 
         public ActionResult IncidentRepairs(int? incidentid)
@@ -218,6 +251,8 @@ namespace AutomobilMng.Controllers
             ViewBag.driver = driver;
             ViewBag.toPersianIncidentDate = toPersianIncidentDate;
             ViewBag.fromPersianIncidentDate = fromPersianIncidentDate;
+            var dic = LogAttribute.GetProperties<IncidentModel>(null, ((int)Subject.IncidentReport).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "گزارش تصادفات", null, dic.ToArray());
             return PartialView("Report");
         }
         public ActionResult FromLoadFileReport(string automobile, string driver , string fromPersianIncidentDate, string toPersianIncidentDate)

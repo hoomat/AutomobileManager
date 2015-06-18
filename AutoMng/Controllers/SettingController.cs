@@ -1,4 +1,5 @@
-﻿using AutomobilMng.Models;
+﻿using AutomobilMng.Log;
+using AutomobilMng.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.SettingMngMenu;
             ViewBag.Menu = "Setting";
+                  var dic = LogAttribute.GetProperties<RepairModel>(null, ((int)Subject.ShowSetting).ToString(), "success");
+            Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش تنظیمات", null, dic.ToArray());
             return View();
         }
 
@@ -47,12 +50,18 @@ namespace AutomobilMng.Controllers
                    else
                        config.AppSettings.Settings.Add("TittleTab", model.TittleTab);
                    config.Save();
+                   var dic = LogAttribute.GetProperties<SettingModel>(model, ((int)Subject.SaveSetting).ToString(), "success");
+                   Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "ذخیره تنظیمات", null, dic.ToArray());
                }
                catch (System.Exception exc)
                {
+                   var dicfail = LogAttribute.GetProperties<SettingModel>(model, ((int)Subject.SaveSetting).ToString(), "fail");
+                   Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "ذخیره تنظیمات", null, dicfail.ToArray());
                    messageModel = new MessageModel { Code = 1, Message = exc.Message };
                    return PartialView("MessageHandle", messageModel);
                }
+               var dicfail0 = LogAttribute.GetProperties<SettingModel>(model, ((int)Subject.SaveSetting).ToString(), "fail");
+               Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "ذخیره تنظیمات", null, dicfail0.ToArray());
                 messageModel = new MessageModel { Code = 0, Message = "success" };
                return PartialView("MessageHandle", messageModel);
            }
