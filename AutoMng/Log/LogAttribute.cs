@@ -8,12 +8,43 @@ namespace AutomobilMng.Log
 {
     public enum Subject
     {
-        OilChangeMenu = 5001,
-        OilChangeShow = 5002,
-        OilChangeNew = 5003,
-        OilChangeEdit = 5004,
-        OilChangeDelete = 5005,
-        OilChangeReport = 5006,
+        UserLogin = 101,
+        UserLogout = 102,
+        UserMenu = 103,
+        UserRegister = 104,
+        UserShow = 105,
+        UserEdit = 106,
+        UserDelete = 107,
+        UserRoles = 108,
+
+        AutomobileMenu = 201,
+        AutomobileShow = 202,
+        AutomobileNew = 203,
+        AutomobileEdit = 204,
+        AutomobileDelete = 205,
+        AutomobileReport = 206,
+        AutomobileUnDeliveryShow = 207,
+        AutomobileStatisticsAnalysis = 208,
+        AutomobileChangeStatus = 209,
+
+        ColorMenu = 301,
+        ColorShow = 302,
+        ColorNew = 303,
+        ColorEdit = 304,
+        ColorDelete = 305,
+
+        AutomobileClassMenu = 401,
+        AutomobileClassShow = 402,
+        AutomobileClassNew = 403,
+        AutomobileClassEdit = 404,
+        AutomobileClassDelete = 405,
+
+        OilChangeMenu = 501,
+        OilChangeShow = 502,
+        OilChangeNew = 503,
+        OilChangeEdit = 504,
+        OilChangeDelete = 505,
+        OilChangeReport = 506,
     }
 
     public class LogAttribute : Attribute
