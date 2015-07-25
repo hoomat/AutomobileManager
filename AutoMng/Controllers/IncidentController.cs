@@ -36,7 +36,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Incident-Show")]
         public ActionResult ShowIncidents(int automobileid)
         {
-            var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileid);
+            var automobile = applicationDbContext.Automobiles.Include(a => a.AutomobileClass).FirstOrDefault(item => item.ID == automobileid);
             var dic = LogAttribute.GetProperties<Automobile>(automobile, ((int)Subject.IncidentShow).ToString(), "success");
             Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش تصادفات", null, dic.ToArray());
             return PartialView("ShowIncidents", automobile);

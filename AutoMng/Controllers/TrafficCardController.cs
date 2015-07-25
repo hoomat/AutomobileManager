@@ -19,7 +19,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "TrafficCard-Show")]
         public ActionResult Index()
         {
-            ViewBag.MenuShow = AVAResource.Resource.TransitMngMenu;
+            ViewBag.MenuShow = AVAResource.Resource.TrafficCardMngMenu;
             ViewBag.Menu = "TrafficCard";
             var dic = LogAttribute.GetProperties<RepairModel>(null, ((int)Subject.TrafficCardShow).ToString(), "success");
             Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش کارت ترافیک", null, dic.ToArray());
@@ -118,6 +118,12 @@ namespace AutomobilMng.Controllers
 
                 model.TrafficCard.IdentityUser = applicationDbContext.Users.FirstOrDefault(item => item.UserName == User.Identity.Name);
                 var cardtype=int.Parse(model.TrafficCardType);
+                var cardtypevalue = applicationDbContext.TrafficCardTypes.FirstOrDefault(item => item.ID == cardtype).Value;
+                if (cardtypevalue == "معمولی")
+                {
+                    var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == model.AutomobileId);
+                    automobile.TrafficCard = model.TrafficCard;
+                }
                 model.TrafficCard.TrafficCardType = applicationDbContext.TrafficCardTypes.FirstOrDefault(item => item.ID == cardtype).Value;
                 applicationDbContext.TrafficCards.Add(model.TrafficCard);
                 applicationDbContext.SaveChanges();
@@ -200,6 +206,19 @@ namespace AutomobilMng.Controllers
             Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "حذف کارت ترافیک", null, dicfail.ToArray());
             return Json(new { success = false, description = @AVAResource.Resource.WarningMessage });
            
+        }
+
+        [AllowAnonymous]
+        public ActionResult GetAutomobils()
+        {
+            var states = applicationDbContext.Automobiles.ToList();
+            var selectList = new SelectList(states.ToArray(), "ID", "Plaque", applicationDbContext.Automobiles.FirstOrDefault().Plaque);
+
+           var j = Json(selectList
+                       , JsonRequestBehavior.AllowGet);
+     
+            return j;
+            return null;
         }
     }
 }

@@ -44,5 +44,6 @@ namespace DAL
         public string  Description { get; set; }
 
         public virtual IdentityUser IdentityUser { get; set; }
+        public virtual ICollection<Automobile> Automobiles { get; set; }
     }
 }

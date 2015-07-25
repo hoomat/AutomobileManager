@@ -1,4 +1,5 @@
-﻿<div class="row-fluid">
+﻿@model AutomobilMng.Models.TransitDeliveryModel
+<div class="row-fluid">
     <div class="breadcrumbs" id="breadcrumbs">
         <div class="btn-group @AVAResource.Resource.Pull_Dir ">
             <button id="delivery" class="btn  @AVAResource.Resource.Pull_Dir">
@@ -25,8 +26,12 @@
     </div>
 </div>
 <div class="row-fluid " id="content">
+    @Html.Partial("DeliveryTransit",Model)
 </div>
-<div class="row-fluid">
+<div class="row-fluid" id="listcontent">
+    @Html.Partial("List")
+</div>
+@*<div class="row-fluid">
     <div class=" widget-container-span">
         <div class="widget-box ">
             <div class="widget-header">
@@ -52,43 +57,43 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <script type="text/javascript">
         var spinner;
-        $(function () {
-            var oTable1 = $('#table').dataTable({
-                "bFilter": false,
-                "language": {
-                    "lengthMenu": "نمایش _MENU_ سطر در صفحه",
-                    "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
-                    "info": "نمایش صفحه _PAGE_ از _PAGES_",
-                    "infoEmpty": "رکوردی وجود ندارد",
-                    "infoFiltered": "(فیلتر شده از _MAX_ رکورد )"
-                },
-                "bServerSide": true,
-                "sAjaxSource": "/Transit/GetTransits",
-                "bProcessing": false,
-                "aoColumns": [
+        //$(function () {
+        //    var oTable1 = $('#table').dataTable({
+        //        "bFilter": false,
+        //        "language": {
+        //            "lengthMenu": "نمایش _MENU_ سطر در صفحه",
+        //            "zeroRecords": "رکوردی وجود ندارد - متاسفانه",
+        //            "info": "نمایش صفحه _PAGE_ از _PAGES_",
+        //            "infoEmpty": "رکوردی وجود ندارد",
+        //            "infoFiltered": "(فیلتر شده از _MAX_ رکورد )"
+        //        },
+        //        "bServerSide": true,
+        //        "sAjaxSource": "/Transit/GetTransits",
+        //        "bProcessing": false,
+        //        "aoColumns": [
                
-			           null, null, null, null, null, null, null, null,
-                       { "bSortable": false }
-                ],
-                "fnCreatedRow": function (nRow, aData, iDataIndex) {
-                    $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[8] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[8] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
-                },
-                "fnServerParams": function (aoData) {
-                    aoData.push({ "name": "automobile", "value": $("#automobile").val() });
-                    aoData.push({ "name": "driver", "value": $("#driver").val() });
-                    aoData.push({ "name": "department", "value": $("#department").val() });
+		//	           null, null, null, null, null, null, null, null,
+        //               { "bSortable": false }
+        //        ],
+        //        "fnCreatedRow": function (nRow, aData, iDataIndex) {
+        //            $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[8] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[8] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
+        //        },
+        //        "fnServerParams": function (aoData) {
+        //            aoData.push({ "name": "automobile", "value": $("#automobile").val() });
+        //            aoData.push({ "name": "driver", "value": $("#driver").val() });
+        //            aoData.push({ "name": "department", "value": $("#department").val() });
 
-                },
-            });
-        })
+        //        },
+        //    });
+        //})
 
         $('#search').click(function () {
             Sppiner();
             var containerholder = $("#content");
-            var url = "@Url.Action("Search", "Transit")";
+            var url = "@Url.Action("SearchReport", "Transit")";
 
             $.ajax({
                 cache: false,
@@ -120,6 +125,22 @@
                 success: function (data) {
                     containerholder.html('');
                     containerholder.html(data);
+                    url = "@Url.Action("List", "Transit")";
+                    containerholder = $("#listcontent");
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: url,
+                        success: function (data) {
+                            containerholder.html('');
+                            containerholder.html(data);
+                            spinner.stop();
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert('Error: ' + xhr.statusText);
+                            spinner.stop();
+                        }
+                    });
                     spinner.stop();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -127,7 +148,7 @@
                     spinner.stop();
                 }
             });
-
+          
         });
 
         function onedit(element) {
@@ -185,6 +206,23 @@
                 success: function (data) {
                     containerholder.html('');
                     containerholder.html(data);
+                    url = "@Url.Action("List", "Transit")";
+
+                    containerholder = $("#listcontent");
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: url,
+                        success: function (data) {
+                            containerholder.html('');
+                            containerholder.html(data);
+                            spinner.stop();
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert('Error: ' + xhr.statusText);
+                            spinner.stop();
+                        }
+                    });
                     spinner.stop();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -204,6 +242,22 @@
                 success: function (data) {
                     containerholder.html('');
                     containerholder.html(data);
+                    url = "@Url.Action("List", "Transit")";
+                    containerholder = $("#listcontent");
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: url,
+                        success: function (data) {
+                            containerholder.html('');
+                            containerholder.html(data);
+                            spinner.stop();
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert('Error: ' + xhr.statusText);
+                            spinner.stop();
+                        }
+                    });
                     spinner.stop();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {

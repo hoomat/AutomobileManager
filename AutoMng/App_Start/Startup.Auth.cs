@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Notificatio.TelegramClient;
 using Owin;
 using System.Collections.Generic;
 using System.Web.Hosting;
@@ -47,6 +48,9 @@ namespace AutomobilMng
            var path=  HostingEnvironment.MapPath(@"~/Log/log4netconfig.xml");
            Logger.Initialize(new System.Uri(path));
 
+         
+           //var api = NotificatioApi.Initialize("b7ee96a2-8e31-4c83-a7c8-6c3b22277e3d");
+           //api.SendMessage("989125512848", "می ؟"); 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",

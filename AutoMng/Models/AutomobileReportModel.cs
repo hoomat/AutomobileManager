@@ -7,6 +7,11 @@ namespace AutomobilMng.Models
 {
     public class AutomobileReportModel
     {
+        public string Plaque { get; set; }
+
+        public string Department { get; set; }
+
+
         public string Chassis { get; set; }
 
         public string Model { get; set; }

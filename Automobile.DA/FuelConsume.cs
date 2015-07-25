@@ -64,6 +64,10 @@ namespace DAL
         public virtual FuelCard FuelCard { get; set; }
         public int? FuelCardID { get; set; }
 
+        //-8 شماره کارت سوخت مصرفی
+        public virtual FualType FualType { get; set; }
+        public int? FualTypeID { get; set; }
+
         [Required(ErrorMessage = "مسافت قبل از سوخت گیری لازمی می باشد")]
         [RegularExpression(@"^[1-9][0-9]*$", ErrorMessage = "*")]
         public int Mileag { get; set; }

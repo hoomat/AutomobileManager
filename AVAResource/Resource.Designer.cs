@@ -1330,6 +1330,15 @@ namespace AVAResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of engines.
+        /// </summary>
+        public static string Mobile_NumerEngine {
+            get {
+                return ResourceManager.GetString("Mobile_NumerEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
         public static string Mobile_Price {

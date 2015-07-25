@@ -16,12 +16,11 @@
                                 <th>@AVAResource.Resource.MileagAfterTrip</th>
                                 <th>@AVAResource.Resource.Mobile_Distance</th>
                                 <th>@AVAResource.Resource.Description</th>
+                                <th></th>
                             </tr>
                         </thead>
-
                         <tbody></tbody>
                     </table>
-             
             </div>
         </div>
     </div>
@@ -41,8 +40,11 @@
                 "sAjaxSource": "/Transit/GetTransitReports",
                 "bProcessing": false,
                 "aoColumns": [
-			           null, null, null, null, null, null, null, null,
+			           null, null, null, null, null, null, null, null, null,
                 ],
+                        "fnCreatedRow": function (nRow, aData, iDataIndex) {
+                            $('td:eq(8)', nRow).html('<div class="hidden-phone visible-desktop action-buttons"><a class="blue" id="' + aData[8] + '"  onclick="onedit(this)"   href="#"><i class="fa fa-edit bigger-130"></i></a><a class="red" id="' + aData[8] + '" onclick="ondelete(this)" href="#"><i class="fa fa-trash bigger-130"></i></a></div>').addClass('td-actions');
+                        },
                 "fnServerParams": function (aoData) {
                     aoData.push({ "name": "automobile", "value": $("#automobile").val() });
                     aoData.push({ "name": "driver", "value": $("#driver").val() });
@@ -55,5 +57,4 @@
                 },
             });
         });
-  
 </script>

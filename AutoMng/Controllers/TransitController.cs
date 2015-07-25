@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace AutomobilMng.Controllers
 {
@@ -26,7 +27,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Transit-Show")]
         public ActionResult ShowTransits(int automobileid)
         {
-            var automobile = applicationDbContext.Automobiles.FirstOrDefault(item=>item.ID==automobileid);
+            var automobile = applicationDbContext.Automobiles.Include(a => a.AutomobileClass).FirstOrDefault(item => item.ID == automobileid);
             return PartialView("ShowTransits", automobile);
         }
 
@@ -50,7 +51,7 @@ namespace AutomobilMng.Controllers
         {
             ViewBag.MenuShow = AVAResource.Resource.TransitMngMenu;
             ViewBag.Menu = "Transit";
-            return View();
+            return View(new TransitDeliveryModel(this));
         }
 
         public ActionResult GetTransits(JQueryDataTableParamModel param)
@@ -150,7 +151,7 @@ namespace AutomobilMng.Controllers
             }
             if (!string.IsNullOrWhiteSpace(department) && department != (-1).ToString())
             {
-                var departmentid = int.Parse(driver);
+                var departmentid = int.Parse(department);
                 transits = transits.Where(ivar => ivar.Automobile.DepartmentId == departmentid);
             }
             if (!string.IsNullOrWhiteSpace(trafficcard) && trafficcard != (-1).ToString())
@@ -201,10 +202,11 @@ namespace AutomobilMng.Controllers
                              c.Automobile.Department.Name,
                             new PersianDateTime(c.DeliveryDate).ToString("yyyy/MM/dd HH:mm:ss"),  
                            new PersianDateTime(c.ReturnDate).ToString("yyyy/MM/dd HH:mm:ss"),   
-                             c.Description,
+                            
                              c.MileagAfterTrip.ToString(),
                              c.Distance.ToString(),
-                           
+                            c.Description,
+                            c.ID.ToString()
                          };
 
             return Json(new
@@ -374,7 +376,7 @@ namespace AutomobilMng.Controllers
 
                 var automobileID = int.Parse(model.AutomobileID);
                 transit.AutomobileID = automobileID;
-                var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileID);
+                var automobile = applicationDbContext.Automobiles.Include(a => a.AutomobileClass).FirstOrDefault(item => item.ID == automobileID);
                 automobile.AutomobileStatusId = (int)AutomobileStatusModel.Mission;
                 //var lastTransit = applicationDbContext.Transits.OrderByDescending(item => item.ID).Take(1); 
                 //if (lastTransit.Any())
@@ -385,10 +387,11 @@ namespace AutomobilMng.Controllers
                 var driverid = int.Parse(model.DriverID);
                 transit.DriverID = driverid;
 
-                if (string.IsNullOrWhiteSpace(model.CardTrafficID) && model.CardTrafficID != "-1")
+                if (!string.IsNullOrWhiteSpace(model.CardTrafficID) && model.CardTrafficID != "-1")
                 {
                     var cardTrafficID = int.Parse(model.CardTrafficID);
                     transit.TrafficCardID = cardTrafficID;
+                    automobile.TrafficCardId = cardTrafficID;
                 }
                 try
                 {
@@ -427,7 +430,7 @@ namespace AutomobilMng.Controllers
                 transit.MileagAfterTrip = model.MileagAfterTrip;
                 if (model.MileagAfterTrip != null)
                 {
-                    var lastTransit = applicationDbContext.Transits.Where(item => item.ID < model.TransitdId && item.ReturnDate != null).OrderByDescending(item => item.ID).Take(1);
+                    var lastTransit = applicationDbContext.Transits.Where(item => item.ID < model.TransitdId && item.ReturnDate != null && item.AutomobileID == transit.AutomobileID).OrderByDescending(item => item.ID).Take(1);
                     if (lastTransit.Any())
                         transit.Distance = model.MileagAfterTrip.Value - lastTransit.FirstOrDefault().MileagAfterTrip.Value;
                     else
@@ -435,9 +438,10 @@ namespace AutomobilMng.Controllers
                    // transit.Automobile.Distance = model.MileagAfterTrip.Value;
                 }
 
-            
-                var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == transit.AutomobileID);
+
+                var automobile = applicationDbContext.Automobiles.Include(a => a.AutomobileClass).FirstOrDefault(item => item.ID == transit.AutomobileID);
                 automobile.AutomobileStatusId = (int)AutomobileStatusModel.Available;
+                automobile.TrafficCardId = null;
                 applicationDbContext.SaveChanges();
                 return Json(new { success = true, description = @AVAResource.Resource.SuccessMessage });
             }
@@ -516,8 +520,8 @@ namespace AutomobilMng.Controllers
                 var persianDeliveryDate = PersianDateTime.Parse(model.PersianDeliveryDate + " " + model.HourDelivery + ":" + model.MinuteDelivery + ":00");
                 model.Transit.DeliveryDate = persianDeliveryDate.ToDateTime();
 
-                //var persianReturnDate = PersianDateTime.Parse(model.PersianReturnDate + " " + model.HourReturn + ":" + model.MinuteReturn + ":00");
-                //model.Transit.ReturnDate = persianReturnDate.ToDateTime();
+                var persianReturnDate = PersianDateTime.Parse(model.PersianReturnDate + " " + model.HourReturn + ":" + model.MinuteReturn + ":00");
+                model.Transit.ReturnDate = persianReturnDate.ToDateTime();
 
                 var transit = applicationDbContext.Transits.FirstOrDefault(item => item.ID == model.Transit.ID);
                 var attendances = applicationDbContext.Attendancea.Where(item => item.Transit.ID == model.Transit.ID);
@@ -545,12 +549,21 @@ namespace AutomobilMng.Controllers
 
                 if (model.Transit.MileagAfterTrip != null)
                 {
-                    var lastTransit = applicationDbContext.Transits.Where(item => item.ID < model.Transit.ID).OrderByDescending(item => item.ID).Take(1);
+                    var lastTransit = applicationDbContext.Transits.Where(item => item.ID < model.Transit.ID && item.AutomobileID == automobileID).OrderByDescending(item => item.ID).Take(1);
                     if (lastTransit.Any())
                         transit.Distance = model.Transit.MileagAfterTrip.Value - lastTransit.FirstOrDefault().MileagAfterTrip.Value;
                     else
                         transit.Distance = model.Transit.MileagAfterTrip.Value;
                 }
+                var trans = applicationDbContext.Transits.Where(item => item.ID > model.Transit.ID && item.AutomobileID == automobileID);
+                //foreach (var tran in trans)
+                //{
+                //    var lastTransit = applicationDbContext.Transits.Where(item => item.ID < tran.ID && item.AutomobileID == automobileID).OrderByDescending(item => item.ID).Take(1);
+                //    if (lastTransit.Any())
+                //        tran.Distance = tran.MileagAfterTrip.Value - lastTransit.FirstOrDefault().MileagAfterTrip.Value;
+                //    else
+                //        tran.Distance = tran.MileagAfterTrip.Value;
+                //}
                 if (model.CardTrafficID !=null && string.IsNullOrWhiteSpace(model.CardTrafficID) && model.CardTrafficID != "-1")
                 {
                     var cardTrafficid = int.Parse(model.CardTrafficID);
@@ -576,6 +589,7 @@ namespace AutomobilMng.Controllers
         }
 
 
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Transit-Delete")]
@@ -685,8 +699,8 @@ namespace AutomobilMng.Controllers
             {
                 Automobile = item.Automobile.Plaque,
                 DeliveryDate = new PersianDateTime(item.DeliveryDate).ToString("yyyy/MM/dd"),
-                ReturnDate = new PersianDateTime(item.ReturnDate).ToString("yyyy/MM/dd"),
-                Distance = item.Distance.Value,
+                ReturnDate = item.ReturnDate == null ? "" : new PersianDateTime(item.ReturnDate).ToString("yyyy/MM/dd"),
+                Distance =item.Distance==null?0: item.Distance.Value,
                 Driver = item.Driver==null?"":item.Driver.Name,
                 TrafficCard = item.TrafficCard==null?"":item.TrafficCard.NumberCard,
                 Department=item.Automobile.Department.Name
@@ -864,6 +878,29 @@ namespace AutomobilMng.Controllers
 
 
             return PartialView(chart);
+        }
+
+
+
+        [AllowAnonymous]
+        public ActionResult GetTrafficCard(int automobileid)
+        {
+
+             var automobile = applicationDbContext.Automobiles.FirstOrDefault(item=>item.ID==automobileid);
+             if (automobile.TrafficCardId == null)
+             {
+                 var trafficCards = applicationDbContext.TrafficCards.Where(item =>item.DateExpire.Year >= DateTime.Now.Year && item.DateExpire.Month >= DateTime.Now.Month && item.DateExpire.Day >= DateTime.Now.Day && item.TrafficCardType != "معمولی").ToList();
+                 var selectList = new SelectList(trafficCards.ToArray(), "ID", "NumberCard", trafficCards.FirstOrDefault().NumberCard);
+                return Json(selectList, JsonRequestBehavior.AllowGet);
+             }
+             else
+             {
+                 var trafficcard=applicationDbContext.TrafficCards.FirstOrDefault(item=>item.ID==automobile.TrafficCardId);
+                 var trafficCards = new List<TrafficCard>();
+                 trafficCards.Add(trafficcard);
+                 var selectList = new SelectList(trafficCards.ToArray(), "ID", "NumberCard", trafficCards.FirstOrDefault().NumberCard);
+                 return Json(selectList, JsonRequestBehavior.AllowGet);
+             }
         }
     }
 }

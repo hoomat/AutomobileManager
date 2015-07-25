@@ -114,6 +114,13 @@
                                 </div>
                             </div>
                             <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Fual_Type</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.FualTypeID, Model.FualTypes, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.FuelConsume.FualType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="control-group">
                                 <label class="control-label">@AVAResource.Resource.VolumeFuel</label>
                                 <div class="controls">
                                     @Html.TextBoxFor(model => model.FuelConsume.VolumeFuel, new { @class = "form-control" })

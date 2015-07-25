@@ -11,7 +11,113 @@
     options.UpdateTargetId = "d";
     options.InsertionMode = InsertionMode.Replace;
 }
-<div class="span12">
+<div class="span12 widget-container-span">
+    <div class=" widget-box ">
+        <div class="widget-header">
+            <h6 class="lighter smaller">
+                @AVAResource.Resource.IncidentEdit
+            </h6>
+            <div class="widget-toolbar">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+                <a href="#" data-action="close">
+                    <i class="icon-remove"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <link rel="stylesheet" href="~/Content/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.css" />
+                <script src="~/Scripts/NewFolder1/calendar.js" type="text/javascript"></script>
+                <script src="~/Scripts/NewFolder1/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>
+                @using (Ajax.BeginForm("New", "Incident", options, new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.Incident.ID)
+                    @Html.AntiForgeryToken()
+                    <div class="row-fluid  ">
+                        <div class="span4 @AVAResource.Resource.Pull_Dir">
+                            <div class="">
+                                <label class="">@AVAResource.Resource.Automobile</label>
+                                <div class="">
+                                    @Html.DropDownListFor(model => model.AutomobileID, Model.Automobiles, new { @class = "chzn-select" })
+                                    @Html.ValidationMessageFor(model => model.Incident.Automobile, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="">
+                                <label class="">@AVAResource.Resource.Driver</label>
+                                <div class="">
+                                    @Html.DropDownListFor(model => model.DriverID, Model.Drivers, new { @class = "chzn-select" })
+                                    @Html.ValidationMessageFor(model => model.Incident.Driver, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="">
+                                <label class="">@AVAResource.Resource.IncidentDescription</label>
+                                <div class="">
+                                    @Html.TextAreaFor(model => model.Incident.Description, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Incident.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4 @AVAResource.Resource.Pull_Dir">
+                            <div class="">
+                                <label class="">@AVAResource.Resource.IncidentDate</label>
+                                <label class="">
+                                    <span class="block input-icon @AVAResource.Resource.Input_icon ">
+                                        <input type="text" class="form-control" id="exampleInput3" value=@Model.PersianIncidentDate name="PersianIncidentDate" placeholder=@AVAResource.Resource.IncidentDate data-mddatetimepicker="true" data-placement="right" />
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="">
+                                <label class="">@AVAResource.Resource.IncidentHour</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.HourIncident, new { @class = "form-control", @style = "width:20px" })
+                                    @AVAResource.Resource.IncidentMinute
+                                    @Html.TextBoxFor(model => model.MinuteIncident, new { @class = "form-control", @style = "width:20px" })
+                                    @Html.ValidationMessageFor(model => model.HourIncident, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(model => model.MinuteIncident, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="span4">
+                            <h3 class="header smaller lighter green">
+                                <i class=" icon-legal"></i>
+                                صدمات وارده
+                                <a id="adddamage" class="btn btn-primary btn-small pull-left fa fa-plus" href="#"> </a>
+                            </h3>
+                            <div class="row-fluid ">
+                                <ul id="damageEditor" style="list-style-type: none">
+                                    @if (Model.Damages != null)
+                                    {
+                                        foreach (DAL.Damage damage in Model.Incident.Damages)
+                                        {
+                                            Html.RenderPartial("DamageEntryEditor", damage);
+                                        }
+                                    }
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <h1></h1>
+                    <div class="row-fluid  ">
+                        <button class=" btn btn-small btn-primary">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Save
+                        </button>
+                        <button class=" btn btn-small btn-purple" type="button" onclick="cancel()">
+                            <i class="icon-edit "></i>
+                            @AVAResource.Resource.Cancel
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="span12">
     @using (Ajax.BeginForm("New", "Incident", options))
     { 
          @Html.AntiForgeryToken()
@@ -125,7 +231,9 @@
             </button>
         </div>
     }
-</div>
+</div>*@
+
+
 <script>
     $(function () {
         $("#damageEditor").sortable();

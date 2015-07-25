@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace AutomobilMng.Controllers
 {
@@ -30,7 +31,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "OilChange-Show")]
         public ActionResult ShowOilChanges(int automobileid)
         {
-            var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileid);
+            var automobile = applicationDbContext.Automobiles.Include(a => a.AutomobileClass).FirstOrDefault(item => item.ID == automobileid);
 
             var dic = LogAttribute.GetProperties<Automobile>(automobile, ((int)Subject.OilChangeShow).ToString(), "success");
             Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name,

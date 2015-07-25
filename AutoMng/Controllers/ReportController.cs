@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace AutomobilMng.Controllers
 {
@@ -30,7 +31,7 @@ namespace AutomobilMng.Controllers
             report.Dictionary.Clear();
             report["CurrentUser"] = User.Identity.Name;
             report["CurrentDt"] = new PersianDateTime(DateTime.Now).ToString("yyyy/MM/dd HH:mm:ss");
-            var aut=applicationDbContext.Automobiles.ToList();
+            var aut = applicationDbContext.Automobiles.Include(a => a.AutomobileClass).ToList();
             report.RegBusinessObject("Data",aut );
           //  report.Dictionary.Synchronize();
             return StiMvcViewer.GetReportSnapshotResult(HttpContext, report);

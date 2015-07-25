@@ -280,10 +280,30 @@
                             </li>
                         }
                     }
-            
+            if (User.IsInRole("Transit-Menu"))
+                                    {
+                                        if (ViewBag.Menu == "Transit")
+                                        {
+                                    <li class="active">
+                                        <a href="/Transit/Index">
+                                            <i class="icon-refresh"></i>
+                                            <span class="menu-text">ثبت تردد</span>
+                                        </a>
+                                    </li>
+                                        }
+                                        else
+                                        {
+                                    <li>
+                                        <a href="/Transit/Index">
+                                            <i class="icon-refresh"></i>
+                                            <span class="menu-text">ثبت تردد</span>
+                                        </a>
+                                    </li>
+                                        }
+                                    }
                     if (User.IsInRole("Transit-Menu") || User.IsInRole("Transit-Report") || User.IsInRole("Transit-UnReturn-Show"))
                     {
-                        if (ViewBag.Menu == "Transit" || ViewBag.Menu == "ReportTransit" || ViewBag.Menu == "ReportDistance" || ViewBag.Menu == "TransitUnReturn")
+                        if ( ViewBag.Menu == "ReportTransit" || ViewBag.Menu == "ReportDistance" || ViewBag.Menu == "TransitUnReturn")
                         {
                             <li class="active open">
                                 <a href="#" class="dropdown-toggle">
@@ -293,7 +313,7 @@
                                 </a>
 
                                 <ul class="submenu">
-                                    @if (User.IsInRole("Transit-Menu"))
+                                    @*@if (User.IsInRole("Transit-Menu"))
                                     {
                                         if (ViewBag.Menu == "Transit")
                                         {
@@ -313,7 +333,7 @@
                                         </a>
                                     </li>
                                         }
-                                    }
+                                    }*@
                                     @if (User.IsInRole("Transit-UnReturn-Show"))
                                     {
                                         if (ViewBag.Menu == "TransitUnReturn")
@@ -335,7 +355,7 @@
                                     </li>
                                         }
                                     }
-                                    @if (User.IsInRole("Transit-Report"))
+                                    @*@if (User.IsInRole("Transit-Report"))
                                     {
                                         if (ViewBag.Menu == "ReportTransit")
                                         {
@@ -355,7 +375,7 @@
                                         </a>
                                     </li>
                                         }
-                                    }
+                                    }*@
                                     @if (User.IsInRole("Transit-Report"))
                                     {
                                         if (ViewBag.Menu == "ReportDistance")
@@ -391,7 +411,7 @@
                                 </a>
 
                                 <ul class="submenu">
-                                    @if (User.IsInRole("Transit-Menu"))
+                                    @*@if (User.IsInRole("Transit-Menu"))
                                     {
                                         if (ViewBag.Menu == "Transit")
                                         {
@@ -411,7 +431,7 @@
                                                 </a>
                                             </li>
                                         }
-                                    }
+                                    }*@
                                     @if (User.IsInRole("Transit-UnReturn-Show"))
                                     {
                                         if (ViewBag.Menu == "TransitUnReturn")
@@ -433,7 +453,7 @@
                                             </li>
                                         }
                                     }
-                                    @if (User.IsInRole("Transit-Report"))
+                                    @*@if (User.IsInRole("Transit-Report"))
                                     {
                                         if (ViewBag.Menu == "ReportTransit")
                                         {
@@ -453,7 +473,7 @@
                                                 </a>
                                             </li>
                                         }
-                                    }
+                                    }*@
 
                                     @if (User.IsInRole("Transit-Report"))
                                     {
@@ -479,8 +499,6 @@
                                 </ul>
                             </li>
                         }
-
-
                     }
                     if (User.IsInRole("Fuel-Menu") || User.IsInRole("Fuel-ReportCompareFuel"))
                     {
@@ -1006,8 +1024,17 @@
 
     @RenderSection("scripts", required: false)
     <script>
+        $(document).keyup(function (e) {
 
-
+            if (e.keyCode == 27) {
+                $('#myModalFullscreen').modal('hide')
+                //$(".create-folder").dialog("close");
+                //// $("#myModalFullscreen").hide();
+                //$('.modal-overlay').hide();
+                ////or
+                //$('.modal').hide()
+            }
+        });
         function Sppiner() {
 
 

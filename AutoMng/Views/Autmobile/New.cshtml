@@ -45,10 +45,10 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">@AVAResource.Resource.Mobile_Model</label>
+                                <label class="control-label">@AVAResource.Resource.Mobile_NumerEngine</label>
                                 <div class="controls">
-                                    @Html.DropDownListFor(model => model.ClasssId, Model.Classses, new { @class = "chzn-select    " })
-                                    @Html.ValidationMessageFor(model => model.Automobile.AutomobileClassId, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(model => model.Automobile.Numberofengines, new { })
+                                    @Html.ValidationMessageFor(model => model.Automobile.Numberofengines, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="control-group">
@@ -117,11 +117,19 @@
                         </div>
 
                         <div class="span4 ">
+                            
                             <div class="control-group">
                                 <label class="control-label">@AVAResource.Resource.Mobile_Image</label>
                                 <div class="controls">
                                     <input name="zipfile" type="file" id="id-input-file" size="512000" accept="image/jpeg" onchange="myFunction()" />
                                     <p id="message" style="color:red"></p>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@AVAResource.Resource.Mobile_Model</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(model => model.ClasssId, Model.Classses, new { @class = "chzn-select    " })
+                                    @Html.ValidationMessageFor(model => model.Automobile.AutomobileClassId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="control-group">

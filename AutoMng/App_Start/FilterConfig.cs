@@ -10,7 +10,7 @@ namespace AutomobilMng
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new AuthorizeAttribute());
-            filters.Add(new LoggingFilterAttribute());
+         //   filters.Add(new LoggingFilterAttribute());
         }
     }
 }

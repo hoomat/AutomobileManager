@@ -59,7 +59,14 @@ namespace DAL
         public virtual Department Department { get; set; }
         public int DepartmentId { get; set; }
 
+
+        public virtual TrafficCard TrafficCard { get; set; }
+        public int? TrafficCardId { get; set; }
+
         public string FuelCard { get; set; }
+
+         public string  Numberofengines { get; set; }
+       
 
         public virtual IdentityUser IdentityUser { get; set; }
 

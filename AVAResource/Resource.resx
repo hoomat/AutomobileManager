@@ -723,4 +723,7 @@
   <data name="Mobile_MaxReferralWorkshop" xml:space="preserve">
     <value>Max Referral Workshop</value>
   </data>
+  <data name="Mobile_NumerEngine" xml:space="preserve">
+    <value>Number of engines</value>
+  </data>
 </root>

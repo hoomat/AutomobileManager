@@ -203,12 +203,12 @@
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,2.9,7.72,0.4</ClientRectangle>
-          <ColumnCount>8</ColumnCount>
-          <Components isList="true" count="8">
+          <ColumnCount>9</ColumnCount>
+          <Components isList="true" count="9">
             <Table1_Cell1 Ref="17" type="TableCell" isKey="true">
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>0,0,1,0.3</ClientRectangle>
+              <ClientRectangle>0,0,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,12,Regular,Point,False,178</Font>
               <HorAlignment>Center</HorAlignment>
@@ -227,7 +227,7 @@
             <Table1_Cell2 Ref="18" type="TableCell" isKey="true">
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>1,0,1,0.3</ClientRectangle>
+              <ClientRectangle>0.9,0,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,12,Regular,Point,False,178</Font>
               <HorAlignment>Center</HorAlignment>
@@ -246,7 +246,7 @@
             <Table1_Cell3 Ref="19" type="TableCell" isKey="true">
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>2,0,1,0.3</ClientRectangle>
+              <ClientRectangle>1.8,0,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,12,Regular,Point,False,178</Font>
               <HorAlignment>Center</HorAlignment>
@@ -266,7 +266,7 @@
             <Table1_Cell4 Ref="20" type="TableCell" isKey="true">
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>3,0,1,0.3</ClientRectangle>
+              <ClientRectangle>2.7,0,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,12,Regular,Point,False,178</Font>
               <HorAlignment>Center</HorAlignment>
@@ -286,7 +286,7 @@
             <Table1_Cell5 Ref="21" type="TableCell" isKey="true">
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>4,0,1,0.3</ClientRectangle>
+              <ClientRectangle>3.6,0,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,12,Regular,Point,False,178</Font>
               <HorAlignment>Center</HorAlignment>
@@ -306,7 +306,7 @@
             <Table1_Cell6 Ref="22" type="TableCell" isKey="true">
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>5,0,0.9,0.3</ClientRectangle>
+              <ClientRectangle>4.5,0,0.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,12,Regular,Point,False,178</Font>
               <HorAlignment>Center</HorAlignment>
@@ -326,7 +326,7 @@
             <Table1_Cell7 Ref="23" type="TableCell" isKey="true">
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>5.9,0,0.9,0.3</ClientRectangle>
+              <ClientRectangle>5.3,0,0.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,12,Regular,Point,False,178</Font>
               <HorAlignment>Center</HorAlignment>
@@ -346,7 +346,7 @@
             <Table1_Cell8 Ref="24" type="TableCell" isKey="true">
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>6.8,0,0.92,0.3</ClientRectangle>
+              <ClientRectangle>6.1,0,0.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,12,Regular,Point,False,178</Font>
               <HorAlignment>Center</HorAlignment>
@@ -363,28 +363,47 @@
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Table1_Cell8>
+            <Table1_Cell9 Ref="25" type="TableCell" isKey="true">
+              <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>6.9,0,0.82,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Nazanin,12,Regular,Point,False,178</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>29</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table1_Cell9</Name>
+              <Page isRef="3" />
+              <Parent isRef="16" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>مدل</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table1_Cell9>
           </Components>
           <Conditions isList="true" count="0" />
           <DataRelationName isNull="true" />
           <Filters isList="true" count="0" />
           <Name>Table1</Name>
-          <NumberID>29</NumberID>
+          <NumberID>30</NumberID>
           <Page isRef="3" />
           <Parent isRef="3" />
           <RightToLeft>True</RightToLeft>
           <RowCount>1</RowCount>
           <Sort isList="true" count="0" />
         </Table1>
-        <Table2 Ref="25" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
+        <Table2 Ref="26" type="Stimulsoft.Report.Components.Table.StiTable" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid>9c04f8e1b06547edbdb3be5db1bccd79</BusinessObjectGuid>
           <ClientRectangle>0,3.7,7.72,0.3</ClientRectangle>
-          <ColumnCount>8</ColumnCount>
-          <Components isList="true" count="8">
-            <Table2_Cell1 Ref="26" type="TableCell" isKey="true">
+          <ColumnCount>9</ColumnCount>
+          <Components isList="true" count="9">
+            <Table2_Cell1 Ref="27" type="TableCell" isKey="true">
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>0,0,1,0.3</ClientRectangle>
+              <ClientRectangle>0,0,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Arial,9</Font>
               <HorAlignment>Center</HorAlignment>
@@ -393,17 +412,17 @@
               <Margins>0,0,0,0</Margins>
               <Name>Table2_Cell1</Name>
               <Page isRef="3" />
-              <Parent isRef="25" />
+              <Parent isRef="26" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>{Data.Plaque}</Text>
               <TextBrush>Black</TextBrush>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Table2_Cell1>
-            <Table2_Cell2 Ref="27" type="TableCell" isKey="true">
+            <Table2_Cell2 Ref="28" type="TableCell" isKey="true">
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>1,0,1,0.3</ClientRectangle>
+              <ClientRectangle>0.9,0,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Arial,9</Font>
               <HorAlignment>Center</HorAlignment>
@@ -412,19 +431,19 @@
               <Margins>0,0,0,0</Margins>
               <Name>Table2_Cell2</Name>
               <Page isRef="3" />
-              <Parent isRef="25" />
+              <Parent isRef="26" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>{Data.Chassis}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Table2_Cell2>
-            <Table2_Cell3 Ref="28" type="TableCell" isKey="true">
+            <Table2_Cell3 Ref="29" type="TableCell" isKey="true">
               <AllowHtmlTags>True</AllowHtmlTags>
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
-              <ClientRectangle>2,0,1,0.3</ClientRectangle>
+              <ClientRectangle>1.8,0,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Tahoma,8</Font>
               <HorAlignment>Center</HorAlignment>
@@ -433,7 +452,7 @@
               <Margins>0,0,0,0</Margins>
               <Name>Table2_Cell3</Name>
               <Page isRef="3" />
-              <Parent isRef="25" />
+              <Parent isRef="26" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>{Data.Color}</Text>
               <TextBrush>Black</TextBrush>
@@ -442,12 +461,12 @@
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Table2_Cell3>
-            <Table2_Cell4 Ref="29" type="TableCell" isKey="true">
+            <Table2_Cell4 Ref="30" type="TableCell" isKey="true">
               <AllowHtmlTags>True</AllowHtmlTags>
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
-              <ClientRectangle>3,0,1,0.3</ClientRectangle>
+              <ClientRectangle>2.7,0,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Tahoma,8</Font>
               <HorAlignment>Center</HorAlignment>
@@ -456,7 +475,7 @@
               <Margins>0,0,0,0</Margins>
               <Name>Table2_Cell4</Name>
               <Page isRef="3" />
-              <Parent isRef="25" />
+              <Parent isRef="26" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>{Data.ProduceYear}</Text>
               <TextBrush>Black</TextBrush>
@@ -465,12 +484,12 @@
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Table2_Cell4>
-            <Table2_Cell5 Ref="30" type="TableCell" isKey="true">
+            <Table2_Cell5 Ref="31" type="TableCell" isKey="true">
               <AllowHtmlTags>True</AllowHtmlTags>
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
-              <ClientRectangle>4,0,1,0.3</ClientRectangle>
+              <ClientRectangle>3.6,0,0.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Tahoma,8</Font>
               <HorAlignment>Center</HorAlignment>
@@ -479,7 +498,7 @@
               <Margins>0,0,0,0</Margins>
               <Name>Table2_Cell5</Name>
               <Page isRef="3" />
-              <Parent isRef="25" />
+              <Parent isRef="26" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>{Data.DateBuy}</Text>
               <TextBrush>Black</TextBrush>
@@ -488,12 +507,12 @@
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Table2_Cell5>
-            <Table2_Cell6 Ref="31" type="TableCell" isKey="true">
+            <Table2_Cell6 Ref="32" type="TableCell" isKey="true">
               <AllowHtmlTags>True</AllowHtmlTags>
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
-              <ClientRectangle>5,0,0.9,0.3</ClientRectangle>
+              <ClientRectangle>4.5,0,0.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Tahoma,8</Font>
               <HorAlignment>Center</HorAlignment>
@@ -502,7 +521,7 @@
               <Margins>0,0,0,0</Margins>
               <Name>Table2_Cell6</Name>
               <Page isRef="3" />
-              <Parent isRef="25" />
+              <Parent isRef="26" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>{Data.FualType}</Text>
               <TextBrush>Black</TextBrush>
@@ -511,12 +530,12 @@
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Table2_Cell6>
-            <Table2_Cell7 Ref="32" type="TableCell" isKey="true">
+            <Table2_Cell7 Ref="33" type="TableCell" isKey="true">
               <AllowHtmlTags>True</AllowHtmlTags>
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
-              <ClientRectangle>5.9,0,0.9,0.3</ClientRectangle>
+              <ClientRectangle>5.3,0,0.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,8.25,Regular,Point,False,178</Font>
               <HorAlignment>Center</HorAlignment>
@@ -525,21 +544,21 @@
               <Margins>0,0,0,0</Margins>
               <Name>Table2_Cell7</Name>
               <Page isRef="3" />
-              <Parent isRef="25" />
+              <Parent isRef="26" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
-              <Text>{Data.Department}</Text>
+              <Text>{Data.Price}</Text>
               <TextBrush>Black</TextBrush>
               <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=True, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
               <TextQuality>Wysiwyg</TextQuality>
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Table2_Cell7>
-            <Table2_Cell8 Ref="33" type="TableCell" isKey="true">
+            <Table2_Cell8 Ref="34" type="TableCell" isKey="true">
               <AllowHtmlTags>True</AllowHtmlTags>
               <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
               <Brush>Transparent</Brush>
               <CanBreak>True</CanBreak>
-              <ClientRectangle>6.8,0,0.92,0.3</ClientRectangle>
+              <ClientRectangle>6.1,0,0.8,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>B Nazanin,8.25,Regular,Point,False,178</Font>
               <HorAlignment>Center</HorAlignment>
@@ -548,7 +567,7 @@
               <Margins>0,0,0,0</Margins>
               <Name>Table2_Cell8</Name>
               <Page isRef="3" />
-              <Parent isRef="25" />
+              <Parent isRef="26" />
               <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
               <Text>{Data.Department}</Text>
               <TextBrush>Black</TextBrush>
@@ -557,12 +576,32 @@
               <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Table2_Cell8>
+            <Table2_Cell9 Ref="35" type="TableCell" isKey="true">
+              <Border>All;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>6.9,0,0.82,0.3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>B Nazanin,12,Regular,Point,False,178</Font>
+              <HorAlignment>Center</HorAlignment>
+              <ID>29</ID>
+              <JoinCells isList="true" count="0" />
+              <Margins>0,0,0,0</Margins>
+              <Name>Table2_Cell9</Name>
+              <Page isRef="3" />
+              <Parent isRef="26" />
+              <Restrictions>AllowMove, AllowSelect, AllowChange</Restrictions>
+              <Text>{Data.Model}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Table2_Cell9>
           </Components>
           <Conditions isList="true" count="0" />
           <DataRelationName isNull="true" />
+          <DataSourceName isNull="true" />
           <Filters isList="true" count="0" />
           <Name>Table2</Name>
-          <NumberID>29</NumberID>
+          <NumberID>30</NumberID>
           <Page isRef="3" />
           <Parent isRef="3" />
           <RightToLeft>True</RightToLeft>
@@ -579,13 +618,13 @@
       <PaperSize>Letter</PaperSize>
       <Report isRef="0" />
       <RightToLeft>True</RightToLeft>
-      <Watermark Ref="34" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+      <Watermark Ref="36" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
         <Font>Arial,100</Font>
         <TextBrush>[50:0:0:0]</TextBrush>
       </Watermark>
     </Page1>
   </Pages>
-  <PrinterSettings Ref="35" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <PrinterSettings Ref="37" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
   <ReferencedAssemblies isList="true" count="8">
     <value>System.Dll</value>
     <value>System.Drawing.Dll</value>
@@ -597,10 +636,10 @@
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>5/8/2015 10:41:28 PM</ReportChanged>
+  <ReportChanged>7/19/2015 1:30:48 PM</ReportChanged>
   <ReportCreated>5/2/2015 12:00:00 AM</ReportCreated>
-  <ReportFile>D:\Project\AutomobilMng\AutoMng\Reports\Automobile.mrt</ReportFile>
-  <ReportGuid>ed3ef30159b9401cb0df269d2638accb</ReportGuid>
+  <ReportFile>D:\Project\Hoomat\AutoMng\Reports\Automobile.mrt</ReportFile>
+  <ReportGuid>40a9eb54d0394237852cd3111356be5e</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2014.3.0</ReportVersion>

@@ -7,6 +7,7 @@ using System.Data.Linq.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace AutomobilMng.Models
 {
@@ -31,11 +32,22 @@ namespace AutomobilMng.Models
             {
                 var identityUser = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
 
-                foreach (var automobil in db.Automobiles.Where(item => item.Department.ID == identityUser.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
-                    Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                if (identityUser.GroupId == (int)GroupModel.User || identityUser.GroupId == (int)GroupModel.StuckReport)
+                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == identityUser.DepartmentId &&
+                          (item.AutomobileStatusId == (int)AutomobileStatusModel.Available
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Carwash
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Mission
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
+                else
+                    foreach (var automobil in db.Automobiles.Where(item => (item.AutomobileStatusId == (int)AutomobileStatusModel.Available
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Carwash
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Mission
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
 
                 foreach (var driver in db.Drivers)
-                    Drivers.Add(new SelectListItem { Text = driver.Name.ToString(), Value = driver.ID.ToString() });
+                    Drivers.Add(new SelectListItem { Text = string.Format("{1} : {0}", driver.Name.ToString(), driver.PersonalNumber.ToString()), Value = driver.ID.ToString() });
 
 
             }

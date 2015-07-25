@@ -59,6 +59,9 @@
       <HintPath>..\packages\MD.PersianDateTime.1.9.0.0\lib\MD.PersianDateTime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Notificatio.TelegramClient">
+      <HintPath>..\packages\Notificatio.TelegramClient.1.0.0\lib\net45\Notificatio.TelegramClient.dll</HintPath>
+    </Reference>
     <Reference Include="Rotativa">
       <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
     </Reference>
@@ -216,6 +219,7 @@
     <Compile Include="Log\LogData.cs" />
     <Compile Include="Log\Trap.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AutomobileSearchModel.cs" />
     <Compile Include="Models\AutomobileModel.cs" />
     <Compile Include="Models\AutomobileReportModel.cs" />
     <Compile Include="Models\AutomobileStatus.cs" />
@@ -370,6 +374,7 @@
     <Content Include="Reports\Incident.mrt" />
     <Content Include="Reports\OilChange.mrt" />
     <Content Include="Bug Tracker.xlsx" />
+    <None Include="Properties\PublishProfiles\auto.pubxml" />
     <None Include="Properties\PublishProfiles\AutomobilePublish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Ace\jquery.slimscroll.min.js" />
@@ -597,6 +602,10 @@
     <Content Include="Views\Autmobile\StatisticsAnalysis.cshtml" />
     <Content Include="Views\Autmobile\ChartCompareFuelDistance.cshtml" />
     <Content Include="Views\Autmobile\ChangeStatus.cshtml" />
+    <Content Include="Views\Transit\ShowDriverTransits.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Incident\ShowDriverIncidents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

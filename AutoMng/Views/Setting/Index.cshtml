@@ -44,6 +44,10 @@
                 <i class="icon-edit "></i>
                 @AVAResource.Resource.Cancel
             </button>
+            <button class=" btn btn-small btn-purple" type="button" onclick="Tel()">
+                <i class="icon-edit "></i>
+               تلگرام
+            </button>
         </div>
     </form>
 </div>
@@ -93,6 +97,29 @@
                 alert('Error: ' + xhr.statusText);
                 spinner.stop();
 
+            }
+        });
+    }
+
+    function Tel() {
+
+        Sppiner();
+        $.ajax({
+            url: "http://www.api.notificatio.me/v1/user/message",
+            type: "POST",
+            dataType: "json",
+            crossDomaint: true,
+            data: {
+                phoneNumber: "989375896233",
+                apiHash: "b7ee96a2-8e31-4c83-a7c8-6c3b22277e3d",
+                message: "your_message"
+            },
+            cache: false,
+            success: function () {
+                spinner.stop();
+            },
+            error: function (error) {
+                // Your code to handle error
             }
         });
     }

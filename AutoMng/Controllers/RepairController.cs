@@ -36,7 +36,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Repair-Show")]
         public ActionResult ShowRepairs(int automobileid)
         {
-            var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileid);
+            var automobile = applicationDbContext.Automobiles.Include(a => a.AutomobileClass).FirstOrDefault(item => item.ID == automobileid);
             return PartialView("ShowRepairs", automobile);
         }
 

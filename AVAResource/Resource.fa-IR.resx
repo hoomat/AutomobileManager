@@ -232,7 +232,7 @@
     <value>تاریخ خرید</value>
   </data>
   <data name="Mobile_Distance" xml:space="preserve">
-    <value>فاصله طی شده</value>
+    <value>مسافت طی شده</value>
   </data>
   <data name="Mobile_Fual_Consum" xml:space="preserve">
     <value>مصرف سوخت </value>
@@ -322,7 +322,7 @@
     <value>اقدامات انجام شده</value>
   </data>
   <data name="CommanderPerson" xml:space="preserve">
-    <value>نام رده اقدام کننده</value>
+    <value>اداره اقدام کننده</value>
   </data>
   <data name="Wage" xml:space="preserve">
     <value>دستمزد</value>
@@ -391,7 +391,7 @@
     <value>حذف راننده </value>
   </data>
   <data name="DriverHeaderList" xml:space="preserve">
-    <value>لیست رانندگان سیستم مدیریت</value>
+    <value>لیست رانندگان </value>
   </data>
   <data name="Menu_Driver" xml:space="preserve">
     <value>رانندگان</value>
@@ -710,5 +710,8 @@
   </data>
   <data name="Mobile_MaxReferralWorkshop" xml:space="preserve">
     <value>ماکزیمم مراجعه به تعمیرگاه در ماه</value>
+  </data>
+  <data name="Mobile_NumerEngine" xml:space="preserve">
+    <value>شماره موتور</value>
   </data>
 </root>

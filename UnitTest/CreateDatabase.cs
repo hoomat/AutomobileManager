@@ -67,6 +67,8 @@ namespace UnitTest
             {
                 if (context.FualTypes.FirstOrDefault(item => item.Value == "بنزین") == null)
                     context.FualTypes.Add(new FualType { Value = "بنزین" });
+                if (context.FualTypes.FirstOrDefault(item => item.Value == "دوگانه سوز") == null)
+                    context.FualTypes.Add(new FualType { Value = "دوگانه سوز" });
                 if (context.FualTypes.FirstOrDefault(item => item.Value == "نفت و گاز") == null)
                     context.FualTypes.Add(new FualType { Value = "نفت و گاز" });
                 if (context.FualTypes.FirstOrDefault(item => item.Value == "گاز") == null)
@@ -105,14 +107,16 @@ namespace UnitTest
         }
         //4
         [TestMethod]
-        void DefineTrafficCardType()
+       public void DefineTrafficCardType()
         {
             using (var context = new ApplicationDbContext())
             {
                 if (context.TrafficCardTypes.FirstOrDefault(item => item.Value == "شناور") == null)
                     context.TrafficCardTypes.Add(new TrafficCardType { Value = "شناور" });
-                if (context.TrafficCardTypes.FirstOrDefault(item => item.Value == "سالیانه") == null)
-                    context.TrafficCardTypes.Add(new TrafficCardType { Value = "سالیانه" });
+                if (context.TrafficCardTypes.FirstOrDefault(item => item.Value == "معمولی") == null)
+                    context.TrafficCardTypes.Add(new TrafficCardType { Value = "معمولی" });
+                if (context.TrafficCardTypes.FirstOrDefault(item => item.Value == "روزانه") == null)
+                    context.TrafficCardTypes.Add(new TrafficCardType { Value = "روزانه" });
                 context.SaveChanges();
             }
         }

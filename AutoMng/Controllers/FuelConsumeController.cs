@@ -33,7 +33,7 @@ namespace AutomobilMng.Controllers
         [Authorize(Roles = "Fuel-Show")]
         public ActionResult ShowFuels(int automobileid)
         {
-            var automobile = applicationDbContext.Automobiles.FirstOrDefault(item => item.ID == automobileid);
+            var automobile = applicationDbContext.Automobiles.Include(a => a.AutomobileClass).FirstOrDefault(item => item.ID == automobileid);
             var dic = LogAttribute.GetProperties<Automobile>(automobile, ((int)Subject.FuelShow).ToString(), "success");
             Logger.Send(GetType(), Logger.CriticalityLevel.Info, User.Identity.Name, "نمایش سوخت گیری", null, dic.ToArray());
             return PartialView("ShowFuels", automobile);
@@ -219,6 +219,12 @@ namespace AutomobilMng.Controllers
                     model.FuelConsume.FuelCardID = fuelcardid;
                 }
 
+                if (!string.IsNullOrWhiteSpace(model.FualTypeID) && model.FualTypeID != (-1).ToString())
+                {
+                    var fualTypeID = int.Parse(model.FualTypeID);
+                    // var fuelcard = applicationDbContext.FuelCards.FirstOrDefault(item => item.ID == fuelcardid);
+                    model.FuelConsume.FualTypeID = fualTypeID;
+                }
 
                 //  var paymentType= applicationDbContext.PaymentTypes.FirstOrDefault(item => item.ID == model.PaymentTypeID);
                 model.FuelConsume.PaymentTypeID = model.PaymentTypeID;
@@ -304,7 +310,12 @@ namespace AutomobilMng.Controllers
                     model.FuelConsume.Distance = model.FuelConsume.Mileag;
                 // transit.Automobile.Distance = model.MileagAfterTrip.Value;
 
-
+                if (!string.IsNullOrWhiteSpace(model.FualTypeID) && model.FualTypeID != (-1).ToString())
+                {
+                    var fualTypeID = int.Parse(model.FualTypeID);
+                    // var fuelcard = applicationDbContext.FuelCards.FirstOrDefault(item => item.ID == fuelcardid);
+                    model.FuelConsume.FualTypeID = fualTypeID;
+                }
                 //  var paymentType= applicationDbContext.PaymentTypes.FirstOrDefault(item => item.ID == model.PaymentTypeID);
                 model.FuelConsume.PaymentTypeID = model.PaymentTypeID;
                 applicationDbContext.Entry(model.FuelConsume).State = System.Data.Entity.EntityState.Modified;
@@ -467,6 +478,7 @@ namespace AutomobilMng.Controllers
             return StiMvcViewer.PrintReportResult(this.HttpContext);
 
         }
+
         public ActionResult ExportReport()
         {
             return StiMvcViewer.ExportReportResult(this.HttpContext);

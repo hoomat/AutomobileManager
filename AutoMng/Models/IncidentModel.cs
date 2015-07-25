@@ -66,17 +66,17 @@ namespace AutomobilMng.Models
                               (item.AutomobileStatusId == (int)AutomobileStatusModel.Available
                     || item.AutomobileStatusId == (int)AutomobileStatusModel.Carwash
                     || item.AutomobileStatusId == (int)AutomobileStatusModel.Mission
-                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
                 else
                     foreach (var automobil in db.Automobiles.Where(item => (item.AutomobileStatusId == (int)AutomobileStatusModel.Available
                     || item.AutomobileStatusId == (int)AutomobileStatusModel.Carwash
                     || item.AutomobileStatusId == (int)AutomobileStatusModel.Mission
-                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
 
                 foreach (var driver in db.Drivers)
-                    Drivers.Add(new SelectListItem { Text = driver.Name.ToString(), Value = driver.ID.ToString() });
+                    Drivers.Add(new SelectListItem { Text = string.Format("{1} : {0}", driver.Name.ToString(), driver.PersonalNumber.ToString()), Value = driver.ID.ToString() });
             }
         }
 
@@ -104,8 +104,8 @@ namespace AutomobilMng.Models
                           (item.AutomobileStatusId == (int)AutomobileStatusModel.Available
                     || item.AutomobileStatusId == (int)AutomobileStatusModel.Carwash
                     || item.AutomobileStatusId == (int)AutomobileStatusModel.Mission
-                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)).ToList();
-                Automobiles.Add(new SelectListItem { Text = incident.Automobile.Plaque.ToString(), Value = incident.Automobile.ID.ToString() });
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)).Include(a => a.AutomobileClass).ToList();
+                Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", incident.Automobile.Plaque.ToString(), incident.Automobile.AutomobileClass.Class.ToString()), Value = incident.Automobile.ID.ToString() });
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
                 
                 if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
@@ -113,18 +113,18 @@ namespace AutomobilMng.Models
                               (item.AutomobileStatusId == (int)AutomobileStatusModel.Available
                     || item.AutomobileStatusId == (int)AutomobileStatusModel.Carwash
                     || item.AutomobileStatusId == (int)AutomobileStatusModel.Mission
-                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
                 else
                     foreach (var automobil in db.Automobiles.Where(item => item.ID != incident.AutomobileID &&
                              (item.AutomobileStatusId == (int)AutomobileStatusModel.Available
                     || item.AutomobileStatusId == (int)AutomobileStatusModel.Carwash
                     || item.AutomobileStatusId == (int)AutomobileStatusModel.Mission
-                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    || item.AutomobileStatusId == (int)AutomobileStatusModel.Repairing)).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
 
                 var drivers = db.Drivers.Where(item => item.ID != incident.Driver.ID).ToList();
-                Drivers.Add(new SelectListItem { Text = incident.Driver.Name.ToString(), Value = incident.Driver.ID.ToString() });
+                Drivers.Add(new SelectListItem { Text = string.Format("{1} : {0}", incident.Driver.Name.ToString(), incident.Driver.PersonalNumber.ToString()), Value = incident.Driver.ID.ToString() });
                 foreach (var driver in drivers)
                     Drivers.Add(new SelectListItem { Text = driver.Name.ToString(), Value = driver.ID.ToString() });
             }

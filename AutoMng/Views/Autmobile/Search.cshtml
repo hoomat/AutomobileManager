@@ -1,4 +1,5 @@
-﻿@model AutomobilMng.Models.AutomobileModel
+﻿@model AutomobilMng.Models.AutomobileSearchModel
+
 <div class="span12 widget-container-span">
     <div class="widget-box">
         <div class="widget-header">
@@ -24,11 +25,16 @@
                                     <input type="text" id="plaqueSearch" class="column_filter " placeholder="@AVAResource.Resource.Mobil_Plaque " />
                                 </span>
                             </label>
-
                             <label>
                                 <label>  شاسی خودرو:</label>
                                 <span data-column="2" class="block input-icon @AVAResource.Resource.Input_icon">
                                     <input type="text" id="chassisSearch" class="column_filter " placeholder="@AVAResource.Resource.Mobil_Chassis" />
+                                </span>
+                            </label>
+                            <label>
+                                <label> نوع کارت ترافیک:</label>
+                                <span data-column="6" class="block input-icon @AVAResource.Resource.Input_icon">
+                                    @Html.DropDownListFor(model => model.TrafficCardType, Model.TrafficCardTypes, new { @class = "chzn-select column_filter", @id = "cardtrafficSearch" })
                                 </span>
                             </label>
                         </div>
@@ -45,18 +51,24 @@
                                     <input type="text" id="produceYearSearch" class="column_filter " placeholder="@AVAResource.Resource.Mobile_Produce_Year" />
                                 </span>
                             </label>
+                            <label>
+                                <label>کارت ترافیک:</label>
+                                <span data-column="6" class="block input-icon @AVAResource.Resource.Input_icon">
+                                    @Html.DropDownListFor(model => model.CardTrafficID, Model.CardTraffics, new { @class = "chzn-select column_filter", @id = "cardtraffictypeSearch" })
+                                </span>
+                            </label>
                         </div>
                         <div class="span4 @AVAResource.Resource.Pull_Dir">
                             <label>
                                 <label>نوع سوخت:</label>
                                 <span data-column="5" class="block input-icon @AVAResource.Resource.Input_icon">
-                                    @Html.DropDownListFor(model => model.Automobile.FualType, Model.FualTypes, new { @class = "column_filter ", @id = "fualTypeSearch" })
+                                    @Html.DropDownListFor(model => model.FualTypeId, Model.FualTypes, new { @class = "chzn-select column_filter", @id = "fualTypeSearch" })
                                 </span>
                             </label>
                             <label>
                                 <label> اداره:</label>
                                 <span data-column="6" class="block input-icon @AVAResource.Resource.Input_icon">
-                                    @Html.DropDownListFor(model => model.Automobile.Department, Model.Departments, new { @class = "column_filter ", @id = "departmentSearch" })
+                                    @Html.DropDownListFor(model => model.DepartmentId, Model.Departments, new { @class = "chzn-select column_filter", @id = "departmentSearch" })
                                 </span>
                             </label>
                         </div>
@@ -86,7 +98,7 @@
     </div>
 </div>
 <script type="text/javascript">
-   
+    $(".chzn-select").chosen();
     function cancel() {
         var containerholder = $("#content");
         containerholder.html('');        
@@ -101,7 +113,6 @@
             type: "GET",
             url: url,
             data: {
-               
                 plaqueSearch: $('#plaqueSearch').val(),
                 chassisSearch: $('#chassisSearch').val(),
                 modelSearch: $('#modelSearch').val(),

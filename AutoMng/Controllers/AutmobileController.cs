@@ -214,7 +214,7 @@ namespace AutomobilMng.Controllers
 
         public ActionResult Search()
         {
-            return PartialView("Search",new AutomobileModel(true));
+            return PartialView("Search", new AutomobileSearchModel());
         }
 
 
@@ -668,6 +668,8 @@ namespace AutomobilMng.Controllers
             var aut = filtered;
             report.RegBusinessObject("Data", aut.Select(item => new AutomobileReportModel
             {
+                Plaque=item.Plaque,
+                Department=item.Department.Name,
                 Chassis = item.Chassis,
                 Color = item.Color==null?"":item.Color.Value,
                 DateBuy = new PersianDateTime(item.DateBuy).ToString("yyyy/MM/dd"),

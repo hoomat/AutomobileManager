@@ -7,6 +7,7 @@ using System.Data.Linq.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace AutomobilMng.Models
 {
@@ -69,14 +70,14 @@ namespace AutomobilMng.Models
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
 
                 if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
-                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == user.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == user.DepartmentId && item.AutomobileStatusId == (int)AutomobileStatusModel.Available).Include(a=>a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
                 else
-                    foreach (var automobil in db.Automobiles.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    foreach (var automobil in db.Automobiles.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
 
                 foreach (var driver in db.Drivers)
-                    Drivers.Add(new SelectListItem { Text = driver.Name.ToString(), Value = driver.ID.ToString() });
+                    Drivers.Add(new SelectListItem { Text = string.Format("{1} : {0}", driver.Name.ToString(), driver.PersonalNumber.ToString()), Value = driver.ID.ToString() });
 
                 foreach (var department in db.Departments)
                     Departments.Add(new SelectListItem { Text = department.Name.ToString(), Value = department.ID.ToString() });
@@ -99,12 +100,12 @@ namespace AutomobilMng.Models
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
 
-                foreach (var automobil in db.Automobiles.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
-                    Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                foreach (var automobil in db.Automobiles.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available).Include(a => a.AutomobileClass))
+                    Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
 
 
                 foreach (var driver in db.Drivers)
-                    Drivers.Add(new SelectListItem { Text = driver.Name.ToString(), Value = driver.ID.ToString() });
+                    Drivers.Add(new SelectListItem { Text = string.Format("{1} : {0}", driver.Name.ToString(), driver.PersonalNumber.ToString()), Value = driver.ID.ToString() });
 
                 foreach (var department in db.Departments)
                     Departments.Add(new SelectListItem { Text = department.Name.ToString(), Value = department.ID.ToString() });
@@ -142,18 +143,18 @@ namespace AutomobilMng.Models
             CardTraffics = new List<SelectListItem>();
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                Automobiles.Add(new SelectListItem { Text = transit.Automobile.Plaque.ToString(), Value = transit.Automobile.ID.ToString() });
+                Automobiles.Add(new SelectListItem { Text =  string.Format("پلاک :{0} - مدل :{1}", transit.Automobile.Plaque.ToString(), transit.Automobile.AutomobileClass.Class.ToString()) , Value = transit.Automobile.ID.ToString() });
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
 
                 if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
-                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == user.DepartmentId && item.ID != transit.AutomobileID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == user.DepartmentId && item.ID != transit.AutomobileID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
                 else
-                    foreach (var automobil in db.Automobiles.Where(item => item.ID != transit.AutomobileID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    foreach (var automobil in db.Automobiles.Where(item => item.ID != transit.AutomobileID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
 
                 var drivers = db.Drivers.Where(item => item.ID != transit.Driver.ID).ToList();
-                Drivers.Add(new SelectListItem { Text = transit.Driver.Name.ToString(), Value = transit.Driver.ID.ToString() });
+                Drivers.Add(new SelectListItem { Text = string.Format("{1} : {0}", transit.Driver.Name.ToString(), transit.Driver.PersonalNumber.ToString()), Value = transit.Driver.ID.ToString() });
                 foreach (var driver in drivers)
                     Drivers.Add(new SelectListItem { Text = driver.Name.ToString(), Value = driver.ID.ToString() });
 
@@ -214,25 +215,49 @@ namespace AutomobilMng.Models
             CardTraffics = new List<SelectListItem>();
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
+                
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
                 if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
-                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == user.DepartmentId && !item.Transits.Any(transit => transit.ReturnDate == null) && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
-
-               
+                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == user.DepartmentId && !item.Transits.Any(transit => transit.ReturnDate == null) && item.AutomobileStatusId == (int)AutomobileStatusModel.Available).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
                 else
-                    foreach (var automobil in db.Automobiles.Where(item => !item.Transits.Any(transit => transit.ReturnDate == null) && item.AutomobileStatusId==(int) AutomobileStatusModel.Available))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    foreach (var automobil in db.Automobiles.Where(item => !item.Transits.Any(transit => transit.ReturnDate == null) && item.AutomobileStatusId == (int)AutomobileStatusModel.Available).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
 
                 foreach (var driver in db.Drivers)
-                    Drivers.Add(new SelectListItem { Text = driver.Name.ToString(), Value = driver.ID.ToString() });
+                    Drivers.Add(new SelectListItem { Text = string.Format("{1} : {0}", driver.Name.ToString(), driver.PersonalNumber.ToString()), Value = driver.ID.ToString() });
 
                 foreach (var department in db.Departments)
                     Departments.Add(new SelectListItem { Text = department.Name.ToString(), Value = department.ID.ToString() });
 
-                CardTraffics.Add(new SelectListItem { Text = "انتخاب", Value = (-1).ToString() });
-                foreach (var trafficCard in db.TrafficCards.Where(item => item.DateExpire >= DateTime.Now))
-                    CardTraffics.Add(new SelectListItem { Text = trafficCard.NumberCard.ToString(), Value = trafficCard.ID.ToString() });
+                if (Automobiles.Any())
+                {
+                    var auto = Automobiles[0].Value;
+                  
+                    var autoid=int.Parse(auto);
+                    var automobile = db.Automobiles.FirstOrDefault(item => item.ID == autoid);
+                    if (automobile.TrafficCardId == null)
+                    {
+                        CardTraffics.Add(new SelectListItem { Text = "انتخاب", Value = (-1).ToString() });
+                        var trafficCards = db.TrafficCards.Where(item => item.DateExpire.Year >= DateTime.Now.Year && item.DateExpire.Month >= DateTime.Now.Month
+                            && item.DateExpire.Day >= DateTime.Now.Day && item.TrafficCardType != "معمولی" && !item.Automobiles.Any(at => at.TrafficCardId == item.ID)).ToList();
+                        foreach (var trafficCard in trafficCards)
+                            CardTraffics.Add(new SelectListItem { Text = trafficCard.NumberCard.ToString(), Value = trafficCard.ID.ToString() });
+                    }
+                    else
+                    {
+                        var trafficcard = db.TrafficCards.FirstOrDefault(item => item.ID == automobile.TrafficCardId);
+                        var trafficCards = new List<TrafficCard>();
+                       // trafficCards.Add(trafficcard);
+                        CardTraffics.Add(new SelectListItem { Text = trafficcard.NumberCard.ToString(), Value = trafficcard.ID.ToString() });
+
+                    }
+                }
+               
+                
+                //CardTraffics.Add(new SelectListItem { Text = "انتخاب", Value = (-1).ToString() });
+                //foreach (var trafficCard in db.TrafficCards.Where(item => item.DateExpire.Year >= DateTime.Now.Year && item.DateExpire.Month >= DateTime.Now.Month && item.DateExpire.Day >= DateTime.Now.Day))
+                    //CardTraffics.Add(new SelectListItem { Text = trafficCard.NumberCard.ToString(), Value = trafficCard.ID.ToString() });
             }
         }
 
@@ -245,11 +270,11 @@ namespace AutomobilMng.Models
             CardTraffics = new List<SelectListItem>();
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                foreach (var automobil in db.Automobiles.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
-                    Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                foreach (var automobil in db.Automobiles.Where(item => item.AutomobileStatusId == (int)AutomobileStatusModel.Available).Include(a => a.AutomobileClass))
+                    Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
 
                 foreach (var driver in db.Drivers)
-                    Drivers.Add(new SelectListItem { Text = driver.Name.ToString(), Value = driver.ID.ToString() });
+                    Drivers.Add(new SelectListItem { Text = string.Format("{1} : {0}", driver.Name.ToString(), driver.PersonalNumber.ToString()), Value = driver.ID.ToString() });
 
                 foreach (var department in db.Departments)
                     Departments.Add(new SelectListItem { Text = department.Name.ToString(), Value = department.ID.ToString() });
@@ -285,18 +310,18 @@ namespace AutomobilMng.Models
                 var user = db.Users.FirstOrDefault(item => item.UserName == controller.User.Identity.Name);
 
                 if (user.GroupId == (int)GroupModel.User || user.GroupId == (int)GroupModel.StuckReport)
-                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == user.DepartmentId && item.ID != transit.Automobile.ID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    foreach (var automobil in db.Automobiles.Where(item => item.DepartmentId == user.DepartmentId && item.ID != transit.Automobile.ID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
                 else
 
 
-                    foreach (var automobil in db.Automobiles.Where(item => item.ID != transit.Automobile.ID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available))
-                        Automobiles.Add(new SelectListItem { Text = automobil.Plaque.ToString(), Value = automobil.ID.ToString() });
+                    foreach (var automobil in db.Automobiles.Where(item => item.ID != transit.Automobile.ID && item.AutomobileStatusId == (int)AutomobileStatusModel.Available).Include(a => a.AutomobileClass))
+                        Automobiles.Add(new SelectListItem { Text = string.Format("پلاک :{0} - مدل :{1}", automobil.Plaque.ToString(), automobil.AutomobileClass.Class.ToString()), Value = automobil.ID.ToString() });
 
                 var drivers = db.Drivers.Where(item => item.ID != transit.Driver.ID).ToList();
-                Drivers.Add(new SelectListItem { Text = transit.Driver.Name.ToString(), Value = transit.Driver.ID.ToString() });
+                Drivers.Add(new SelectListItem { Text = string.Format("{1} : {0}", transit.Driver.Name.ToString(), transit.Driver.PersonalNumber.ToString()), Value = transit.Driver.ID.ToString() });
                 foreach (var driver in drivers)
-                    Drivers.Add(new SelectListItem { Text = driver.Name.ToString(), Value = driver.ID.ToString() });
+                    Drivers.Add(new SelectListItem { Text = string.Format("{1} : {0}", driver.Name.ToString(), driver.PersonalNumber.ToString()), Value = driver.ID.ToString() });
 
                 //var departments = db.Departments.Where(item => item.ID != transit.Department.ID).ToList();
                 //Departments.Add(new SelectListItem { Text = Transit.Department.Name.ToString(), Value = Transit.Department.ID.ToString() });
